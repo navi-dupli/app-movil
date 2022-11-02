@@ -20,7 +20,7 @@ fun CollectorsScreen() {
             .background(MaterialTheme.colors.background)
     ) {
         Text(
-            text = "Asociar Tracks",
+            text = "Coleccionistas",
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colors.primary,
             modifier = Modifier.align(Alignment.Center),

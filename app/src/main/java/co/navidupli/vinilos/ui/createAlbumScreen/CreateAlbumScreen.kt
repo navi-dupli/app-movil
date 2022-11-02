@@ -11,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -18,12 +19,14 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import co.navidupli.vinilos.viewModel.CreateAlbumViewModel
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Preview(showSystemUi = true)
 @Composable
 fun CreateAlbumScreen() {
-
+    val createAlbumViewModel = CreateAlbumViewModel()
     val context = LocalContext.current
 
     Column(
@@ -34,25 +37,25 @@ fun CreateAlbumScreen() {
         Title()
         Space()
 
-        ALbumName()
+        AlbumName(createAlbumViewModel)
         Space()
 
-        AlbumCover()
+        AlbumCover(createAlbumViewModel)
         Space()
 
-        AlbumDateRelease(context)
+        AlbumDateRelease(createAlbumViewModel, context)
         Space()
 
-        AlbumDesc()
+        AlbumDesc(createAlbumViewModel)
         Space()
 
-        AlbumGenre()
+        AlbumGenre(createAlbumViewModel)
         Space()
 
-        AlbumRecordLabel()
+        AlbumRecordLabel(createAlbumViewModel)
         Space()
 
-        SaveButton()
+        SaveButton(createAlbumViewModel)
         Space()
     }
 
@@ -72,74 +75,80 @@ fun Space() {
 }
 
 @Composable
-fun ALbumName() {
-    val albumName = remember { mutableStateOf(TextFieldValue()) }
+fun AlbumName(viewModel: CreateAlbumViewModel) {
+    val albumName: String by viewModel.nameAlbum.observeAsState(initial = "")
     TextField(
         label = { Text(text = "Nombre") },
-        value = albumName.value,
-        onValueChange = { albumName.value = it }
+        value = albumName,
+        onValueChange = { viewModel.setNameAlbum(it) }
     )
 }
 
 @Composable
-fun AlbumCover() {
-    val albumCover = remember { mutableStateOf(TextFieldValue()) }
+fun AlbumCover(viewModel: CreateAlbumViewModel) {
+    val albumCover: String by viewModel.coverAlbum.observeAsState(initial = "")
     TextField(
         label = { Text(text = "Cover") },
-        value = albumCover.value,
-        onValueChange = { albumCover.value = it }
+        value = albumCover,
+        onValueChange = { viewModel.setCoverAlbum(it) }
     )
 }
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun AlbumDateRelease(context: Context) {
+fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
     val c = Calendar.getInstance()
     val year = c.get(Calendar.YEAR)
     val month = c.get(Calendar.MONTH)
     val day = c.get(Calendar.DAY_OF_MONTH)
 
     var listener: DatePickerDialog.OnDateSetListener? = null
-    val albumDate = remember { mutableStateOf("") }
-    val datePickerDialog = DatePickerDialog(context, { _, year: Int, month: Int, dayOfMonth: Int -> albumDate.value = "$dayOfMonth/$month/$year" }, year, month, day)
+    val albumDate: String by viewModel.dateReleaseAlbum.observeAsState(initial = "")
+    val datePickerDialog = DatePickerDialog(context, { _, year: Int, month: Int, dayOfMonth: Int -> viewModel.setDateReleaseAlbum("$dayOfMonth/$month/$year") }, year, month, day)
 
     TextField(
         label = { Text(text = "Fecha de lanzamiento") },
-        value = albumDate.value,
+        value = albumDate,
         enabled = false,
         modifier = Modifier
             .clickable { datePickerDialog.show() },
-        onValueChange = { albumDate.value = it }
+        onValueChange = {  }
     )
 }
 
 @Composable
-fun AlbumDesc() {
-    val albumDesc = remember { mutableStateOf(TextFieldValue()) }
+fun AlbumDesc(viewModel: CreateAlbumViewModel) {
+    val albumDesc: String by viewModel.descriptionAlbum.observeAsState(initial = "")
     TextField(
         label = { Text(text = "Descripción") },
-        value = albumDesc.value,
-        onValueChange = { albumDesc.value = it }
+        value = albumDesc,
+        onValueChange = {viewModel.setDescriptionAlbum(it) }
     )
 }
 
 @Composable
-fun AlbumGenre() {
+fun AlbumGenre(viewModel: CreateAlbumViewModel) {
     val options = listOf("Classical", "Salsa", "Rock", "Folk")
-    DropDownList(options = options, "Género")
+    val genreAlbum: String by viewModel.genreAlbum.observeAsState(initial = "")
+    DropDownList(options = options, "Género", genreAlbum) {
+        viewModel.setGenreAlbum(it)
+    }
 }
 
 @Composable
-fun AlbumRecordLabel() {
+fun AlbumRecordLabel(viewModel: CreateAlbumViewModel) {
     val options = listOf("Sony Music", "EMMY", "Discos Fuentes", "Elektra", "Fania Record")
-    DropDownList(options = options, "Sello discografíco")
+    val albumRecord: String by viewModel.recordLabelAlbum.observeAsState(initial = "")
+    DropDownList(options = options, "Sello discografíco", albumRecord) {
+        viewModel.setRecordLabelAlbum(it)
+    }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun DropDownList(options: List<String>, text: String) {
+fun DropDownList(options: List<String>, text: String, value: String, setValue: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedOptionText by remember { mutableStateOf(options[0]) }
+
 
     Box(
         modifier = Modifier.padding(20.dp, 0.dp)
@@ -152,7 +161,7 @@ fun DropDownList(options: List<String>, text: String) {
         ) {
             TextField(
                 readOnly = true,
-                value = selectedOptionText,
+                value = value,
                 onValueChange = { },
                 label = { Text(text) },
                 trailingIcon = {
@@ -171,7 +180,7 @@ fun DropDownList(options: List<String>, text: String) {
                 options.forEach { selectionOption ->
                     DropdownMenuItem(
                         onClick = {
-                            selectedOptionText = selectionOption
+                            setValue(selectionOption)
                             expanded = false
                         }
                     ) {
@@ -184,9 +193,9 @@ fun DropDownList(options: List<String>, text: String) {
 }
 
 @Composable
-fun SaveButton() {
+fun SaveButton(viewModel: CreateAlbumViewModel) {
     Button(
-        onClick = { /*TODO*/ }
+        onClick = { viewModel.saveAlbum() }
     ) {
         Icon(
             imageVector = Icons.Filled.Save,
