@@ -4,6 +4,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
+import co.navidupli.vinilos.model.AlbumCreate
 import co.navidupli.vinilos.scaffold.AppScaffold
 import co.navidupli.vinilos.ui.theme.RootScreen
 
@@ -14,6 +15,14 @@ import org.junit.Rule
 
 
 class ExampleInstrumentedTest {
+    val album = AlbumCreate(
+        name= "Juana la cubana",
+        description = "Es un album diferente",
+        genre = "Rock",
+        cover = "https://i.ytimg.com/vi/X_-bKOnS-wA/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDe-R3BYHSf8m5pRBqumzImqlmfbw",
+        recordLabel = "EMI",
+        releaseDate = "24/5/1999"
+    )
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()
@@ -35,11 +44,33 @@ class ExampleInstrumentedTest {
     @Test
     fun selectCollectors() {
         val button = composeTestRule.onNode(hasTestTag("coleccionista"), true)
-
         button.performClick()
-        composeTestRule.onNodeWithTag("titleCreateAlbum", true).assertIsDisplayed()
-        composeTestRule.onNodeWithTag("textFieldAlbumName", true).performTextInput("album desde test")
-        composeTestRule.onNodeWithTag("textFieldAlbumName", true).assert(hasText("album desde test"))
+
+        album.name?.let {
+            composeTestRule.onNodeWithTag("textFieldAlbumName", true).performTextInput(
+                it
+            )
+        }
+
+        album.cover?.let {
+            composeTestRule.onNodeWithTag("textFieldAlbumCover", true).performTextInput(
+                it
+            )
+        }
+
+        album.releaseDate?.let {
+            val releaseDate = composeTestRule.onNodeWithTag("textFieldAlbumReleaseDate", true)
+            releaseDate.performClick()
+            releaseDate.performTextInput(it)
+        }
+
+        album.description?.let {
+            composeTestRule.onNodeWithTag("textFieldAlbumDesc", true).performTextInput(
+                it
+            )
+            composeTestRule.onNodeWithTag("textFieldAlbumDesc", true).assert(hasText(it))
+        }
+
     }
 
     private fun launchRegisterScreenWithNavGraph() {
