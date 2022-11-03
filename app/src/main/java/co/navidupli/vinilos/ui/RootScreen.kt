@@ -14,7 +14,11 @@ import co.navidupli.vinilos.Screen
 
 @Composable
 fun RootScreen(navController: NavController) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 20.dp),
+        contentAlignment = Alignment.BottomCenter) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Spacer(modifier = Modifier.padding(10.dp))
             Button(

@@ -34,7 +34,7 @@ fun ComponentCard(tittle: String, date: String?, subtext:String?, imageUrl:Strin
                     horizontalAlignment = Alignment.Start,
                 ) {
                     Image(
-                        imageUrl = imageUrl!!,
+                        imageUrl = imageUrl,
                         contentDescription = tittle,
                         modifier = Modifier
                             .size(90.dp)
@@ -71,7 +71,7 @@ fun ComponentCard(tittle: String, date: String?, subtext:String?, imageUrl:Strin
                 }
                 if(subtext!=null) {
                     Text(
-                        text = subtext!!,
+                        text = subtext,
                         style = MaterialTheme.typography.h6,
                         color = MaterialTheme.colors.primary,
                         fontWeight = FontWeight.Bold,
