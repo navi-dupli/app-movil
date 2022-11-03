@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Save
@@ -34,33 +36,36 @@ fun CreateAlbumScreen() {
     val context = LocalContext.current
 
     Column(
-        modifier = Modifier.padding(20.dp),
+        modifier = Modifier
+            .padding(20.dp)
+            .verticalScroll(rememberScrollState())
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Title()
-        Space()
+        Space(15)
 
         AlbumName(createAlbumViewModel)
-        Space()
+        Space(15)
 
         AlbumCover(createAlbumViewModel)
-        Space()
+        Space(15)
 
         AlbumDateRelease(createAlbumViewModel, context)
-        Space()
+        Space(15)
 
         AlbumDesc(createAlbumViewModel)
-        Space()
+        Space(15)
 
         AlbumGenre(createAlbumViewModel)
-        Space()
+        Space(15)
 
         AlbumRecordLabel(createAlbumViewModel)
-        Space()
+        Space(15)
 
         SaveButton(createAlbumViewModel, context)
-        Space()
+        Space(50)
     }
 
 }
@@ -74,8 +79,8 @@ fun Title() {
 }
 
 @Composable
-fun Space() {
-    Spacer(modifier = Modifier.height(15.dp))
+fun Space(size: Int) {
+    Spacer(modifier = Modifier.height(size.dp))
 }
 
 @Composable
@@ -176,7 +181,7 @@ fun DropDownList(options: List<String>, text: String, value: String, setValue: (
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding( 0.dp)
+            .padding(0.dp)
     ) {
         ExposedDropdownMenuBox(
             expanded = expanded,
