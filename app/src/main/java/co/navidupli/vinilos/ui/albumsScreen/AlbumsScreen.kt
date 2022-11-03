@@ -10,42 +10,25 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import co.navidupli.vinilos.components.ComponentCard
-import co.navidupli.vinilos.model.AlbumCreated
+import co.navidupli.vinilos.viewModel.ListAlbumsViewModel
 import java.util.*
+import androidx.lifecycle.viewmodel.compose.viewModel
+import co.navidupli.vinilos.model.Album
+import androidx.compose.runtime.livedata.observeAsState
+
 
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun AlbumsScreen(
-    modifier: Modifier = Modifier,
+    viewModel: ListAlbumsViewModel = viewModel()
 ) {
-    var albums = listOf<AlbumCreated>(
-        AlbumCreated(
-            cover = "https://upload.wikimedia.org/wikipedia/en/4/4d/Queen_A_Night_At_The_Opera.png",
-            description = "Es el cuarto álbum de estudio de la banda británica de rock Queen, publicado originalmente en 1975",
-            genre = "Rock",
-            id = 102,
-            name = "A Night at the Opera",
-            recordLabel = "EMI",
-            releaseDate = "1975-11-21T00:00:00.000Z"
-        ),
-        AlbumCreated(
-            cover = "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg",
-            description = "Buscando América es el primer álbum de la banda de Rubén Blades y Seis del Solar lanzado en 1984",
-            genre = "Salsa",
-            id = 101,
-            name = "Buscando América",
-            recordLabel = "Elektra",
-            releaseDate = "1984-08-01T00:00:00.000Z"
-        )
-    )
+    val albums: List<Album> = viewModel.albums.observeAsState(listOf<Album>()).value
     ListWithHeader(albums)
 
 }
@@ -54,7 +37,7 @@ fun AlbumsScreen(
 @RequiresApi(Build.VERSION_CODES.N)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ListWithHeader(albums: List<AlbumCreated>) {
+fun ListWithHeader(albums: List<Album>) {
     LazyColumn {
 
         stickyHeader {
