@@ -4,11 +4,13 @@ import android.icu.text.SimpleDateFormat
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -54,19 +56,22 @@ fun AlbumsScreen(
 @Composable
 fun ListWithHeader(albums: List<AlbumCreated>) {
     LazyColumn {
+
         stickyHeader {
+
             Text(
                 text = "Álbumes",
                 style = MaterialTheme.typography.h6,
                 color = MaterialTheme.colors.primary,
                 maxLines = 1,
-                fontSize = 30.sp,
+                fontSize = 35.sp,
                 textAlign = TextAlign.Center,
-                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
-                    .heightIn(min = 56.dp)
-                    .padding(horizontal = 24.dp, vertical = 2.dp)
                     .wrapContentHeight()
+                    .heightIn(min = 56.dp)
+                    .background(color = MaterialTheme.colors.background )
+                    .fillMaxSize()
+                    .padding( vertical = 4.dp)
 
             )
         }

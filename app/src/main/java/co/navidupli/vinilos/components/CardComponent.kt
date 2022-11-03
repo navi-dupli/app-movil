@@ -13,7 +13,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import co.navidupli.vinilos.model.AlbumCreated
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
@@ -33,7 +32,7 @@ fun ComponentCard(tittle: String, date: String, subtext:String, imageUrl:String)
                 modifier = Modifier.padding(5.dp),
                 horizontalAlignment = Alignment.Start,
             ) {
-                AlbumImage(
+                Image(
                     imageUrl =  imageUrl,
                     contentDescription = tittle,
                     modifier = Modifier
@@ -86,7 +85,7 @@ fun ComponentCard(tittle: String, date: String, subtext:String, imageUrl:String)
 }
 
 @Composable
-fun AlbumImage(
+fun Image(
     imageUrl: String,
     contentDescription: String?,
     modifier: Modifier = Modifier
