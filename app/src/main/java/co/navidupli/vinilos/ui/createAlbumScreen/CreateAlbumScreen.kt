@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.icu.util.Calendar
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,11 +16,11 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import co.navidupli.vinilos.viewModel.CreateAlbumViewModel
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -55,7 +56,7 @@ fun CreateAlbumScreen() {
         AlbumRecordLabel(createAlbumViewModel)
         Space()
 
-        SaveButton(createAlbumViewModel)
+        SaveButton(createAlbumViewModel, context)
         Space()
     }
 
@@ -104,7 +105,10 @@ fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
 
     var listener: DatePickerDialog.OnDateSetListener? = null
     val albumDate: String by viewModel.dateReleaseAlbum.observeAsState(initial = "")
-    val datePickerDialog = DatePickerDialog(context, { _, year: Int, month: Int, dayOfMonth: Int -> viewModel.setDateReleaseAlbum("$dayOfMonth/$month/$year") }, year, month, day)
+    val datePickerDialog = DatePickerDialog(context, {
+            _,
+            year: Int, month: Int, dayOfMonth: Int -> viewModel.setDateReleaseAlbum("${month + 1}/$dayOfMonth/$year") },
+        year, month, day)
 
     TextField(
         label = { Text(text = "Fecha de lanzamiento") },
@@ -137,7 +141,7 @@ fun AlbumGenre(viewModel: CreateAlbumViewModel) {
 
 @Composable
 fun AlbumRecordLabel(viewModel: CreateAlbumViewModel) {
-    val options = listOf("Sony Music", "EMMY", "Discos Fuentes", "Elektra", "Fania Record")
+    val options = listOf("Sony Music", "EMI", "Discos Fuentes", "Elektra", "Fania Records")
     val albumRecord: String by viewModel.recordLabelAlbum.observeAsState(initial = "")
     DropDownList(options = options, "Sello discografíco", albumRecord) {
         viewModel.setRecordLabelAlbum(it)
@@ -193,8 +197,12 @@ fun DropDownList(options: List<String>, text: String, value: String, setValue: (
 }
 
 @Composable
-fun SaveButton(viewModel: CreateAlbumViewModel) {
+fun SaveButton(viewModel: CreateAlbumViewModel, context: Context) {
+    val lifeCycle = LocalLifecycleOwner.current
+    val loadCreate: Boolean by viewModel.loadCreateAlbum.observeAsState(initial = true)
+
     Button(
+        enabled = loadCreate,
         onClick = { viewModel.saveAlbum() }
     ) {
         Icon(
@@ -205,4 +213,21 @@ fun SaveButton(viewModel: CreateAlbumViewModel) {
 
         Text(text = "Guardar")
     }
+
+    showToast(lifeCycle, viewModel, context)
+}
+
+
+@Composable
+fun showToast(lifeCycle: LifecycleOwner, viewModel: CreateAlbumViewModel, context: Context) {
+
+    viewModel.statusCreateAlbum.observe(lifeCycle, Observer { status ->
+        status?.let {
+            if (it) {
+                Toast.makeText(context, "Album creado con éxito", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Error al crear el album", Toast.LENGTH_SHORT).show()
+            }
+        }
+    })
 }
