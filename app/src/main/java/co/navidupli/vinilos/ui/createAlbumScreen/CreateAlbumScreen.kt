@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Save
@@ -18,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,7 +37,9 @@ fun CreateAlbumScreen() {
     val context = LocalContext.current
 
     Column(
-        modifier = Modifier.padding(20.dp),
+        modifier = Modifier
+            .padding(20.dp)
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -69,7 +74,8 @@ fun CreateAlbumScreen() {
 fun Title() {
     Text(
         text = "Crear Album",
-        fontSize = 20.sp
+        fontSize = 20.sp,
+        modifier = Modifier.testTag("titleCreateAlbum")
     )
 }
 
@@ -84,6 +90,7 @@ fun AlbumName(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Nombre") },
         value = albumName,
+        modifier = Modifier.testTag("textFieldAlbumName"),
         onValueChange = { viewModel.setNameAlbum(it) }
     )
 }
@@ -94,6 +101,7 @@ fun AlbumCover(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Cover") },
         value = albumCover,
+        modifier = Modifier.testTag("textFieldAlbumCover"),
         onValueChange = { viewModel.setCoverAlbum(it) }
     )
 }
@@ -127,7 +135,8 @@ fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
         value = albumDate,
         enabled = false,
         modifier = Modifier
-            .clickable { datePickerDialog.show() },
+            .clickable { datePickerDialog.show() }
+            .testTag("textFieldAlbumReleaseDate"),
         onValueChange = {  }
     )
 }
@@ -138,6 +147,7 @@ fun AlbumDesc(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Descripción") },
         value = albumDesc,
+        modifier = Modifier.testTag("textFieldAlbumDesc"),
         onValueChange = {viewModel.setDescriptionAlbum(it) }
     )
 }
@@ -146,7 +156,7 @@ fun AlbumDesc(viewModel: CreateAlbumViewModel) {
 fun AlbumGenre(viewModel: CreateAlbumViewModel) {
     val options = listOf("Classical", "Salsa", "Rock", "Folk")
     val genreAlbum: String by viewModel.genreAlbum.observeAsState(initial = "")
-    DropDownList(options = options, "Género", genreAlbum) {
+    DropDownList(options = options, "Género", genreAlbum, "selectAlbumGenre") {
         viewModel.setGenreAlbum(it)
     }
 }
@@ -155,14 +165,14 @@ fun AlbumGenre(viewModel: CreateAlbumViewModel) {
 fun AlbumRecordLabel(viewModel: CreateAlbumViewModel) {
     val options = listOf("Sony Music", "EMI", "Discos Fuentes", "Elektra", "Fania Records")
     val albumRecord: String by viewModel.recordLabelAlbum.observeAsState(initial = "")
-    DropDownList(options = options, "Sello discografíco", albumRecord) {
+    DropDownList(options = options, "Sello discografíco", albumRecord, "selectAlbumRecordLabel") {
         viewModel.setRecordLabelAlbum(it)
     }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun DropDownList(options: List<String>, text: String, value: String, setValue: (String) -> Unit) {
+fun DropDownList(options: List<String>, text: String, value: String, testTag: String, setValue: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
 
 
