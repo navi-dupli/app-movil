@@ -20,7 +20,8 @@ import java.util.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import co.navidupli.vinilos.model.Album
 import androidx.compose.runtime.livedata.observeAsState
-
+import androidx.compose.ui.res.stringResource
+import co.navidupli.vinilos.R
 
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -30,7 +31,6 @@ fun AlbumsScreen(
 ) {
     val albums: List<Album> = viewModel.albums.observeAsState(listOf<Album>()).value
     ListWithHeader(albums)
-
 }
 
 
@@ -38,12 +38,14 @@ fun AlbumsScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListWithHeader(albums: List<Album>) {
-    LazyColumn {
+    LazyColumn(
+        modifier=Modifier.padding(bottom = 60.dp)
+    ) {
 
         stickyHeader {
 
             Text(
-                text = "Álbumes",
+                text =  stringResource(R.string.albumes),
                 style = MaterialTheme.typography.h6,
                 color = MaterialTheme.colors.primary,
                 maxLines = 1,
