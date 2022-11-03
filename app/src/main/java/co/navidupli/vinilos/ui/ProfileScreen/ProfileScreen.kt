@@ -27,7 +27,7 @@ fun ProfileScreen(
                 modifier = Modifier.padding(top = 32.dp),
                 onClick = { logout() }
             ) {
-                Text("Logout")
+                Text("Cambiar perfil")
             }
         }
     }
