@@ -26,7 +26,6 @@ class CreateAlbumViewModel : ViewModel() {
 
 
     fun saveAlbum() {
-        _loadCreateAlbum.value = false
         val album = AlbumCreate(
             name= _nameAlbum.value,
             description = _descriptionAlbum.value,
@@ -69,6 +68,14 @@ class CreateAlbumViewModel : ViewModel() {
 
     fun setGenreAlbum(value: String){
         _genreAlbum.value = value
+    }
+
+    fun setLoadCreate(value: Boolean) {
+        _loadCreateAlbum.value = value
+    }
+
+    fun setStatusCreateAlbum() {
+        _statusCreateAlbum.value = null
     }
 
     fun clearState() {

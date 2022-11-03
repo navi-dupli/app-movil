@@ -103,7 +103,6 @@ fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
     val month = c.get(Calendar.MONTH)
     val day = c.get(Calendar.DAY_OF_MONTH)
 
-    var listener: DatePickerDialog.OnDateSetListener? = null
     val albumDate: String by viewModel.dateReleaseAlbum.observeAsState(initial = "")
     val datePickerDialog = DatePickerDialog(context, {
             _,
@@ -202,8 +201,11 @@ fun SaveButton(viewModel: CreateAlbumViewModel, context: Context) {
     val loadCreate: Boolean by viewModel.loadCreateAlbum.observeAsState(initial = true)
 
     Button(
-        enabled = loadCreate,
-        onClick = { viewModel.saveAlbum() }
+        onClick = {
+            viewModel.setLoadCreate(!loadCreate)
+            viewModel.saveAlbum()
+        },
+        enabled = loadCreate
     ) {
         Icon(
             imageVector = Icons.Filled.Save,
@@ -223,6 +225,7 @@ fun showToast(lifeCycle: LifecycleOwner, viewModel: CreateAlbumViewModel, contex
 
     viewModel.statusCreateAlbum.observe(lifeCycle, Observer { status ->
         status?.let {
+            viewModel.setStatusCreateAlbum()
             if (it) {
                 Toast.makeText(context, "Album creado con éxito", Toast.LENGTH_SHORT).show()
             } else {
