@@ -1,5 +1,8 @@
 package co.navidupli.vinilos.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Performer(
     val birthDate: String,
     val description: String,

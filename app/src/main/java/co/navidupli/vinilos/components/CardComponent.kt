@@ -17,7 +17,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
 @Composable
-fun ComponentCard(tittle: String, date: String, subtext:String, imageUrl:String) {
+fun ComponentCard(tittle: String, date: String?, subtext:String?, imageUrl:String?) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -28,17 +28,19 @@ fun ComponentCard(tittle: String, date: String, subtext:String, imageUrl:String)
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ){
-            Column(
-                modifier = Modifier.padding(5.dp),
-                horizontalAlignment = Alignment.Start,
-            ) {
-                Image(
-                    imageUrl =  imageUrl,
-                    contentDescription = tittle,
-                    modifier = Modifier
-                        .size(90.dp)
+            if(imageUrl!=null) {
+                Column(
+                    modifier = Modifier.padding(5.dp),
+                    horizontalAlignment = Alignment.Start,
+                ) {
+                    Image(
+                        imageUrl = imageUrl!!,
+                        contentDescription = tittle,
+                        modifier = Modifier
+                            .size(90.dp)
 
-                )
+                    )
+                }
             }
             Column(
                 modifier = Modifier.padding(5.dp).fillMaxSize(),
@@ -54,29 +56,33 @@ fun ComponentCard(tittle: String, date: String, subtext:String, imageUrl:String)
                         .width(1000.dp)
 
                 )
-                Text(
-                    text = date,
-                    style = MaterialTheme.typography.h6,
-                    color = MaterialTheme.colors.primary,
-                    maxLines = 1,
-                    fontSize = 15.sp,
-                    modifier = Modifier
-                        .heightIn(min = 20.dp)
-                        .wrapContentHeight()
+                if(date!=null) {
+                    Text(
+                        text = date,
+                        style = MaterialTheme.typography.h6,
+                        color = MaterialTheme.colors.primary,
+                        maxLines = 1,
+                        fontSize = 15.sp,
+                        modifier = Modifier
+                            .heightIn(min = 20.dp)
+                            .wrapContentHeight()
 
-                )
-                Text(
-                    text = subtext,
-                    style = MaterialTheme.typography.h6,
-                    color = MaterialTheme.colors.primary,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    fontSize = 15.sp,
-                    modifier = Modifier
-                        .heightIn(min = 20.dp)
-                        .wrapContentHeight()
+                    )
+                }
+                if(subtext!=null) {
+                    Text(
+                        text = subtext!!,
+                        style = MaterialTheme.typography.h6,
+                        color = MaterialTheme.colors.primary,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        fontSize = 15.sp,
+                        modifier = Modifier
+                            .heightIn(min = 20.dp)
+                            .wrapContentHeight()
 
-                )
+                    )
+                }
 
 
             }
