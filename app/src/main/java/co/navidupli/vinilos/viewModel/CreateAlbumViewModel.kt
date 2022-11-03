@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import co.navidupli.vinilos.broker.RetrofitBroker
 import co.navidupli.vinilos.model.AlbumCreate
-import java.util.Date
 
 class CreateAlbumViewModel : ViewModel() {
     private val _nameAlbum = MutableLiveData<String>()
@@ -20,9 +19,14 @@ class CreateAlbumViewModel : ViewModel() {
     val genreAlbum: LiveData<String> = _genreAlbum
     private val _recordLabelAlbum = MutableLiveData<String>()
     val recordLabelAlbum: LiveData<String> = _recordLabelAlbum
+    private var _statusCreateAlbum = MutableLiveData<Boolean>()
+    var statusCreateAlbum: LiveData<Boolean> = _statusCreateAlbum
+    private var _loadCreateAlbum = MutableLiveData<Boolean>()
+    var loadCreateAlbum: LiveData<Boolean> = _loadCreateAlbum
 
 
     fun saveAlbum() {
+        _loadCreateAlbum.value = false
         val album = AlbumCreate(
             name= _nameAlbum.value,
             description = _descriptionAlbum.value,
@@ -31,11 +35,15 @@ class CreateAlbumViewModel : ViewModel() {
             recordLabel = _recordLabelAlbum.value,
             releaseDate = _dateReleaseAlbum.value
         )
+
         RetrofitBroker.postAlbumRequest(album,
             onResponse = {
-//                putResultTextView.text = it
+                _statusCreateAlbum.value = true
+                _loadCreateAlbum.value = true
+                clearState()
             }, onFailure = {
-//                putResultTextView.text = it
+                _statusCreateAlbum.value = false
+                _loadCreateAlbum.value = true
             })
     }
 
@@ -61,5 +69,14 @@ class CreateAlbumViewModel : ViewModel() {
 
     fun setGenreAlbum(value: String){
         _genreAlbum.value = value
+    }
+
+    fun clearState() {
+        _nameAlbum.value = ""
+        _descriptionAlbum.value = ""
+        _genreAlbum.value = ""
+        _coverAlbum.value = ""
+        _recordLabelAlbum.value = ""
+        _dateReleaseAlbum.value = ""
     }
 }

@@ -2,6 +2,7 @@ package co.navidupli.vinilos.broker
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import co.navidupli.vinilos.model.AlbumCreate
+import co.navidupli.vinilos.model.AlbumCreated
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
@@ -30,7 +31,7 @@ private val retrofit = Retrofit.Builder()
 interface VinilosApiService {
 
     @POST("albums")
-    fun postAlbum(@Body params: AlbumCreate): Call<String>
+    fun postAlbum(@Body params: AlbumCreate): Call<AlbumCreated>
 }
 
 /**
