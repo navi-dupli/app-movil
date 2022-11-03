@@ -15,15 +15,9 @@ class ListAlbumsViewModel : ViewModel() {
     var albums: LiveData<List<Album>> = _albums
 
     init {
-        val albumStart = AlbumRepository.albums
-
-        if (albumStart.isEmpty()) {
-            viewModelScope.launch {
-                val albumList = AlbumRepository.getAlbums()
-                _albums.value = albumList
-            }
-        } else {
-            _albums.value = albumStart
+        viewModelScope.launch {
+            val albumList = AlbumRepository.getAlbums()
+            _albums.value = albumList
         }
     }
 }

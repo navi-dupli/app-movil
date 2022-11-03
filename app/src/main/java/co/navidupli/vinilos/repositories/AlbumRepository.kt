@@ -1,40 +1,47 @@
 package co.navidupli.vinilos.repositories
 
+import co.navidupli.vinilos.broker.AlbumApiService
+import co.navidupli.vinilos.broker.RetrofitClient
 import co.navidupli.vinilos.model.Album
+import co.navidupli.vinilos.model.AlbumCreate
 import co.navidupli.vinilos.model.AlbumCreated
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AlbumRepository {
     companion object {
+        private var albumWebApi: AlbumApiService =
+            RetrofitClient.createRetrofitClient().create(AlbumApiService::class.java)
+
+
         var albums: List<Album> = listOf()
 
-        suspend fun getAlbums(): List<Album>{
-        albums=  listOf<Album>(
-            Album(
-                cover = "https://upload.wikimedia.org/wikipedia/en/4/4d/Queen_A_Night_At_The_Opera.png",
-                description = "Es el cuarto álbum de estudio de la banda británica de rock Queen, publicado originalmente en 1975",
-                genre = "Rock",
-                id = 102,
-                name = "A Night at the Opera",
-                recordLabel = "EMI",
-                releaseDate = "1975-11-21T00:00:00.000Z",
-                comments = null,
-                tracks = null,
-                performers = null
-            ),
-            Album(
-                cover = "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg",
-                description = "Buscando América es el primer álbum de la banda de Rubén Blades y Seis del Solar lanzado en 1984",
-                genre = "Salsa",
-                id = 101,
-                name = "Buscando América",
-                recordLabel = "Elektra",
-                releaseDate = "1984-08-01T00:00:00.000Z",
-                comments = null,
-                tracks = null,
-                performers = null
-            )
-        )
-        return albums
+        suspend fun getAlbums(): List<Album> {
+            albums=albumWebApi.getAlbums()
+            return albums
+        }
+
+        fun postAlbumRequest(body: AlbumCreate, onResponse:(resp: AlbumCreated)->Unit, onFailure:(resp:String)->Unit) : String? {
+            val resp: String? = null
+
+            albumWebApi.postAlbum(body).enqueue(
+
+                object : Callback<AlbumCreated> {
+                    override fun onFailure(call: Call<AlbumCreated>, t: Throwable) {
+                        onFailure(t.message!!)
+                    }
+
+                    override fun onResponse(call: Call<AlbumCreated>, response: Response<AlbumCreated>) {
+                        if (response.code() == 400) {
+                            onFailure("Bad request")
+                        } else {
+                            onResponse(response.body()!!)
+                        }
+                    }
+                })
+            return resp
+        }
     }
-    }
+
 }

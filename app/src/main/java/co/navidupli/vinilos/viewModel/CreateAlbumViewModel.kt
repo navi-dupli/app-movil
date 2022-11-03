@@ -3,9 +3,8 @@ package co.navidupli.vinilos.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import co.navidupli.vinilos.broker.RetrofitBroker
 import co.navidupli.vinilos.model.AlbumCreate
-import java.util.Date
+import co.navidupli.vinilos.repositories.AlbumRepository
 
 class CreateAlbumViewModel : ViewModel() {
     private val _nameAlbum = MutableLiveData<String>()
@@ -36,7 +35,7 @@ class CreateAlbumViewModel : ViewModel() {
             releaseDate = _dateReleaseAlbum.value
         )
 
-        RetrofitBroker.postAlbumRequest(album,
+        AlbumRepository.postAlbumRequest(album,
             onResponse = {
                 _statusCreateAlbum.value = true
                 _loadCreateAlbum.value = true
