@@ -30,17 +30,17 @@ fun AlbumsScreen(
     viewModel: ListAlbumsViewModel = viewModel()
 ) {
     val albums: List<Album> = viewModel.albums.observeAsState(listOf<Album>()).value
-    ListWithHeader(albums,
-    modifier=Modifier.padding(bottom = 30.dp))
-
+    ListWithHeader(albums)
 }
 
 
 @RequiresApi(Build.VERSION_CODES.N)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ListWithHeader(albums: List<Album>, modifier: Modifier) {
-    LazyColumn {
+fun ListWithHeader(albums: List<Album>) {
+    LazyColumn(
+        modifier=Modifier.padding(bottom = 60.dp)
+    ) {
 
         stickyHeader {
 
