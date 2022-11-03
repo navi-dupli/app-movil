@@ -9,8 +9,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Save
@@ -36,9 +34,7 @@ fun CreateAlbumScreen() {
     val context = LocalContext.current
 
     Column(
-        modifier = Modifier
-            .padding(20.dp)
-            .verticalScroll(rememberScrollState()),
+        modifier = Modifier.padding(20.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -88,6 +84,7 @@ fun AlbumName(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Nombre") },
         value = albumName,
+        modifier = Modifier.fillMaxWidth(),
         onValueChange = { viewModel.setNameAlbum(it) }
     )
 }
@@ -98,6 +95,7 @@ fun AlbumCover(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Cover") },
         value = albumCover,
+        modifier = Modifier.fillMaxWidth(),
         onValueChange = { viewModel.setCoverAlbum(it) }
     )
 }
@@ -121,18 +119,22 @@ fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
         day = cal.get(Calendar.DAY_OF_MONTH)
     }
 
-    val datePickerDialog = DatePickerDialog(context, {
-            _,
-            year: Int, month: Int, dayOfMonth: Int -> viewModel.setDateReleaseAlbum("${month + 1}/$dayOfMonth/$year") },
-        year, month, day)
+    val datePickerDialog = DatePickerDialog(
+        context, { _,
+                   year: Int, month: Int, dayOfMonth: Int ->
+            viewModel.setDateReleaseAlbum("${month + 1}/$dayOfMonth/$year")
+        },
+        year, month, day
+    )
 
     TextField(
         label = { Text(text = "Fecha de lanzamiento") },
         value = albumDate,
         enabled = false,
         modifier = Modifier
+            .fillMaxWidth()
             .clickable { datePickerDialog.show() },
-        onValueChange = {  }
+        onValueChange = { }
     )
 }
 
@@ -142,7 +144,8 @@ fun AlbumDesc(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Descripción") },
         value = albumDesc,
-        onValueChange = {viewModel.setDescriptionAlbum(it) }
+        modifier = Modifier.fillMaxWidth(),
+        onValueChange = { viewModel.setDescriptionAlbum(it) }
     )
 }
 
@@ -171,10 +174,13 @@ fun DropDownList(options: List<String>, text: String, value: String, setValue: (
 
 
     Box(
-        modifier = Modifier.padding(20.dp, 0.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding( 0.dp)
     ) {
         ExposedDropdownMenuBox(
             expanded = expanded,
+            modifier = Modifier.fillMaxWidth(),
             onExpandedChange = {
                 expanded = !expanded
             }
@@ -189,7 +195,8 @@ fun DropDownList(options: List<String>, text: String, value: String, setValue: (
                         expanded = expanded
                     )
                 },
-                colors = ExposedDropdownMenuDefaults.textFieldColors()
+                colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                modifier = Modifier.fillMaxWidth(),
             )
             ExposedDropdownMenu(
                 expanded = expanded,
