@@ -145,12 +145,9 @@ fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
         enabled = false,
         modifier = Modifier
             .clickable { datePickerDialog.show() }
-            .testTag("textFieldAlbumReleaseDate"),
+            .testTag("textFieldAlbumReleaseDate")
+            .fillMaxWidth(),
         onValueChange = { viewModel.setDateReleaseAlbum(it) }
-            .clickable { datePickerDialog.show() }
-            .fillMaxWidth()
-            .testTag("textFieldAlbumReleaseDate"),
-        onValueChange = {  }
     )
 }
 
@@ -203,7 +200,8 @@ fun DropDownList(options: List<String>, text: String, value: String, testTag: St
             }
         ) {
             TextField(
-                modifier = Modifier.testTag(testTag),
+                modifier = Modifier.testTag(testTag)
+                                .fillMaxWidth(),
                 readOnly = true,
                 value = value,
                 onValueChange = { },
@@ -213,8 +211,7 @@ fun DropDownList(options: List<String>, text: String, value: String, testTag: St
                         expanded = expanded
                     )
                 },
-                colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                modifier = Modifier.fillMaxWidth(),
+                colors = ExposedDropdownMenuDefaults.textFieldColors()
             )
             ExposedDropdownMenu(
                 expanded = expanded,

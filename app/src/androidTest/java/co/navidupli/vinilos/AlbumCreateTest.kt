@@ -42,7 +42,48 @@ class AlbumCreateTest {
     }
 
     @Test
-    fun selectCollectors() {
+    fun createAlbum() {
+        val button = composeTestRule.onNode(hasTestTag("coleccionista"), true)
+        button.performClick()
+
+        album.name?.let {
+            composeTestRule.onNodeWithTag("textFieldAlbumName", true).performTextInput(
+                it
+            )
+        }
+
+        album.cover?.let {
+            composeTestRule.onNodeWithTag("textFieldAlbumCover", true).performTextInput(
+                it
+            )
+        }
+
+        album.description?.let {
+            composeTestRule.onNodeWithTag("textFieldAlbumDesc", true).performTextInput(
+                it
+            )
+        }
+
+        album.genre?.let {
+            composeTestRule.onNodeWithTag("selectAlbumGenre", true).performClick()
+            displayedAlbumGenre()
+            composeTestRule.onNodeWithText(it).performClick()
+        }
+
+        album.recordLabel?.let {
+            composeTestRule.onNodeWithTag("selectAlbumRecordLabel", true).performClick()
+            displayedAlbumRecordLabel()
+            composeTestRule.onNodeWithText(it).performClick()
+        }
+
+        composeTestRule.onNodeWithTag("btnCreateAlbum", true).performClick()
+
+        asyncTimer (6000)
+        composeTestRule.onNodeWithTag("btnCreateAlbum", true).assertIsEnabled()
+    }
+
+    @Test
+    fun createAlbumAndVerifyList() {
         val button = composeTestRule.onNode(hasTestTag("coleccionista"), true)
         button.performClick()
 
@@ -87,7 +128,10 @@ class AlbumCreateTest {
 
         composeTestRule.onNodeWithTag("visitante", true).performClick()
 
-        composeTestRule.onNodeWithText("Álbumes").assertIsDisplayed()
+        album.name?.let {
+            asyncTimer(20000)
+            composeTestRule.onNodeWithText(it, true).assertIsDisplayed()
+        }
     }
 
     private fun displayedAlbumGenre() {
