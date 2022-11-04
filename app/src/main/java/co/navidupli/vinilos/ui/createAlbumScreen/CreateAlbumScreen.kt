@@ -74,8 +74,10 @@ fun CreateAlbumScreen() {
 @Composable
 fun Title() {
     Text(
-        text = "Crear Album",
-        fontSize = 20.sp,
+        text = "Crear Álbum",
+        fontSize = 30.sp,
+        style = MaterialTheme.typography.h6,
+        color = MaterialTheme.colors.primary,
         modifier = Modifier.testTag("titleCreateAlbum")
     )
 }
