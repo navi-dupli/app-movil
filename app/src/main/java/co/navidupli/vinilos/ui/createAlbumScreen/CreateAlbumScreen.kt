@@ -44,28 +44,28 @@ fun CreateAlbumScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Title()
-        Space()
+        Space(15)
 
         AlbumName(createAlbumViewModel)
-        Space()
+        Space(15)
 
         AlbumCover(createAlbumViewModel)
-        Space()
+        Space(15)
 
         AlbumDateRelease(createAlbumViewModel, context)
-        Space()
+        Space(15)
 
         AlbumDesc(createAlbumViewModel)
-        Space()
+        Space(15)
 
         AlbumGenre(createAlbumViewModel)
-        Space()
+        Space(15)
 
         AlbumRecordLabel(createAlbumViewModel)
-        Space()
+        Space(15)
 
         SaveButton(createAlbumViewModel, context)
-        Space()
+        Space(50)
     }
 
 }
@@ -73,15 +73,17 @@ fun CreateAlbumScreen() {
 @Composable
 fun Title() {
     Text(
-        text = "Crear Album",
-        fontSize = 20.sp,
+        text = "Crear Álbum",
+        fontSize = 30.sp,
+        style = MaterialTheme.typography.h6,
+        color = MaterialTheme.colors.primary,
         modifier = Modifier.testTag("titleCreateAlbum")
     )
 }
 
 @Composable
-fun Space() {
-    Spacer(modifier = Modifier.height(15.dp))
+fun Space(size: Int) {
+    Spacer(modifier = Modifier.height(size.dp))
 }
 
 @Composable
@@ -90,7 +92,8 @@ fun AlbumName(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Nombre") },
         value = albumName,
-        modifier = Modifier.testTag("textFieldAlbumName"),
+        modifier = Modifier.testTag("textFieldAlbumName")
+        .fillMaxWidth(),
         onValueChange = { viewModel.setNameAlbum(it) }
     )
 }
@@ -101,7 +104,8 @@ fun AlbumCover(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Cover") },
         value = albumCover,
-        modifier = Modifier.testTag("textFieldAlbumCover"),
+        modifier = Modifier.testTag("textFieldAlbumCover")
+        .fillMaxWidth(),
         onValueChange = { viewModel.setCoverAlbum(it) }
     )
 }
@@ -127,10 +131,13 @@ fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
         viewModel.setDateReleaseAlbum("${month + 1}/$day/$year")
     }
 
-    val datePickerDialog = DatePickerDialog(context, {
-            _,
-            year: Int, month: Int, dayOfMonth: Int -> viewModel.setDateReleaseAlbum("${month + 1}/$dayOfMonth/$year") },
-        year, month, day)
+    val datePickerDialog = DatePickerDialog(
+        context, { _,
+                   year: Int, month: Int, dayOfMonth: Int ->
+            viewModel.setDateReleaseAlbum("${month + 1}/$dayOfMonth/$year")
+        },
+        year, month, day
+    )
 
     TextField(
         label = { Text(text = "Fecha de lanzamiento") },
@@ -140,6 +147,10 @@ fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
             .clickable { datePickerDialog.show() }
             .testTag("textFieldAlbumReleaseDate"),
         onValueChange = { viewModel.setDateReleaseAlbum(it) }
+            .clickable { datePickerDialog.show() }
+            .fillMaxWidth()
+            .testTag("textFieldAlbumReleaseDate"),
+        onValueChange = {  }
     )
 }
 
@@ -149,7 +160,8 @@ fun AlbumDesc(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Descripción") },
         value = albumDesc,
-        modifier = Modifier.testTag("textFieldAlbumDesc"),
+        modifier = Modifier.testTag("textFieldAlbumDesc")
+        .fillMaxWidth(),
         onValueChange = {viewModel.setDescriptionAlbum(it) }
     )
 }
@@ -179,10 +191,13 @@ fun DropDownList(options: List<String>, text: String, value: String, testTag: St
 
 
     Box(
-        modifier = Modifier.padding(20.dp, 0.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(0.dp)
     ) {
         ExposedDropdownMenuBox(
             expanded = expanded,
+            modifier = Modifier.fillMaxWidth(),
             onExpandedChange = {
                 expanded = !expanded
             }
@@ -198,13 +213,15 @@ fun DropDownList(options: List<String>, text: String, value: String, testTag: St
                         expanded = expanded
                     )
                 },
-                colors = ExposedDropdownMenuDefaults.textFieldColors()
+                colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                modifier = Modifier.fillMaxWidth(),
             )
             ExposedDropdownMenu(
                 expanded = expanded,
                 onDismissRequest = {
                     expanded = false
-                }
+                },
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 options.forEach { selectionOption ->
                     DropdownMenuItem(
