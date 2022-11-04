@@ -128,6 +128,8 @@ fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
         year = cal.get(Calendar.YEAR)
         month = cal.get(Calendar.MONTH)
         day = cal.get(Calendar.DAY_OF_MONTH)
+    } else {
+        viewModel.setDateReleaseAlbum("${month + 1}/$day/$year")
     }
 
     val datePickerDialog = DatePickerDialog(
@@ -144,9 +146,9 @@ fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
         enabled = false,
         modifier = Modifier
             .clickable { datePickerDialog.show() }
-            .fillMaxWidth()
-            .testTag("textFieldAlbumReleaseDate"),
-        onValueChange = {  }
+            .testTag("textFieldAlbumReleaseDate")
+            .fillMaxWidth(),
+        onValueChange = { viewModel.setDateReleaseAlbum(it) }
     )
 }
 
@@ -199,6 +201,8 @@ fun DropDownList(options: List<String>, text: String, value: String, testTag: St
             }
         ) {
             TextField(
+                modifier = Modifier.testTag(testTag)
+                                .fillMaxWidth(),
                 readOnly = true,
                 value = value,
                 onValueChange = { },
@@ -208,14 +212,14 @@ fun DropDownList(options: List<String>, text: String, value: String, testTag: St
                         expanded = expanded
                     )
                 },
-                colors = ExposedDropdownMenuDefaults.textFieldColors(),
-                modifier = Modifier.fillMaxWidth(),
+                colors = ExposedDropdownMenuDefaults.textFieldColors()
             )
             ExposedDropdownMenu(
                 expanded = expanded,
                 onDismissRequest = {
                     expanded = false
-                }
+                },
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 options.forEach { selectionOption ->
                     DropdownMenuItem(
@@ -242,7 +246,8 @@ fun SaveButton(viewModel: CreateAlbumViewModel, context: Context) {
             viewModel.setLoadCreate(!loadCreate)
             viewModel.saveAlbum()
         },
-        enabled = loadCreate
+        enabled = loadCreate,
+        modifier = Modifier.testTag("btnCreateAlbum")
     ) {
         Icon(
             imageVector = Icons.Filled.Save,
