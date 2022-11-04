@@ -2,11 +2,8 @@ package co.navidupli.vinilos
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.navigation.NavType
-import androidx.navigation.compose.*
 import co.navidupli.vinilos.model.AlbumCreate
-import co.navidupli.vinilos.scaffold.AppScaffold
-import co.navidupli.vinilos.ui.theme.RootScreen
+import co.navidupli.vinilos.navigation.NavigationRoot
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -29,16 +26,9 @@ class AlbumCreateTest {
 
     @Before
     fun setupNavHost() {
-        launchRegisterScreenWithNavGraph()
-    }
-
-    @Test
-    fun selectVisitors() {
-        val button = composeTestRule.onNode(hasTestTag("visitante"), true)
-
-        button.performClick()
-        composeTestRule.onNodeWithTag("albumes", true).assertIsDisplayed()
-
+        composeTestRule.setContent {
+            NavigationRoot()
+        }
     }
 
     @Test
@@ -78,8 +68,9 @@ class AlbumCreateTest {
 
         composeTestRule.onNodeWithTag("btnCreateAlbum", true).performClick()
 
-        asyncTimer (6000)
+        asyncTimer (10000)
         composeTestRule.onNodeWithTag("btnCreateAlbum", true).assertIsEnabled()
+        composeTestRule.onNodeWithTag("textFieldAlbumName", true).assert(hasText(""))
     }
 
     @Test
@@ -134,6 +125,26 @@ class AlbumCreateTest {
         }
     }
 
+    @Test
+    fun errorCreateAlbum() {
+        val button = composeTestRule.onNode(hasTestTag("coleccionista"), true)
+        button.performClick()
+
+        album.name?.let {
+            composeTestRule.onNodeWithTag("textFieldAlbumName", true).performTextInput(
+                it
+            )
+        }
+
+        composeTestRule.onNodeWithTag("btnCreateAlbum", true).performClick()
+
+        asyncTimer (10000)
+        composeTestRule.onNodeWithTag("btnCreateAlbum", true).assertIsEnabled()
+        album.name?.let {
+            composeTestRule.onNodeWithTag("textFieldAlbumName", true).assert(hasText(it))
+        }
+    }
+
     private fun displayedAlbumGenre() {
         val genres = listOf("Classical", "Salsa", "Rock", "Folk")
         genres.forEach { genre ->
@@ -145,32 +156,6 @@ class AlbumCreateTest {
         val recordLabels = listOf("Sony Music", "EMI", "Discos Fuentes", "Elektra", "Fania Records")
         recordLabels.forEach { recordLabel ->
             composeTestRule.onNodeWithText(recordLabel).assertIsDisplayed()
-        }
-    }
-
-    private fun launchRegisterScreenWithNavGraph() {
-        composeTestRule.setContent {
-            val navController = rememberNavController()
-            val navBarNavController = rememberNavController()
-
-            NavHost(navController = navController, startDestination = Screen.RootScren.route) {
-                composable(
-                    route = Screen.RootScren.route,
-                    content = {
-                        RootScreen(navController)
-                    })
-                composable(
-                    route = Screen.AppScaffold.route+ "/{type}",
-                    arguments = listOf(navArgument("type"){
-                        type = NavType.IntType
-                    }),
-                    content = {
-                        AppScaffold(navController = navBarNavController, it.arguments?.getInt("type")) {
-                            navController.navigate(Screen.RootScren.route)
-                        }
-                    }
-                )
-            }
         }
     }
 

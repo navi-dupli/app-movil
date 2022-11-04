@@ -2,12 +2,7 @@ package co.navidupli.vinilos
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.navigation.NavType
-import androidx.navigation.compose.*
-import co.navidupli.vinilos.model.AlbumCreate
-import co.navidupli.vinilos.scaffold.AppScaffold
-import co.navidupli.vinilos.ui.theme.RootScreen
-import okhttp3.internal.wait
+import co.navidupli.vinilos.navigation.NavigationRoot
 
 import org.junit.Test
 
@@ -24,7 +19,9 @@ class AlbumListTest {
 
     @Before
     fun setupNavHost() {
-        launchRegisterScreenWithNavGraph()
+        composeTestRule.setContent {
+            NavigationRoot()
+        }
     }
 
     @Test
@@ -55,34 +52,6 @@ class AlbumListTest {
             expired = false
             Timer().schedule(delay) {
                 expired = true
-            }
-        }
-    }
-
-
-
-    private fun launchRegisterScreenWithNavGraph() {
-        composeTestRule.setContent {
-            val navController = rememberNavController()
-            val navBarNavController = rememberNavController()
-
-            NavHost(navController = navController, startDestination = Screen.RootScren.route) {
-                composable(
-                    route = Screen.RootScren.route,
-                    content = {
-                        RootScreen(navController)
-                    })
-                composable(
-                    route = Screen.AppScaffold.route+ "/{type}",
-                    arguments = listOf(navArgument("type"){
-                        type = NavType.IntType
-                    }),
-                    content = {
-                        AppScaffold(navController = navBarNavController, it.arguments?.getInt("type")) {
-                            navController.navigate(Screen.RootScren.route)
-                        }
-                    }
-                )
             }
         }
     }
