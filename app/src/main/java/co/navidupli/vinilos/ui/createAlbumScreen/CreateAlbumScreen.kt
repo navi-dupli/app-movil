@@ -39,7 +39,8 @@ fun CreateAlbumScreen() {
     Column(
         modifier = Modifier
             .padding(20.dp)
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
