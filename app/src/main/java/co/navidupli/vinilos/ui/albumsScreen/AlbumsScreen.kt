@@ -20,6 +20,7 @@ import java.util.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import co.navidupli.vinilos.model.Album
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import co.navidupli.vinilos.R
 
@@ -57,6 +58,7 @@ fun ListWithHeader(albums: List<Album>) {
                     .background(color = MaterialTheme.colors.background )
                     .fillMaxSize()
                     .padding( vertical = 4.dp)
+                    .testTag("titleAlbum")
 
             )
         }

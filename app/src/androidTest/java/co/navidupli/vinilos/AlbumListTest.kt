@@ -7,22 +7,17 @@ import androidx.navigation.compose.*
 import co.navidupli.vinilos.model.AlbumCreate
 import co.navidupli.vinilos.scaffold.AppScaffold
 import co.navidupli.vinilos.ui.theme.RootScreen
+import okhttp3.internal.wait
 
 import org.junit.Test
 
 import org.junit.Before
 import org.junit.Rule
+import java.util.*
+import kotlin.concurrent.schedule
 
 
-class ExampleInstrumentedTest {
-    val album = AlbumCreate(
-        name= "Juana la cubana",
-        description = "Es un album diferente",
-        genre = "Rock",
-        cover = "https://i.ytimg.com/vi/X_-bKOnS-wA/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDe-R3BYHSf8m5pRBqumzImqlmfbw",
-        recordLabel = "EMI",
-        releaseDate = "24/5/1999"
-    )
+class AlbumListTest {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()
@@ -37,41 +32,34 @@ class ExampleInstrumentedTest {
         val button = composeTestRule.onNode(hasTestTag("visitante"), true)
 
         button.performClick()
-        composeTestRule.onNodeWithTag("albumes", true).assertIsDisplayed()
+        composeTestRule.onNodeWithTag("titleAlbum", true).assertTextEquals("Álbumes")
 
+        asyncTimer()
+        composeTestRule.onAllNodesWithTag("tittleCard", true).onFirst().assertIsDisplayed()
+        composeTestRule.onAllNodesWithTag("dateCard", true).onFirst().assertIsDisplayed()
+        composeTestRule.onAllNodesWithTag("subtextCard", true).onFirst().assertIsDisplayed()
+        composeTestRule.onAllNodesWithTag("imageCard", true).onFirst().assertIsDisplayed()
     }
 
-    @Test
-    fun selectCollectors() {
-        val button = composeTestRule.onNode(hasTestTag("coleccionista"), true)
-        button.performClick()
-
-        album.name?.let {
-            composeTestRule.onNodeWithTag("textFieldAlbumName", true).performTextInput(
-                it
-            )
-        }
-
-        album.cover?.let {
-            composeTestRule.onNodeWithTag("textFieldAlbumCover", true).performTextInput(
-                it
-            )
-        }
-
-        album.releaseDate?.let {
-            val releaseDate = composeTestRule.onNodeWithTag("textFieldAlbumReleaseDate", true)
-            releaseDate.performClick()
-            releaseDate.performTextInput(it)
-        }
-
-        album.description?.let {
-            composeTestRule.onNodeWithTag("textFieldAlbumDesc", true).performTextInput(
-                it
-            )
-            composeTestRule.onNodeWithTag("textFieldAlbumDesc", true).assert(hasText(it))
-        }
-
+    fun asyncTimer (delay: Long = 20000) {
+        AsyncTimer.start (delay)
+        composeTestRule.waitUntil (
+            condition = {AsyncTimer.expired},
+            timeoutMillis = delay + 1000
+        )
     }
+
+    object AsyncTimer {
+        var expired = false
+        fun start(delay: Long = 1000){
+            expired = false
+            Timer().schedule(delay) {
+                expired = true
+            }
+        }
+    }
+
+
 
     private fun launchRegisterScreenWithNavGraph() {
         composeTestRule.setContent {

@@ -6,6 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -32,6 +33,7 @@ fun RootScreen(navController: NavController) {
                 }, modifier = Modifier
                     .fillMaxWidth(0.8f)
                     .height(50.dp)
+                    .testTag("visitante")
             ) {
                 Text(text = "Visitante", fontSize = 20.sp)
             }
@@ -46,6 +48,7 @@ fun RootScreen(navController: NavController) {
                 }, modifier = Modifier
                     .fillMaxWidth(0.8f)
                     .height(50.dp)
+                    .testTag("coleccionista")
             ) {
                 Text(text = "Coleccionista", fontSize = 20.sp)
             }

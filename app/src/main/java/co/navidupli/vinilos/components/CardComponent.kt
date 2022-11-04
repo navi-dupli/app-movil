@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,6 +39,7 @@ fun ComponentCard(tittle: String, date: String?, subtext:String?, imageUrl:Strin
                         contentDescription = tittle,
                         modifier = Modifier
                             .size(90.dp)
+                            .testTag("imageCard")
 
                     )
                 }
@@ -54,6 +56,7 @@ fun ComponentCard(tittle: String, date: String?, subtext:String?, imageUrl:Strin
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .width(1000.dp)
+                        .testTag("tittleCard")
 
                 )
                 if(date!=null) {
@@ -66,6 +69,7 @@ fun ComponentCard(tittle: String, date: String?, subtext:String?, imageUrl:Strin
                         modifier = Modifier
                             .heightIn(min = 20.dp)
                             .wrapContentHeight()
+                            .testTag("dateCard")
 
                     )
                 }
@@ -80,6 +84,7 @@ fun ComponentCard(tittle: String, date: String?, subtext:String?, imageUrl:Strin
                         modifier = Modifier
                             .heightIn(min = 20.dp)
                             .wrapContentHeight()
+                            .testTag("subtextCard")
 
                     )
                 }

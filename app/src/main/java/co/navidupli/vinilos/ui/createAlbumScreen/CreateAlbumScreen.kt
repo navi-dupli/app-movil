@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -73,8 +74,11 @@ fun CreateAlbumScreen() {
 @Composable
 fun Title() {
     Text(
-        text = "Crear Album",
-        fontSize = 20.sp
+        text = "Crear Álbum",
+        fontSize = 30.sp,
+        style = MaterialTheme.typography.h6,
+        color = MaterialTheme.colors.primary,
+        modifier = Modifier.testTag("titleCreateAlbum")
     )
 }
 
@@ -89,7 +93,8 @@ fun AlbumName(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Nombre") },
         value = albumName,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.testTag("textFieldAlbumName")
+        .fillMaxWidth(),
         onValueChange = { viewModel.setNameAlbum(it) }
     )
 }
@@ -100,7 +105,8 @@ fun AlbumCover(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Cover") },
         value = albumCover,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.testTag("textFieldAlbumCover")
+        .fillMaxWidth(),
         onValueChange = { viewModel.setCoverAlbum(it) }
     )
 }
@@ -137,9 +143,10 @@ fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
         value = albumDate,
         enabled = false,
         modifier = Modifier
+            .clickable { datePickerDialog.show() }
             .fillMaxWidth()
-            .clickable { datePickerDialog.show() },
-        onValueChange = { }
+            .testTag("textFieldAlbumReleaseDate"),
+        onValueChange = {  }
     )
 }
 
@@ -149,8 +156,9 @@ fun AlbumDesc(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Descripción") },
         value = albumDesc,
-        modifier = Modifier.fillMaxWidth(),
-        onValueChange = { viewModel.setDescriptionAlbum(it) }
+        modifier = Modifier.testTag("textFieldAlbumDesc")
+        .fillMaxWidth(),
+        onValueChange = {viewModel.setDescriptionAlbum(it) }
     )
 }
 
@@ -158,7 +166,7 @@ fun AlbumDesc(viewModel: CreateAlbumViewModel) {
 fun AlbumGenre(viewModel: CreateAlbumViewModel) {
     val options = listOf("Classical", "Salsa", "Rock", "Folk")
     val genreAlbum: String by viewModel.genreAlbum.observeAsState(initial = "")
-    DropDownList(options = options, "Género", genreAlbum) {
+    DropDownList(options = options, "Género", genreAlbum, "selectAlbumGenre") {
         viewModel.setGenreAlbum(it)
     }
 }
@@ -167,14 +175,14 @@ fun AlbumGenre(viewModel: CreateAlbumViewModel) {
 fun AlbumRecordLabel(viewModel: CreateAlbumViewModel) {
     val options = listOf("Sony Music", "EMI", "Discos Fuentes", "Elektra", "Fania Records")
     val albumRecord: String by viewModel.recordLabelAlbum.observeAsState(initial = "")
-    DropDownList(options = options, "Sello discografíco", albumRecord) {
+    DropDownList(options = options, "Sello discografíco", albumRecord, "selectAlbumRecordLabel") {
         viewModel.setRecordLabelAlbum(it)
     }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun DropDownList(options: List<String>, text: String, value: String, setValue: (String) -> Unit) {
+fun DropDownList(options: List<String>, text: String, value: String, testTag: String, setValue: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
 
 
