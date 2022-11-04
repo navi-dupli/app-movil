@@ -123,6 +123,8 @@ fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
         year = cal.get(Calendar.YEAR)
         month = cal.get(Calendar.MONTH)
         day = cal.get(Calendar.DAY_OF_MONTH)
+    } else {
+        viewModel.setDateReleaseAlbum("${month + 1}/$day/$year")
     }
 
     val datePickerDialog = DatePickerDialog(context, {
@@ -137,7 +139,7 @@ fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
         modifier = Modifier
             .clickable { datePickerDialog.show() }
             .testTag("textFieldAlbumReleaseDate"),
-        onValueChange = {  }
+        onValueChange = { viewModel.setDateReleaseAlbum(it) }
     )
 }
 
@@ -186,6 +188,7 @@ fun DropDownList(options: List<String>, text: String, value: String, testTag: St
             }
         ) {
             TextField(
+                modifier = Modifier.testTag(testTag),
                 readOnly = true,
                 value = value,
                 onValueChange = { },
@@ -228,7 +231,8 @@ fun SaveButton(viewModel: CreateAlbumViewModel, context: Context) {
             viewModel.setLoadCreate(!loadCreate)
             viewModel.saveAlbum()
         },
-        enabled = loadCreate
+        enabled = loadCreate,
+        modifier = Modifier.testTag("btnCreateAlbum")
     ) {
         Icon(
             imageVector = Icons.Filled.Save,

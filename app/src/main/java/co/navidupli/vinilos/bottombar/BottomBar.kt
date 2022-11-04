@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.material.Text
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -60,7 +62,7 @@ fun BottomBar(navController: NavController, type: Int?) {
                         launchSingleTop = true
                     }
                 },
-
+                modifier = Modifier.testTag("btn_${it.route}")
                 )
         }
 
