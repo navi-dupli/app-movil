@@ -1,6 +1,5 @@
 package co.navidupli.vinilos.ui.albumsScreen
-
-import android.icu.text.SimpleDateFormat
+import java.text.SimpleDateFormat
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -66,7 +65,7 @@ fun ListWithHeader(albums: List<Album>) {
         items(albums) { album ->
             val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             val date: Date = format.parse(album.releaseDate)
-            val simpleDateFormat =SimpleDateFormat("YYYY")
+            val simpleDateFormat =SimpleDateFormat("yyyy")
             ComponentCard(
                 tittle = album.name,
                 date = simpleDateFormat.format(date),
