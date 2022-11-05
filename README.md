@@ -5,7 +5,7 @@ Aplicación móvil para la gestión de información músical permitiendo adminis
 ## Development server
  ### Requerimientos técnicos
  * Java 8
- * Android 12L
+ * Android L o superior 
  * Android Studio Dolphin | 2021.3.1 Patch 1
 ### Ejecutar localmente la version
  * Hacer clic en el botón "Sincronizar proyecto con archivos Gradle"
@@ -25,6 +25,12 @@ Aplicación móvil para la gestión de información músical permitiendo adminis
 ![image](https://user-images.githubusercontent.com/98857876/200101589-39fabc56-5661-43a6-847f-f802ffaf0a83.png)
 
 
+Elaborado por: 
+
+- Plinio José Grijalba Ramirez, Código: 202214358
+- Natalie Carolina Santiago Torres, Código: 202214374
+- Duvan Jamid Vargas Castillo, Código: 202210190
+- Magda Viviana Ojeda Niño, Código: 202210187
 
 
 
