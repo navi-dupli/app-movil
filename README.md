@@ -10,10 +10,14 @@ Aplicación móvil para la gestión de información músical permitiendo adminis
 ### Ejecutar localmente la version
  * Hacer clic en el botón "Sincronizar proyecto con archivos Gradle"
     ``` Tools -> Android -> Sync Project with Gradle Files```
-* Correr la aplicación
-    ``` Run -> Run 'app'```
+ * Seleccionar el dispositivo donde se va a correr, ya sea virtual o fisico 
+   <img width="628" alt="image" src="https://user-images.githubusercontent.com/98790557/200119892-6ec5157e-3e11-4476-b48e-191f322d2943.png">
 
-## Build
+ * Correr la aplicación
+    ``` Run -> Run 'app'```
+    
+    <img width="445" alt="image" src="https://user-images.githubusercontent.com/98790557/200119904-3d2dda9d-4dbc-4646-8d62-55cfd9a9a9fd.png">
+
 
 
 ## Running end-to-end tests

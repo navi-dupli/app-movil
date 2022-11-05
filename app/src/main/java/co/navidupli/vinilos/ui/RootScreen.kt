@@ -30,7 +30,8 @@ fun RootScreen(navController: NavController) {
         Image(
             contentScale = ContentScale.FillHeight,
             painter = painterResource(id = R.drawable.image_background_root),
-            contentDescription = null
+            contentDescription = null,
+            modifier = Modifier.fillMaxWidth().fillMaxHeight()
         )
         Column(Modifier.align(Alignment.Center)) {
             Spacer(modifier = Modifier.padding(10.dp))

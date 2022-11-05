@@ -2,8 +2,7 @@ package co.navidupli.vinilos.ui.createAlbumScreen
 
 import android.app.DatePickerDialog
 import android.content.Context
-import android.icu.text.SimpleDateFormat
-import android.icu.util.Calendar
+import java.text.SimpleDateFormat
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -28,6 +27,7 @@ import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import co.navidupli.vinilos.viewModel.CreateAlbumViewModel
 import java.util.*
+import java.util.Calendar.*
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(showSystemUi = true)
@@ -114,16 +114,16 @@ fun AlbumCover(viewModel: CreateAlbumViewModel) {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
-    val c = Calendar.getInstance()
-    var year = c.get(Calendar.YEAR)
-    var month = c.get(Calendar.MONTH)
-    var day = c.get(Calendar.DAY_OF_MONTH)
+    val c = getInstance()
+    var year = c.get(YEAR)
+    var month = c.get(MONTH)
+    var day = c.get(DAY_OF_MONTH)
 
     val albumDate: String by viewModel.dateReleaseAlbum.observeAsState(initial = "")
     if (albumDate != "") {
-        val sdf = SimpleDateFormat("MM/dd/yyyy")
+        val sdf =  SimpleDateFormat("MM/dd/yyyy")
         val date: Date = sdf.parse(albumDate)
-        val cal = Calendar.getInstance()
+        val cal = getInstance()
         cal.time = date
         year = cal.get(Calendar.YEAR)
         month = cal.get(Calendar.MONTH)
