@@ -40,7 +40,7 @@ fun AlbumsScreen(
 @Composable
 fun ListWithHeader(albums: List<Album>) {
     LazyColumn(
-        modifier=Modifier.padding(bottom = 60.dp)
+        modifier=Modifier.padding(bottom = 60.dp).testTag("listAlbums")
     ) {
 
         stickyHeader {

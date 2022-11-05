@@ -16,7 +16,8 @@ class ListAlbumsViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            val albumList = AlbumRepository.getAlbums()
+            val albumList = AlbumRepository.getAlbums().sortedByDescending { it.id }
+            albumList.forEach { println(it) }
             _albums.value = albumList
         }
     }

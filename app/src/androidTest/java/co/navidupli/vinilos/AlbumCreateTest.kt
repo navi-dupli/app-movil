@@ -110,7 +110,7 @@ class AlbumCreateTest {
 
         composeTestRule.onNodeWithTag("btnCreateAlbum", true).performClick()
 
-        asyncTimer (6000)
+        asyncTimer (10000)
         composeTestRule.onNodeWithTag("btnCreateAlbum", true).assertIsEnabled()
 
         composeTestRule.onNodeWithTag("btn_profile_screen", true).performClick()
@@ -121,7 +121,7 @@ class AlbumCreateTest {
 
         album.name?.let {
             asyncTimer(20000)
-            composeTestRule.onNodeWithText(it, true).assertIsDisplayed()
+            composeTestRule.onAllNodesWithText(it, true).onFirst().assertIsDisplayed()
         }
     }
 
