@@ -2,9 +2,7 @@ package co.navidupli.vinilos.repositories
 
 import co.navidupli.vinilos.broker.AlbumApiService
 import co.navidupli.vinilos.broker.RetrofitClient
-import co.navidupli.vinilos.model.Album
-import co.navidupli.vinilos.model.AlbumCreate
-import co.navidupli.vinilos.model.AlbumCreated
+import co.navidupli.vinilos.model.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,17 +41,17 @@ class AlbumRepository {
             return resp
         }
 
-        fun postAssociateTrackAlbum(body: AlbumCreate, onResponse:(resp: AlbumCreated)->Unit, onFailure:(resp:String)->Unit) : String? {
+        fun postAssociateTrackAlbum(body: TrackAsociate,idAlbum: Int?, onResponse:(resp: Track)->Unit, onFailure:(resp:String)->Unit) : String? {
             val resp: String? = null
 
-            albumWebApi.postAlbum(body).enqueue(
+            albumWebApi.postAssociateTrackAlbum(body,idAlbum).enqueue(
 
-                object : Callback<AlbumCreated> {
-                    override fun onFailure(call: Call<AlbumCreated>, t: Throwable) {
+                object : Callback<Track> {
+                    override fun onFailure(call: Call<Track>, t: Throwable) {
                         onFailure(t.message!!)
                     }
 
-                    override fun onResponse(call: Call<AlbumCreated>, response: Response<AlbumCreated>) {
+                    override fun onResponse(call: Call<Track>, response: Response<Track>) {
                         if (response.code() == 400) {
                             onFailure("Bad request")
                         } else {

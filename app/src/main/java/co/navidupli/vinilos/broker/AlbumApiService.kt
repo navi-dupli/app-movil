@@ -1,12 +1,11 @@
 package co.navidupli.vinilos.broker
 
-import co.navidupli.vinilos.model.Album
-import co.navidupli.vinilos.model.AlbumCreate
-import co.navidupli.vinilos.model.AlbumCreated
+import co.navidupli.vinilos.model.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface AlbumApiService {
 
@@ -16,6 +15,6 @@ interface AlbumApiService {
     @POST("albums")
     fun postAlbum(@Body params: AlbumCreate): Call<AlbumCreated>
 
-    @POST("/albums/101/tracks")
-    fun postAssociateTrackAlbum(@Body params: AlbumCreate): Call<AlbumCreated>
+    @POST("/albums/{id_album}/tracks")
+    fun postAssociateTrackAlbum( @Body params: TrackAsociate, @Path("id_album") idAlbum: Int?): Call<Track>
 }
