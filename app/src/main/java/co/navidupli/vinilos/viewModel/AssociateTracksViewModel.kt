@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.navidupli.vinilos.model.Album
 import co.navidupli.vinilos.model.Track
+import co.navidupli.vinilos.model.TrackAsociate
 import co.navidupli.vinilos.repositories.AlbumRepository
 import kotlinx.coroutines.launch
 
@@ -29,11 +30,11 @@ class AssociateTracksViewModel : ViewModel() {
 
 
     fun associateTrack() {
-        val track = Track(
-            id = _idAlbum.value,
+        val track = TrackAsociate(
             duration = _duration.value,
             name = _name.value
         )
+        val idAlbum =  _idAlbum.value
         // to do add repository
     }
 
