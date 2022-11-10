@@ -15,4 +15,7 @@ interface AlbumApiService {
 
     @POST("albums")
     fun postAlbum(@Body params: AlbumCreate): Call<AlbumCreated>
+
+    @POST("/albums/101/tracks")
+    fun postAssociateTrackAlbum(@Body params: AlbumCreate): Call<AlbumCreated>
 }

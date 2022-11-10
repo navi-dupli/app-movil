@@ -42,6 +42,27 @@ class AlbumRepository {
                 })
             return resp
         }
+
+        fun postAssociateTrackAlbum(body: AlbumCreate, onResponse:(resp: AlbumCreated)->Unit, onFailure:(resp:String)->Unit) : String? {
+            val resp: String? = null
+
+            albumWebApi.postAlbum(body).enqueue(
+
+                object : Callback<AlbumCreated> {
+                    override fun onFailure(call: Call<AlbumCreated>, t: Throwable) {
+                        onFailure(t.message!!)
+                    }
+
+                    override fun onResponse(call: Call<AlbumCreated>, response: Response<AlbumCreated>) {
+                        if (response.code() == 400) {
+                            onFailure("Bad request")
+                        } else {
+                            onResponse(response.body()!!)
+                        }
+                    }
+                })
+            return resp
+        }
     }
 
 }
