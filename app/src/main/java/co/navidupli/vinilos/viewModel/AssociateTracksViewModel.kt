@@ -21,6 +21,7 @@ class AssociateTracksViewModel : ViewModel() {
     val statusAssociate: LiveData<Boolean> = _statusAssociate
     private val _loadAssociateTrack = MutableLiveData<Boolean>()
     val loadAssociateTrack: LiveData<Boolean> = _loadAssociateTrack
+
     private var _albums = MutableLiveData<List<Album>>(listOf())
     var albums: LiveData<List<Album>> = _albums
 
@@ -39,6 +40,7 @@ class AssociateTracksViewModel : ViewModel() {
             name = _name.value
         )
         val idAlbum =  _idAlbum.value
+
         AlbumRepository.postAssociateTrackAlbum(track,idAlbum,
             onResponse = {
                 _statusAssociate.value = true
@@ -48,6 +50,7 @@ class AssociateTracksViewModel : ViewModel() {
                 _statusAssociate.value = false
                 _loadAssociateTrack.value = true
             })
+
     }
 
     fun setIdAlbum(value: Int){
@@ -62,6 +65,7 @@ class AssociateTracksViewModel : ViewModel() {
         _name.value = value
     }
 
+
     fun setloadAssociateTrack(value: Boolean) {
         _loadAssociateTrack.value = value
     }
@@ -69,6 +73,7 @@ class AssociateTracksViewModel : ViewModel() {
     fun setStatusAssociateTrackAlbum() {
         _statusAssociate.value = null
     }
+
 
 
 
