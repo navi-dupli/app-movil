@@ -7,6 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
+
 interface AlbumApiService {
 
     @GET("/albums")
@@ -17,4 +18,7 @@ interface AlbumApiService {
 
     @POST("/albums/{id_album}/tracks")
     fun postAssociateTrackAlbum( @Body params: TrackAsociate, @Path("id_album") idAlbum: Int?): Call<Track>
+
+    @GET("/albums/{album_id}")
+    fun getAlbumDetail(@Path("album_id") album_id: Int): Album
 }

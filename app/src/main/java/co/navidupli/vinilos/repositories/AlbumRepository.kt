@@ -61,6 +61,10 @@ class AlbumRepository {
                 })
             return resp
         }
+
+        fun getAlbumDetail(albumId: Int): Album {
+            return albumWebApi.getAlbumDetail(albumId)
+        }
     }
 
 }
