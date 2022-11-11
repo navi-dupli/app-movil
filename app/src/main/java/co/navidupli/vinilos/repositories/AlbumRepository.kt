@@ -1,5 +1,6 @@
 package co.navidupli.vinilos.repositories
 
+import androidx.lifecycle.MutableLiveData
 import co.navidupli.vinilos.broker.AlbumApiService
 import co.navidupli.vinilos.broker.RetrofitClient
 import co.navidupli.vinilos.model.*
@@ -60,6 +61,10 @@ class AlbumRepository {
                     }
                 })
             return resp
+        }
+
+        fun getAlbumDetail(albumId: Int): Album {
+            return albumWebApi.getAlbumDetail(albumId)
         }
     }
 

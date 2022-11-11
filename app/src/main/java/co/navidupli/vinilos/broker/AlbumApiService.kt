@@ -1,11 +1,14 @@
 package co.navidupli.vinilos.broker
 
+import androidx.lifecycle.MutableLiveData
 import co.navidupli.vinilos.model.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
+
 
 interface AlbumApiService {
 
@@ -17,4 +20,7 @@ interface AlbumApiService {
 
     @POST("/albums/{id_album}/tracks")
     fun postAssociateTrackAlbum( @Body params: TrackAsociate, @Path("id_album") idAlbum: Int?): Call<Track>
+
+    @GET("/albums/{album_id}")
+    fun getAlbumDetail(@Path("album_id") album_id: Int): Album
 }
