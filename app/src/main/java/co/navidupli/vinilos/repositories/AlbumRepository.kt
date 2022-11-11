@@ -1,6 +1,5 @@
 package co.navidupli.vinilos.repositories
 
-import androidx.lifecycle.MutableLiveData
 import co.navidupli.vinilos.broker.AlbumApiService
 import co.navidupli.vinilos.broker.RetrofitClient
 import co.navidupli.vinilos.model.*
