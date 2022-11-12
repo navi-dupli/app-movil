@@ -21,23 +21,26 @@ import co.navidupli.vinilos.model.Album
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavHostController
 import co.navidupli.vinilos.R
+import co.navidupli.vinilos.navigation.NavigationScreen
 
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun AlbumsScreen(
-    viewModel: ListAlbumsViewModel = viewModel()
+    viewModel: ListAlbumsViewModel = viewModel(),
+    navController: NavHostController
 ) {
     val albums: List<Album> = viewModel.albums.observeAsState(listOf<Album>()).value
-    ListWithHeader(albums)
+    ListWithHeader(albums, navController)
 }
 
 
 @RequiresApi(Build.VERSION_CODES.N)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ListWithHeader(albums: List<Album>) {
+fun ListWithHeader(albums: List<Album>, navController: NavHostController) {
     LazyColumn(
         modifier=Modifier.padding(bottom = 60.dp).testTag("listAlbums")
     ) {
@@ -70,7 +73,10 @@ fun ListWithHeader(albums: List<Album>) {
                 tittle = album.name,
                 date = simpleDateFormat.format(date),
                 subtext = album.genre,
-                imageUrl = album.cover
+                imageUrl = album.cover,
+                onClick = {
+                    navController.navigate(NavigationScreen.AlbumDetailScreen.route+"/${album.id}")
+                }
             )
         }
     }
