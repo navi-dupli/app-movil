@@ -41,7 +41,7 @@ class AlbumRepository {
             return resp
         }
 
-        fun postAssociateTrackAlbum(body: TrackAsociate,idAlbum: Int?, onResponse:(resp: Track)->Unit, onFailure:(resp:String)->Unit) : String? {
+        fun postAssociateTrackAlbum(body: TrackAsociate,idAlbum: Long?, onResponse:(resp: Track)->Unit, onFailure:(resp:String)->Unit) : String? {
             val resp: String? = null
 
             albumWebApi.postAssociateTrackAlbum(body,idAlbum).enqueue(

@@ -17,7 +17,7 @@ interface AlbumApiService {
     fun postAlbum(@Body params: AlbumCreate): Call<AlbumCreated>
 
     @POST("/albums/{id_album}/tracks")
-    fun postAssociateTrackAlbum( @Body params: TrackAsociate, @Path("id_album") idAlbum: Int?): Call<Track>
+    fun postAssociateTrackAlbum( @Body params: TrackAsociate, @Path("id_album") idAlbum: Long?): Call<Track>
 
     @GET("/albums/{album_id}")
     fun getAlbumDetail(@Path("album_id") album_id: Int): Call<Album>

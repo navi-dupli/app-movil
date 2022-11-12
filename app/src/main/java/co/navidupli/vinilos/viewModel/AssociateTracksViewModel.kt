@@ -11,11 +11,11 @@ import co.navidupli.vinilos.repositories.AlbumRepository
 import kotlinx.coroutines.launch
 
 class AssociateTracksViewModel : ViewModel() {
-    private val _idAlbum = MutableLiveData<Int>()
-    val idAlbum: LiveData<Int> = _idAlbum
+    private val _albumSelected = MutableLiveData<Album>()
+    val albumSelected: LiveData<Album> = _albumSelected
     private val _duration = MutableLiveData<String>()
     val duration: LiveData<String> = _duration
-    private val _name = MutableLiveData<String>()
+    private val _name = MutableLiveData<String>("")
     val name: LiveData<String> = _name
     private val _statusAssociate = MutableLiveData<Boolean>()
     val statusAssociate: LiveData<Boolean> = _statusAssociate
@@ -39,7 +39,7 @@ class AssociateTracksViewModel : ViewModel() {
             duration = _duration.value,
             name = _name.value
         )
-        val idAlbum =  _idAlbum.value
+        val idAlbum =  _albumSelected.value?.id
 
         AlbumRepository.postAssociateTrackAlbum(track,idAlbum,
             onResponse = {
@@ -53,15 +53,15 @@ class AssociateTracksViewModel : ViewModel() {
 
     }
 
-    fun setIdAlbum(value: Int){
-        _idAlbum.value = value
+    fun setAlbumSelected(value: Album){
+        _albumSelected.value = value
     }
 
     fun setDurationTrack(value: String){
         _duration.value = value
     }
 
-    fun setNameTrack(value: String){
+    fun setTrackName(value: String){
         _name.value = value
     }
 
@@ -78,7 +78,7 @@ class AssociateTracksViewModel : ViewModel() {
 
 
     fun clearState() {
-        _idAlbum.value = null
+        _albumSelected.value = null
         _duration.value = ""
         _name.value = ""
     }
