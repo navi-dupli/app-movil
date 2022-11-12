@@ -62,8 +62,19 @@ class AlbumRepository {
             return resp
         }
 
-        fun getAlbumDetail(albumId: Int): Album {
-            return albumWebApi.getAlbumDetail(albumId)
+        fun getAlbumDetail(albumId: Int, onResponse:(resp: Album)->Unit, onFailure:(resp:String)->Unit): String? {
+            val resp: String? = null
+            albumWebApi.getAlbumDetail(albumId).enqueue(
+                object : Callback<Album> {
+                    override fun onFailure(call: Call<Album>, t: Throwable) {
+                        onFailure(t.message!!)
+                    }
+
+                    override fun onResponse(call: Call<Album>, response: Response<Album>) {
+                        onResponse(response.body()!!)
+                    }
+                })
+            return resp
         }
     }
 

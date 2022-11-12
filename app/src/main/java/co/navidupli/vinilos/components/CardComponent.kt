@@ -18,13 +18,13 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
 @Composable
-fun ComponentCard(tittle: String, date: String?, subtext:String?, imageUrl:String?) {
+fun ComponentCard(tittle: String, date: String?, subtext:String?, imageUrl:String?, onClick:()-> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable{ },
-        elevation = 10.dp
+            .clickable{ onClick() },
+        elevation = 10.dp,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

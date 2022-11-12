@@ -12,7 +12,11 @@ class DetailAlbumViewModel : ViewModel() {
     var album: LiveData<Album> = _album
 
     fun getAlbumDetail(albumId: Int) {
-        _album.value = AlbumRepository.getAlbumDetail(albumId)
+        AlbumRepository.getAlbumDetail(albumId, onResponse = {
+            _album.value = it
+        }, onFailure = {
+
+        })
     }
 }
 
