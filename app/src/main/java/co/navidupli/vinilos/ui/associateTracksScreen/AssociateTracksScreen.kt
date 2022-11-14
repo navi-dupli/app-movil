@@ -2,6 +2,7 @@ package co.navidupli.vinilos.ui.associateTracksScreen
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -12,6 +13,8 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
@@ -56,7 +59,7 @@ fun Title() {
         fontSize = 30.sp,
         style = MaterialTheme.typography.h6,
         color = MaterialTheme.colors.primary,
-        modifier = Modifier.testTag("titleCreateAlbum")
+        modifier = Modifier.testTag("titleAsociateTrack")
     )
 }
 
@@ -117,7 +120,7 @@ fun DropDownList(
     setValue: (Album) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
-
+    val focusRequester = FocusRequester()
 
     Box(
         modifier = Modifier
@@ -126,7 +129,7 @@ fun DropDownList(
     ) {
         ExposedDropdownMenuBox(
             expanded = expanded,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
             onExpandedChange = {
                 expanded = !expanded
             }
@@ -151,14 +154,15 @@ fun DropDownList(
                 onDismissRequest = {
                     expanded = false
                 },
-                modifier = Modifier.fillMaxWidth(),
             ) {
-                options.forEach { selectionOption ->
+                options.forEachIndexed { index, selectionOption ->
                     DropdownMenuItem(
                         onClick = {
                             setValue(selectionOption)
                             expanded = false
-                        }
+                        },
+                        modifier = Modifier
+                            .testTag("albumItem_"+index)
                     ) {
                         Text(text = selectionOption.name)
                     }
@@ -186,7 +190,7 @@ fun SaveButton(viewModel: AssociateTracksViewModel, context: Context) {
         Icon(
             imageVector = Icons.Filled.Save,
             modifier = Modifier.size(20.dp),
-            contentDescription = "drawable icons"
+            contentDescription = "Guardar"
         )
 
         Text(text = "Guardar")
