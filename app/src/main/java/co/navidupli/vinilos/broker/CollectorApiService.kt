@@ -1,24 +1,15 @@
 package co.navidupli.vinilos.broker
 
 import co.navidupli.vinilos.model.*
-import retrofit2.Call
-import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.POST
 import retrofit2.http.Path
 
 
-interface AlbumApiService {
+interface CollectorApiService {
 
-    @GET("/albums")
-    suspend fun getAlbums(): List<Album>
+    @GET("/collectors")
+    suspend fun getCollectors(): List<Collector>
 
-    @POST("albums")
-    fun postAlbum(@Body params: AlbumCreate): Call<AlbumCreated>
-
-    @POST("/albums/{id_album}/tracks")
-    fun postAssociateTrackAlbum( @Body params: TrackAsociate, @Path("id_album") idAlbum: Long?): Call<Track>
-
-    @GET("/albums/{album_id}")
-    fun getAlbumDetail(@Path("album_id") album_id: Int): Call<Album>
+    @GET("/collectors/{id_collector}/performers")
+    suspend fun getAllPerformersCollector(@Path("id_collector") idCollector: Int): List<Performer>
 }
