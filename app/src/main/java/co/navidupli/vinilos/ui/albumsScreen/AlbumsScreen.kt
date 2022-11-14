@@ -74,6 +74,7 @@ fun ListWithHeader(albums: List<Album>, navController: NavHostController) {
                 date = simpleDateFormat.format(date),
                 subtext = album.genre,
                 imageUrl = album.cover,
+                testTag = null,
                 onClick = {
                     navController.navigate(NavigationScreen.AlbumDetailScreen.route+"/${album.id}")
                 }

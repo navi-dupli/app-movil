@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -39,13 +40,15 @@ fun ArtistsScreen(
 @Composable
 fun ListWithHeader(performers: List<Performer>) {
     LazyColumn(
-        modifier=Modifier.padding(bottom = 60.dp).testTag("listPerformers")
+        modifier = Modifier
+            .padding(bottom = 60.dp)
+            .testTag("listPerformers")
     ) {
 
         stickyHeader {
 
             Text(
-                text =  stringResource(R.string.performers),
+                text = stringResource(R.string.artistas),
                 style = MaterialTheme.typography.h6,
                 color = MaterialTheme.colors.primary,
                 maxLines = 1,
@@ -54,25 +57,27 @@ fun ListWithHeader(performers: List<Performer>) {
                 modifier = Modifier
                     .wrapContentHeight()
                     .heightIn(min = 56.dp)
-                    .background(color = MaterialTheme.colors.background )
+                    .background(color = MaterialTheme.colors.background)
                     .fillMaxSize()
-                    .padding( vertical = 4.dp)
+                    .padding(vertical = 4.dp)
                     .testTag("titlePerformer")
 
             )
         }
 
-        items(performers) { performer ->
-            val date: String = if (performer.birthDate != null) performer.birthDate else performer.creationDate
+        itemsIndexed(performers) { index,performer ->
+            val date: String =
+                if (performer.birthDate != null) performer.birthDate else performer.creationDate
             val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             val parseDate: Date = format.parse(date) as Date
-            val simpleDateFormat =SimpleDateFormat("yyyy")
+            val simpleDateFormat = SimpleDateFormat("yyyy")
             val dateFormatted = simpleDateFormat.format(parseDate)
             ComponentCard(
                 tittle = performer.name,
                 date = dateFormatted,
                 subtext = "",
                 imageUrl = performer.image,
+                testTag = "artistItem_$index",
                 onClick = { }
             )
         }
