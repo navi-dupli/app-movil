@@ -18,18 +18,27 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
 @Composable
-fun ComponentCard(tittle: String, date: String?, subtext:String?, imageUrl:String?, onClick:()-> Unit) {
+fun ComponentCard(
+    tittle: String,
+    date: String?,
+    subtext: String?,
+    imageUrl: String?,
+    onClick: () -> Unit,
+    testTag: String?
+) {
     Card(
         modifier = Modifier
+            .testTag(testTag!!)
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable{ onClick() },
+            .clickable { onClick() },
+
         elevation = 10.dp,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-        ){
-            if(imageUrl!=null) {
+        ) {
+            if (imageUrl != null) {
                 Column(
                     modifier = Modifier.padding(5.dp),
                     horizontalAlignment = Alignment.Start,
@@ -45,7 +54,9 @@ fun ComponentCard(tittle: String, date: String?, subtext:String?, imageUrl:Strin
                 }
             }
             Column(
-                modifier = Modifier.padding(5.dp).fillMaxSize(),
+                modifier = Modifier
+                    .padding(5.dp)
+                    .fillMaxSize(),
                 horizontalAlignment = Alignment.Start,
             ) {
                 Text(
@@ -59,7 +70,7 @@ fun ComponentCard(tittle: String, date: String?, subtext:String?, imageUrl:Strin
                         .testTag("tittleCard")
 
                 )
-                if(date!=null) {
+                if (date != null) {
                     Text(
                         text = date,
                         style = MaterialTheme.typography.h6,
@@ -73,7 +84,7 @@ fun ComponentCard(tittle: String, date: String?, subtext:String?, imageUrl:Strin
 
                     )
                 }
-                if(subtext!=null) {
+                if (subtext != null) {
                     Text(
                         text = subtext,
                         style = MaterialTheme.typography.h6,
