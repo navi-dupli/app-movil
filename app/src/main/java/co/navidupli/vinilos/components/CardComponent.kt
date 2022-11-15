@@ -23,14 +23,15 @@ fun ComponentCard(
     date: String?,
     subtext: String?,
     imageUrl: String?,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    testTag: String?
 ) {
     Card(
         modifier = Modifier
+            .testTag(testTag!!)
             .fillMaxWidth()
             .padding(8.dp)
-            .testTag("card")
-            .clickable { onClick() },
+            .clickable{ onClick() },
         elevation = 10.dp,
     ) {
         Row(

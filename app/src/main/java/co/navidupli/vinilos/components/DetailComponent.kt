@@ -48,7 +48,7 @@ fun DetailComponent(
 
         year?.let {
             val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            val date: Date = format.parse(it)
+            val date: Date = format.parse(it) as Date
             val simpleDateFormat = SimpleDateFormat("yyyy")
             Text(
                 text = "(${simpleDateFormat.format(date)})",
