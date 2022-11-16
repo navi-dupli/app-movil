@@ -1,4 +1,4 @@
-package co.navidupli.vinilos.viewModel
+package co.navidupli.vinilos.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

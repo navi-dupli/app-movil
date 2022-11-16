@@ -1,4 +1,4 @@
-package co.navidupli.vinilos.ui.albumDetailScreen
+package co.navidupli.vinilos.ui.screens
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -20,7 +20,7 @@ import androidx.navigation.NavController
 import co.navidupli.vinilos.components.ComponentCard
 import co.navidupli.vinilos.components.DetailComponent
 import co.navidupli.vinilos.model.Album
-import co.navidupli.vinilos.viewModel.DetailAlbumViewModel
+import co.navidupli.vinilos.viewmodel.DetailAlbumViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -60,10 +60,10 @@ fun AlbumDetailScreen(
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        var dateFormatted = ""
-        var format: SimpleDateFormat? = null
-        var date: Date? = null
-        var simpleDateFormat: SimpleDateFormat? = null
+        var dateFormatted: String
+        var format: SimpleDateFormat?
+        var date: Date?
+        var simpleDateFormat: SimpleDateFormat?
 
         album?.performers?.forEach { performer ->
 

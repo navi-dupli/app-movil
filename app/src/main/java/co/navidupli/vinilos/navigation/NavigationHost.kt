@@ -9,13 +9,13 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
-import co.navidupli.vinilos.ui.ProfileScreen.ProfileScreen
-import co.navidupli.vinilos.ui.albumDetailScreen.AlbumDetailScreen
-import co.navidupli.vinilos.ui.albumsScreen.AlbumsScreen
-import co.navidupli.vinilos.ui.artistsScreen.ArtistsScreen
-import co.navidupli.vinilos.ui.associateTracksScreen.AssociateTracksScreen
-import co.navidupli.vinilos.ui.collectorsScreen.CollectorsScreen
-import co.navidupli.vinilos.ui.createAlbumScreen.CreateAlbumScreen
+import co.navidupli.vinilos.ui.screens.ProfileScreen
+import co.navidupli.vinilos.ui.screens.AlbumDetailScreen
+import co.navidupli.vinilos.ui.screens.AlbumsScreen
+import co.navidupli.vinilos.ui.screens.ArtistsScreen
+import co.navidupli.vinilos.ui.screens.AssociateTracksScreen
+import co.navidupli.vinilos.ui.screens.CollectorsScreen
+import co.navidupli.vinilos.ui.screens.CreateAlbumScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable

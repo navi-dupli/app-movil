@@ -1,4 +1,4 @@
-package co.navidupli.vinilos.ui.createAlbumScreen
+package co.navidupli.vinilos.ui.screens
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -21,10 +21,9 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import co.navidupli.vinilos.viewModel.CreateAlbumViewModel
+import co.navidupli.vinilos.viewmodel.CreateAlbumViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.*
@@ -44,7 +43,7 @@ fun CreateAlbumScreen() {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Title()
+        Title(text = "Crear Álbum", testTag = "titleCreateAlbum")
         Space(15)
 
         AlbumName(createAlbumViewModel)
@@ -71,24 +70,9 @@ fun CreateAlbumScreen() {
 
 }
 
-@Composable
-fun Title() {
-    Text(
-        text = "Crear Álbum",
-        fontSize = 30.sp,
-        style = MaterialTheme.typography.h6,
-        color = MaterialTheme.colors.primary,
-        modifier = Modifier.testTag("titleCreateAlbum")
-    )
-}
 
 @Composable
-fun Space(size: Int) {
-    Spacer(modifier = Modifier.height(size.dp))
-}
-
-@Composable
-fun AlbumName(viewModel: CreateAlbumViewModel) {
+private fun AlbumName(viewModel: CreateAlbumViewModel) {
     val albumName: String by viewModel.nameAlbum.observeAsState(initial = "")
     TextField(
         label = { Text(text = "Nombre") },
@@ -100,7 +84,7 @@ fun AlbumName(viewModel: CreateAlbumViewModel) {
 }
 
 @Composable
-fun AlbumCover(viewModel: CreateAlbumViewModel) {
+private fun AlbumCover(viewModel: CreateAlbumViewModel) {
     val albumCover: String by viewModel.coverAlbum.observeAsState(initial = "")
     TextField(
         label = { Text(text = "Cover") },
@@ -113,7 +97,7 @@ fun AlbumCover(viewModel: CreateAlbumViewModel) {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
+private fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
     val c = getInstance()
     var year = c.get(YEAR)
     var month = c.get(MONTH)
@@ -121,13 +105,13 @@ fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
 
     val albumDate: String by viewModel.dateReleaseAlbum.observeAsState(initial = "")
     if (albumDate != "") {
-        val sdf =  SimpleDateFormat("MM/dd/yyyy")
-        val date: Date = sdf.parse(albumDate)
+        val sdf =  SimpleDateFormat("MM/dd/yyyy",Locale.getDefault(Locale.Category.FORMAT))
+        val date: Date = sdf.parse(albumDate) as Date
         val cal = getInstance()
         cal.time = date
-        year = cal.get(Calendar.YEAR)
-        month = cal.get(Calendar.MONTH)
-        day = cal.get(Calendar.DAY_OF_MONTH)
+        year = cal.get(YEAR)
+        month = cal.get(MONTH)
+        day = cal.get(DAY_OF_MONTH)
     } else {
         viewModel.setDateReleaseAlbum("${month + 1}/$day/$year")
     }
@@ -153,7 +137,7 @@ fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
 }
 
 @Composable
-fun AlbumDesc(viewModel: CreateAlbumViewModel) {
+private fun AlbumDesc(viewModel: CreateAlbumViewModel) {
     val albumDesc: String by viewModel.descriptionAlbum.observeAsState(initial = "")
     TextField(
         label = { Text(text = "Descripción") },
@@ -165,7 +149,7 @@ fun AlbumDesc(viewModel: CreateAlbumViewModel) {
 }
 
 @Composable
-fun AlbumGenre(viewModel: CreateAlbumViewModel) {
+private fun AlbumGenre(viewModel: CreateAlbumViewModel) {
     val options = listOf("Classical", "Salsa", "Rock", "Folk")
     val genreAlbum: String by viewModel.genreAlbum.observeAsState(initial = "")
     DropDownList(options = options, "Género", genreAlbum, "selectAlbumGenre") {
@@ -174,7 +158,7 @@ fun AlbumGenre(viewModel: CreateAlbumViewModel) {
 }
 
 @Composable
-fun AlbumRecordLabel(viewModel: CreateAlbumViewModel) {
+private fun AlbumRecordLabel(viewModel: CreateAlbumViewModel) {
     val options = listOf("Sony Music", "EMI", "Discos Fuentes", "Elektra", "Fania Records")
     val albumRecord: String by viewModel.recordLabelAlbum.observeAsState(initial = "")
     DropDownList(options = options, "Sello discografíco", albumRecord, "selectAlbumRecordLabel") {
@@ -184,7 +168,7 @@ fun AlbumRecordLabel(viewModel: CreateAlbumViewModel) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun DropDownList(options: List<String>, text: String, value: String, testTag: String, setValue: (String) -> Unit) {
+private fun DropDownList(options: List<String>, text: String, value: String, testTag: String, setValue: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
 
 
@@ -237,7 +221,7 @@ fun DropDownList(options: List<String>, text: String, value: String, testTag: St
 }
 
 @Composable
-fun SaveButton(viewModel: CreateAlbumViewModel, context: Context) {
+private fun SaveButton(viewModel: CreateAlbumViewModel, context: Context) {
     val lifeCycle = LocalLifecycleOwner.current
     val loadCreate: Boolean by viewModel.loadCreateAlbum.observeAsState(initial = true)
 
@@ -263,7 +247,7 @@ fun SaveButton(viewModel: CreateAlbumViewModel, context: Context) {
 
 
 @Composable
-fun showToast(lifeCycle: LifecycleOwner, viewModel: CreateAlbumViewModel, context: Context) {
+private fun showToast(lifeCycle: LifecycleOwner, viewModel: CreateAlbumViewModel, context: Context) {
 
     viewModel.statusCreateAlbum.observe(lifeCycle, Observer { status ->
         status?.let {
