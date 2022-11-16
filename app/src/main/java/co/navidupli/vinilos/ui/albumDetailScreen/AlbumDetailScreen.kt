@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import co.navidupli.vinilos.viewModel.DetailAlbumViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.testTag
 import androidx.navigation.NavController
 import co.navidupli.vinilos.components.ComponentCard
 import co.navidupli.vinilos.components.DetailComponent
@@ -39,9 +40,11 @@ fun AlbumDetailScreen(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        IconButton( modifier = Modifier.align(alignment = Alignment.Start),
+        IconButton(modifier = Modifier
+            .align(alignment = Alignment.Start)
+            .testTag("goBack"),
             onClick = { navController.popBackStack() }) {
-            Icon(Icons.Filled.ArrowBack, contentDescription = "Localized description")
+            Icon(Icons.Filled.ArrowBack, contentDescription = "")
         }
         DetailComponent(
             imageUrl = album?.cover,
@@ -59,7 +62,7 @@ fun AlbumDetailScreen(
             if (performer.birthDate != null) {
                 val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                 val date: Date = format.parse(performer.birthDate)
-                val simpleDateFormat =SimpleDateFormat("yyyy")
+                val simpleDateFormat = SimpleDateFormat("yyyy")
                 dateFormatted = simpleDateFormat.format(date)
             }
             ComponentCard(

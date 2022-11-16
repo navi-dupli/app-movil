@@ -31,8 +31,7 @@ fun ComponentCard(
             .testTag(testTag!!)
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onClick() },
-
+            .clickable{ onClick() },
         elevation = 10.dp,
     ) {
         Row(

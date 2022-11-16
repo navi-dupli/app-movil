@@ -26,7 +26,9 @@ fun DetailComponent(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier
+            .testTag("detailComponent")
     ) {
         imageUrl?.let {
             Image(
@@ -34,13 +36,14 @@ fun DetailComponent(
                 contentDescription = "",
                 modifier = Modifier
                     .size(150.dp)
-                    .testTag("imageCard")
+                    .testTag("imageDetail")
 
             )
         }
 
         name?.let {
-            Text(text = it, fontSize = 28.sp)
+            Text(text = it, fontSize = 28.sp, modifier = Modifier
+                .testTag("nameDetail"))
         }
 
         year?.let {
