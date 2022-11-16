@@ -1,4 +1,5 @@
 package co.navidupli.vinilos.ui.albumsScreen
+
 import java.text.SimpleDateFormat
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -42,13 +43,15 @@ fun AlbumsScreen(
 @Composable
 fun ListWithHeader(albums: List<Album>, navController: NavHostController) {
     LazyColumn(
-        modifier=Modifier.padding(bottom = 60.dp).testTag("listAlbums")
+        modifier = Modifier
+            .padding(bottom = 60.dp)
+            .testTag("listAlbums")
     ) {
 
         stickyHeader {
 
             Text(
-                text =  stringResource(R.string.albumes),
+                text = stringResource(R.string.albumes),
                 style = MaterialTheme.typography.h6,
                 color = MaterialTheme.colors.primary,
                 maxLines = 1,
@@ -57,9 +60,9 @@ fun ListWithHeader(albums: List<Album>, navController: NavHostController) {
                 modifier = Modifier
                     .wrapContentHeight()
                     .heightIn(min = 56.dp)
-                    .background(color = MaterialTheme.colors.background )
+                    .background(color = MaterialTheme.colors.background)
                     .fillMaxSize()
-                    .padding( vertical = 4.dp)
+                    .padding(vertical = 4.dp)
                     .testTag("titleAlbum")
 
             )
@@ -68,7 +71,7 @@ fun ListWithHeader(albums: List<Album>, navController: NavHostController) {
         items(albums) { album ->
             val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             val date: Date = format.parse(album.releaseDate)
-            val simpleDateFormat =SimpleDateFormat("yyyy")
+            val simpleDateFormat = SimpleDateFormat("yyyy")
             ComponentCard(
                 tittle = album.name,
                 date = simpleDateFormat.format(date),
@@ -76,7 +79,7 @@ fun ListWithHeader(albums: List<Album>, navController: NavHostController) {
                 imageUrl = album.cover,
                 testTag = null,
                 onClick = {
-                    navController.navigate(NavigationScreen.AlbumDetailScreen.route+"/${album.id}")
+                    navController.navigate(NavigationScreen.AlbumDetailScreen.route + "/${album.id}")
                 }
             )
         }
