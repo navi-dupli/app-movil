@@ -2,7 +2,6 @@ package co.navidupli.vinilos.ui.associateTracksScreen
 
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -21,7 +20,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import co.navidupli.vinilos.model.Album
 import co.navidupli.vinilos.viewModel.AssociateTracksViewModel

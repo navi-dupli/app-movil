@@ -3,13 +3,13 @@ package co.navidupli.vinilos.bottombar
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.Color
 import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import co.navidupli.vinilos.navigation.NavigationScreen
@@ -33,7 +33,7 @@ fun BottomBar(navController: NavController, type: Int?) {
     BottomNavigation(
         elevation = 5.dp,
     ) {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val navBackStackEntry: NavBackStackEntry? = navController.currentBackStackEntryAsState().value
         val currentRoute = navBackStackEntry?.destination?.route
         items.map {
             BottomNavigationItem(

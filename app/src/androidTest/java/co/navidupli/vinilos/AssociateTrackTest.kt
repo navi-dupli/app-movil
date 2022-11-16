@@ -2,10 +2,6 @@ package co.navidupli.vinilos
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.navigation.testing.TestNavHostController
-import androidx.test.core.app.ApplicationProvider
-import co.navidupli.vinilos.model.AlbumCreate
-import co.navidupli.vinilos.navigation.NavigationHost
 import co.navidupli.vinilos.navigation.NavigationRoot
 import co.navidupli.vinilos.navigation.NavigationScreen
 import org.junit.Before

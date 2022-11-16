@@ -1,5 +1,7 @@
 package co.navidupli.vinilos.ui.albumDetailScreen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -8,20 +10,21 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import co.navidupli.vinilos.viewModel.DetailAlbumViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import co.navidupli.vinilos.components.ComponentCard
 import co.navidupli.vinilos.components.DetailComponent
 import co.navidupli.vinilos.model.Album
+import co.navidupli.vinilos.viewModel.DetailAlbumViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun AlbumDetailScreen(
     viewModel: DetailAlbumViewModel = viewModel(),
@@ -57,14 +60,20 @@ fun AlbumDetailScreen(
 
         Spacer(modifier = Modifier.height(15.dp))
 
+        var dateFormatted = ""
+        var format: SimpleDateFormat? = null
+        var date: Date? = null
+        var simpleDateFormat: SimpleDateFormat? = null
+
         album?.performers?.forEach { performer ->
-            var dateFormatted = ""
-            if (performer.birthDate != null) {
-                val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                val date: Date = format.parse(performer.birthDate)
-                val simpleDateFormat = SimpleDateFormat("yyyy")
-                dateFormatted = simpleDateFormat.format(date)
-            }
+
+            format = SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+                Locale.getDefault(Locale.Category.FORMAT)
+            )
+            date = format!!.parse("" + performer.birthDate)
+            simpleDateFormat = SimpleDateFormat("yyyy", Locale.US)
+            dateFormatted = simpleDateFormat!!.format(date!!)
             ComponentCard(
                 tittle = performer.name,
                 date = dateFormatted,

@@ -28,7 +28,7 @@ fun ComponentCard(
 ) {
     Card(
         modifier = Modifier
-            .testTag(testTag!!)
+            .testTag(testTag ?: "")
             .fillMaxWidth()
             .padding(8.dp)
             .clickable{ onClick() },

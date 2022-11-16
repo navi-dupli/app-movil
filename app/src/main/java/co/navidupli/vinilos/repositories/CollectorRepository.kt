@@ -2,7 +2,8 @@ package co.navidupli.vinilos.repositories
 
 import co.navidupli.vinilos.broker.CollectorApiService
 import co.navidupli.vinilos.broker.RetrofitClient
-import co.navidupli.vinilos.model.*
+import co.navidupli.vinilos.model.Collector
+import co.navidupli.vinilos.model.Performer
 
 class CollectorRepository {
     companion object {

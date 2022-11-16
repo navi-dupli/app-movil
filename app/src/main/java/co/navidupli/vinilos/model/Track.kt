@@ -1,6 +1,5 @@
 package co.navidupli.vinilos.model
 
-import androidx.lifecycle.LiveData
 import kotlinx.serialization.Serializable
 
 @Serializable

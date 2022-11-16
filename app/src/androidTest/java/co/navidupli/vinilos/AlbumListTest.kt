@@ -3,11 +3,9 @@ package co.navidupli.vinilos
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import co.navidupli.vinilos.navigation.NavigationRoot
-
-import org.junit.Test
-
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import java.util.*
 import kotlin.concurrent.schedule
 

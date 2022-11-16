@@ -3,17 +3,17 @@ package co.navidupli.vinilos.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import java.text.SimpleDateFormat
-import java.util.*
-import androidx.compose.material.Text
 import androidx.compose.ui.unit.sp
 import co.navidupli.vinilos.ui.theme.LightOcean
 import co.navidupli.vinilos.ui.theme.LightPink
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Composable
 fun DetailComponent(

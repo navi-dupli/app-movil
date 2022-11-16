@@ -1,30 +1,34 @@
 package co.navidupli.vinilos.ui.albumsScreen
 
-import java.text.SimpleDateFormat
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import co.navidupli.vinilos.components.ComponentCard
-import co.navidupli.vinilos.viewModel.ListAlbumsViewModel
-import java.util.*
 import androidx.lifecycle.viewmodel.compose.viewModel
-import co.navidupli.vinilos.model.Album
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import co.navidupli.vinilos.R
+import co.navidupli.vinilos.components.ComponentCard
+import co.navidupli.vinilos.model.Album
 import co.navidupli.vinilos.navigation.NavigationScreen
+import co.navidupli.vinilos.viewModel.ListAlbumsViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @RequiresApi(Build.VERSION_CODES.N)

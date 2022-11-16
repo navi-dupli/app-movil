@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.navidupli.vinilos.model.Album
-import co.navidupli.vinilos.model.Track
 import co.navidupli.vinilos.model.TrackAsociate
 import co.navidupli.vinilos.repositories.AlbumRepository
 import kotlinx.coroutines.launch
