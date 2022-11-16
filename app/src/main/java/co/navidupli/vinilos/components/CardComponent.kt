@@ -10,12 +10,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
+import com.bumptech.glide.request.RequestOptions
+import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun ComponentCard(
@@ -42,14 +48,22 @@ fun ComponentCard(
                     modifier = Modifier.padding(5.dp),
                     horizontalAlignment = Alignment.Start,
                 ) {
-                    Image(
-                        imageUrl = imageUrl,
-                        contentDescription = tittle,
+
+                    GlideImage(
+                        imageModel = imageUrl,
+                        requestBuilder = Glide
+                            .with(LocalView.current)
+                            .asBitmap()
+                            .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
+                            .thumbnail(0.1f)
+                            .transition(withCrossFade()),
+                        contentScale = ContentScale.Crop,
+                        alignment = Alignment.Center,
                         modifier = Modifier
                             .size(90.dp)
-                            .testTag("imageCard")
-
+                            .testTag("imageCard").aspectRatio(0.9f)
                     )
+
                 }
             }
             Column(

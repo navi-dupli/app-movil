@@ -15,7 +15,7 @@ class RetrofitClient{
         fun createRetrofitClient(): Retrofit {
 
             var mHttpLoggingInterceptor = HttpLoggingInterceptor()
-                .setLevel(HttpLoggingInterceptor.Level.BODY)
+                .setLevel(HttpLoggingInterceptor.Level.BASIC)
 
             val mOkHttpClient = OkHttpClient
                 .Builder()

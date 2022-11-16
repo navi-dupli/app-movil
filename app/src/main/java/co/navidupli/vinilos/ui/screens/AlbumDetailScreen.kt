@@ -21,6 +21,7 @@ import co.navidupli.vinilos.components.ComponentCard
 import co.navidupli.vinilos.components.DetailComponent
 import co.navidupli.vinilos.model.Album
 import co.navidupli.vinilos.viewmodel.DetailAlbumViewModel
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -67,13 +68,18 @@ fun AlbumDetailScreen(
 
         album?.performers?.forEach { performer ->
 
-            format = SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-                Locale.getDefault(Locale.Category.FORMAT)
-            )
-            date = format!!.parse("" + performer.birthDate)
-            simpleDateFormat = SimpleDateFormat("yyyy", Locale.US)
-            dateFormatted = simpleDateFormat!!.format(date!!)
+            try {
+                format = SimpleDateFormat(
+                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+                    Locale.getDefault(Locale.Category.FORMAT)
+                )
+                date = format!!.parse( performer?.birthDate ?:"")
+                simpleDateFormat = SimpleDateFormat("yyyy", Locale.US)
+                dateFormatted = simpleDateFormat!!.format(date!!)
+            }catch (ex: ParseException){
+                dateFormatted=""
+            }
+
             ComponentCard(
                 tittle = performer.name,
                 date = dateFormatted,
