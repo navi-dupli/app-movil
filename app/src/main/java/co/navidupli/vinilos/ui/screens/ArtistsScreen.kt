@@ -76,11 +76,10 @@ fun ListWithHeader(performers: List<Performer>) {
             print(performer)
             fecha = if (performer.birthDate!=null) performer.birthDate else performer.creationDate
             format = SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-                Locale.getDefault(Locale.Category.FORMAT)
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
             )
             date = format!!.parse(  fecha)
-            simpleDateFormat = SimpleDateFormat("yyyy", Locale.US)
+            simpleDateFormat = SimpleDateFormat("yyyy")
             dateFormatted = simpleDateFormat!!.format(date!!)
 
             ComponentCard(

@@ -79,11 +79,10 @@ private fun ListWithHeader(albums: List<Album>, navController: NavHostController
         items(albums) { album ->
 
             format = SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-                Locale.getDefault(Locale.Category.FORMAT)
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
             )
             date = format!!.parse("" + album.releaseDate)
-            simpleDateFormat = SimpleDateFormat("yyyy", Locale.US)
+            simpleDateFormat = SimpleDateFormat("yyyy")
             dateFormatted = simpleDateFormat!!.format(date!!)
 
             ComponentCard(

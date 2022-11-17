@@ -70,11 +70,10 @@ fun AlbumDetailScreen(
 
             try {
                 format = SimpleDateFormat(
-                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-                    Locale.getDefault(Locale.Category.FORMAT)
+                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
                 )
                 date = format!!.parse( performer?.birthDate ?:"")
-                simpleDateFormat = SimpleDateFormat("yyyy", Locale.US)
+                simpleDateFormat = SimpleDateFormat("yyyy")
                 dateFormatted = simpleDateFormat!!.format(date!!)
             }catch (ex: ParseException){
                 dateFormatted=""

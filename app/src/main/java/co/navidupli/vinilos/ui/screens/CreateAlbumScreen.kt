@@ -105,7 +105,7 @@ private fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) 
 
     val albumDate: String by viewModel.dateReleaseAlbum.observeAsState(initial = "")
     if (albumDate != "") {
-        val sdf =  SimpleDateFormat("MM/dd/yyyy",Locale.getDefault(Locale.Category.FORMAT))
+        val sdf =  SimpleDateFormat("MM/dd/yyyy")
         val date: Date = sdf.parse(albumDate) as Date
         val cal = getInstance()
         cal.time = date
