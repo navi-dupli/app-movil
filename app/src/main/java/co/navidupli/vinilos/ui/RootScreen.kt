@@ -1,4 +1,4 @@
-package co.navidupli.vinilos.ui.theme
+package co.navidupli.vinilos.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

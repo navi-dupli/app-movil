@@ -12,11 +12,8 @@ import kotlin.concurrent.schedule
 
 
 class AssociateTrackTest {
-    val album = "Poeta del pueblo"
-
-    //val album = "Juana la cubana"
-    val name = "Mi cancion favorita"
-    val trackDuration = "00:23"
+    private val name = "Mi cancion favorita"
+    private val trackDuration = "00:23"
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()

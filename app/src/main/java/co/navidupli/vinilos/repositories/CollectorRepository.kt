@@ -11,15 +11,15 @@ class CollectorRepository {
             RetrofitClient.createRetrofitClient().create(CollectorApiService::class.java)
 
 
-        var collectors: List<Collector> = listOf()
-        var performersCollector: List<Performer> = listOf()
+        private var collectors: List<Collector> = listOf()
+        private var performersCollector: List<Performer> = listOf()
 
         suspend fun getCollectors(): List<Collector> {
             collectors = collectorWebApi.getCollectors()
             return collectors
         }
 
-        suspend fun getPerformersCollector(idCollector : Int): List<Performer> {
+        suspend fun getPerformersCollector(idCollector: Int): List<Performer> {
             performersCollector = collectorWebApi.getAllPerformersCollector(idCollector)
             return performersCollector
         }

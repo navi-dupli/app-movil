@@ -31,7 +31,7 @@ class AlbumDetailTest {
         composeTestRule.onNodeWithTag("goBack").performClick()
     }
 
-    fun asyncTimer(delay: Long = 20000) {
+    private fun asyncTimer(delay: Long = 20000) {
         AsyncTimer.start(delay)
         composeTestRule.waitUntil(
             condition = { AsyncTimer.expired },

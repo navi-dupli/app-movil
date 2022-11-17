@@ -17,7 +17,6 @@ import co.navidupli.vinilos.ui.screens.AssociateTracksScreen
 import co.navidupli.vinilos.ui.screens.CollectorsScreen
 import co.navidupli.vinilos.ui.screens.CreateAlbumScreen
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NavigationHost(
     navController: NavController,
@@ -41,7 +40,7 @@ fun NavigationHost(
                 }),
         ) { AlbumDetailScreen(albumId = it.arguments?.getInt("album_id"), navController = navController) }
         composable(NavigationScreen.ProfileScreen.route) {
-            ProfileScreen() {
+            ProfileScreen {
                 logout()
             }
         }

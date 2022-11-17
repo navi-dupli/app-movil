@@ -13,7 +13,7 @@ class AlbumRepository {
             RetrofitClient.createRetrofitClient().create(AlbumApiService::class.java)
 
 
-        var albums: List<Album> = listOf()
+       private  var albums: List<Album> = listOf()
 
         suspend fun getAlbums(): List<Album> {
             albums=albumWebApi.getAlbums()

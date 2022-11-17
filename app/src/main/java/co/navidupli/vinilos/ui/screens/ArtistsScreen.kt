@@ -33,10 +33,11 @@ import java.util.*
 fun ArtistsScreen(
     viewModel: ListPerformerViewModel = viewModel(),
 ) {
-    val performers: List<Performer> = viewModel.performers.observeAsState(listOf<Performer>()).value
+    val performers: List<Performer> = viewModel.performers.observeAsState(listOf()).value
     ListWithHeader(performers)
 }
 
+@Suppress("OPT_IN_IS_NOT_ENABLED")
 @RequiresApi(Build.VERSION_CODES.N)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -74,12 +75,12 @@ fun ListWithHeader(performers: List<Performer>) {
         var fecha:String
         itemsIndexed(performers) { index,performer ->
             print(performer)
-            fecha = if (performer.birthDate!=null) performer.birthDate else performer.creationDate
+            fecha = performer.birthDate ?: performer.creationDate
             format = SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.US
             )
             date = format!!.parse(  fecha)
-            simpleDateFormat = SimpleDateFormat("yyyy")
+            simpleDateFormat = SimpleDateFormat("yyyy",Locale.US)
             dateFormatted = simpleDateFormat!!.format(date!!)
 
             ComponentCard(

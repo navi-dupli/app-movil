@@ -14,7 +14,7 @@ class AssociateTracksViewModel : ViewModel() {
     val albumSelected: LiveData<Album> = _albumSelected
     private val _duration = MutableLiveData<String>()
     val duration: LiveData<String> = _duration
-    private val _name = MutableLiveData<String>("")
+    private val _name = MutableLiveData("")
     val name: LiveData<String> = _name
     private val _statusAssociate = MutableLiveData<Boolean>()
     val statusAssociate: LiveData<Boolean> = _statusAssociate
@@ -76,7 +76,7 @@ class AssociateTracksViewModel : ViewModel() {
 
 
 
-    fun clearState() {
+    private fun clearState() {
         _albumSelected.value = null
         _duration.value = ""
         _name.value = ""

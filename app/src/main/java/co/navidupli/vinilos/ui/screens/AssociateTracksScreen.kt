@@ -20,7 +20,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import co.navidupli.vinilos.model.Album
 import co.navidupli.vinilos.viewmodel.AssociateTracksViewModel
 
@@ -91,6 +90,7 @@ private fun AlbumSelect(viewModel: AssociateTracksViewModel) {
 }
 
 
+@Suppress("OPT_IN_IS_NOT_ENABLED")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun DropDownList(
@@ -145,7 +145,7 @@ private fun DropDownList(
                             expanded = false
                         },
                         modifier = Modifier
-                            .testTag("albumItem_" + index)
+                            .testTag("albumItem_$index")
                     ) {
                         Text(text = selectionOption.name)
                     }
@@ -179,7 +179,7 @@ private fun SaveButton(viewModel: AssociateTracksViewModel, context: Context) {
         Text(text = "Guardar")
     }
 
-    showToast(lifeCycle, viewModel, context)
+    ShowToast(lifeCycle, viewModel, context)
 }
 
 private fun validateFields(viewModel: AssociateTracksViewModel, context: Context): Boolean {
@@ -203,13 +203,13 @@ private fun validateFields(viewModel: AssociateTracksViewModel, context: Context
 }
 
 @Composable
-private fun showToast(
+private fun ShowToast(
     lifeCycle: LifecycleOwner,
     viewModel: AssociateTracksViewModel,
     context: Context
 ) {
 
-    viewModel.statusAssociate.observe(lifeCycle, Observer { status ->
+    viewModel.statusAssociate.observe(lifeCycle) { status ->
         status?.let {
             viewModel.setStatusAssociateTrackAlbum()
             if (it) {
@@ -219,5 +219,5 @@ private fun showToast(
                     .show()
             }
         }
-    })
+    }
 }

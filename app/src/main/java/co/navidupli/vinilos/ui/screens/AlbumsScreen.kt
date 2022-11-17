@@ -1,3 +1,5 @@
+@file:Suppress("OPT_IN_IS_NOT_ENABLED")
+
 package co.navidupli.vinilos.ui.screens
 
 import android.os.Build
@@ -37,7 +39,7 @@ fun AlbumsScreen(
     viewModel: ListAlbumsViewModel = viewModel(),
     navController: NavHostController
 ) {
-    val albums: List<Album> = viewModel.albums.observeAsState(listOf<Album>()).value
+    val albums: List<Album> = viewModel.albums.observeAsState(listOf()).value
     ListWithHeader(albums, navController)
 }
 
@@ -77,12 +79,12 @@ private fun ListWithHeader(albums: List<Album>, navController: NavHostController
         var simpleDateFormat: SimpleDateFormat?
 
         items(albums) { album ->
-
             format = SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+                Locale.US
             )
             date = format!!.parse("" + album.releaseDate)
-            simpleDateFormat = SimpleDateFormat("yyyy")
+            simpleDateFormat = SimpleDateFormat("yyyy",Locale.US)
             dateFormatted = simpleDateFormat!!.format(date!!)
 
             ComponentCard(

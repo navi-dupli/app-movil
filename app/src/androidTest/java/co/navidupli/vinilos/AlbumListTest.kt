@@ -36,7 +36,7 @@ class AlbumListTest {
         composeTestRule.onAllNodesWithTag("imageCard", true).onFirst().assertIsDisplayed()
     }
 
-    fun asyncTimer (delay: Long = 20000) {
+    private fun asyncTimer (delay: Long = 20000) {
         AsyncTimer.start (delay)
         composeTestRule.waitUntil (
             condition = {AsyncTimer.expired},

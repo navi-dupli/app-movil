@@ -78,7 +78,7 @@ class CreateAlbumViewModel : ViewModel() {
         _statusCreateAlbum.value = null
     }
 
-    fun clearState() {
+    private fun clearState() {
         _nameAlbum.value = ""
         _descriptionAlbum.value = ""
         _genreAlbum.value = ""

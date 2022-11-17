@@ -22,13 +22,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import co.navidupli.vinilos.viewmodel.CreateAlbumViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.*
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showSystemUi = true)
 @Composable
 fun CreateAlbumScreen() {
@@ -95,25 +93,24 @@ private fun AlbumCover(viewModel: CreateAlbumViewModel) {
     )
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) {
     val c = getInstance()
-    var year = c.get(YEAR)
-    var month = c.get(MONTH)
-    var day = c.get(DAY_OF_MONTH)
+    var year1 = c.get(YEAR)
+    var month1 = c.get(MONTH)
+    var day1 = c.get(DAY_OF_MONTH)
 
     val albumDate: String by viewModel.dateReleaseAlbum.observeAsState(initial = "")
     if (albumDate != "") {
-        val sdf =  SimpleDateFormat("MM/dd/yyyy")
+        val sdf =  SimpleDateFormat("MM/dd/yyyy",Locale.US)
         val date: Date = sdf.parse(albumDate) as Date
         val cal = getInstance()
         cal.time = date
-        year = cal.get(YEAR)
-        month = cal.get(MONTH)
-        day = cal.get(DAY_OF_MONTH)
+        year1 = cal.get(YEAR)
+        month1 = cal.get(MONTH)
+        day1 = cal.get(DAY_OF_MONTH)
     } else {
-        viewModel.setDateReleaseAlbum("${month + 1}/$day/$year")
+        viewModel.setDateReleaseAlbum("${month1 + 1}/$day1/$year1")
     }
 
     val datePickerDialog = DatePickerDialog(
@@ -121,7 +118,7 @@ private fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) 
                    year: Int, month: Int, dayOfMonth: Int ->
             viewModel.setDateReleaseAlbum("${month + 1}/$dayOfMonth/$year")
         },
-        year, month, day
+        year1, month1, day1
     )
 
     TextField(
@@ -166,6 +163,7 @@ private fun AlbumRecordLabel(viewModel: CreateAlbumViewModel) {
     }
 }
 
+@Suppress("OPT_IN_IS_NOT_ENABLED")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun DropDownList(options: List<String>, text: String, value: String, testTag: String, setValue: (String) -> Unit) {
@@ -242,14 +240,14 @@ private fun SaveButton(viewModel: CreateAlbumViewModel, context: Context) {
         Text(text = "Guardar")
     }
 
-    showToast(lifeCycle, viewModel, context)
+    ShowToast(lifeCycle, viewModel, context)
 }
 
 
 @Composable
-private fun showToast(lifeCycle: LifecycleOwner, viewModel: CreateAlbumViewModel, context: Context) {
+private fun ShowToast(lifeCycle: LifecycleOwner, viewModel: CreateAlbumViewModel, context: Context) {
 
-    viewModel.statusCreateAlbum.observe(lifeCycle, Observer { status ->
+    viewModel.statusCreateAlbum.observe(lifeCycle) { status ->
         status?.let {
             viewModel.setStatusCreateAlbum()
             if (it) {
@@ -258,5 +256,5 @@ private fun showToast(lifeCycle: LifecycleOwner, viewModel: CreateAlbumViewModel
                 Toast.makeText(context, "Error al crear el album", Toast.LENGTH_SHORT).show()
             }
         }
-    })
+    }
 }
