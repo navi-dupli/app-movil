@@ -25,7 +25,7 @@ class AlbumDetailTest {
         val button = composeTestRule.onNode(hasTestTag("visitante"), true)
         button.performClick()
         asyncTimer()
-        composeTestRule.onAllNodesWithTag("card").onFirst().performClick()
+        composeTestRule.onAllNodesWithTag("itemCard").onFirst().performClick()
         asyncTimer(10000)
         composeTestRule.onNodeWithTag("detailComponent").assertIsDisplayed()
         composeTestRule.onNodeWithTag("goBack").performClick()
