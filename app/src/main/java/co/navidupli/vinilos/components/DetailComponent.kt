@@ -6,21 +6,13 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import co.navidupli.vinilos.ui.theme.LightOcean
 import co.navidupli.vinilos.ui.theme.LightPink
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
-import com.bumptech.glide.request.RequestOptions
-import com.skydoves.landscapist.glide.GlideImage
 import java.text.SimpleDateFormat
 import java.util.*
-import co.navidupli.vinilos.R
 import androidx.compose.ui.Alignment
 
 @Composable
@@ -39,34 +31,14 @@ fun DetailComponent(
             .testTag("detailComponent")
     ) {
         imageUrl?.let {
-            GlideImage(
-                imageModel = it,
-                requestBuilder = Glide
-                    .with(LocalView.current)
-                    .asBitmap()
-                    .apply(
-                        RequestOptions()
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .error(R.drawable.noimage)
-                    )
-                    .thumbnail(0.1f)
-                    .error(R.drawable.noimage)
-                    .transition(BitmapTransitionOptions.withCrossFade()),
-                contentScale = ContentScale.Crop,
-                alignment = Alignment.Center,
-                modifier = Modifier
-                    .size(150.dp)
-                    .testTag("imageDetail")
-                    .aspectRatio(0.9f),
-                failure = {
-                    Text(
-                        modifier = Modifier
-                            .align(Alignment.CenterHorizontally)
-                            .fillMaxHeight(),
-                        text = "Sin imagen"
-                    )
-                }
-            )
+
+                CachedImage(
+                    imageModel = it, modifier = Modifier
+                        .size(150.dp)
+                        .testTag("imageDetail")
+                        .aspectRatio(0.9f)
+                )
+
         }
 
         name?.let {

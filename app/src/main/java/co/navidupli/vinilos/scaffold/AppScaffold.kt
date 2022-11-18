@@ -1,6 +1,5 @@
 package co.navidupli.vinilos.scaffold
 
-import android.os.Build
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable

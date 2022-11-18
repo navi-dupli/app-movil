@@ -2,23 +2,58 @@ package co.navidupli.vinilos.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import co.navidupli.vinilos.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
+import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.skydoves.landscapist.glide.GlideImage
+
+@Composable
+fun noImage(): ImageBitmap {
+    return ImageBitmap.imageResource(R.drawable.noimage)
+}
+
+@Composable
+fun CachedImage(imageModel: String, modifier: Modifier) {
+
+    GlideImage(
+        imageModel = imageModel,
+        requestBuilder = Glide
+            .with(LocalView.current)
+            .asBitmap()
+            .apply(
+                RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+            )
+            .thumbnail(0.1f)
+            .transition(withCrossFade()),
+        contentScale = ContentScale.Crop,
+        alignment = Alignment.Center,
+        modifier = modifier,
+        placeHolder = noImage(),
+        error = noImage(),
+        requestOptions = RequestOptions().autoClone().downsample(DownsampleStrategy.CENTER_INSIDE)
+    )
+}
+
 
 @Composable
 fun ComponentCard(
@@ -34,8 +69,9 @@ fun ComponentCard(
             .testTag(testTag ?: "")
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable{ onClick() },
+            .clickable { onClick() },
         elevation = 10.dp,
+        shape = RoundedCornerShape(corner = CornerSize(10.dp))
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -45,22 +81,13 @@ fun ComponentCard(
                     modifier = Modifier.padding(5.dp),
                     horizontalAlignment = Alignment.Start,
                 ) {
-
-                    GlideImage(
+                    CachedImage(
                         imageModel = imageUrl,
-                        requestBuilder = Glide
-                            .with(LocalView.current)
-                            .asBitmap()
-                            .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
-                            .thumbnail(0.1f)
-                            .transition(withCrossFade()),
-                        contentScale = ContentScale.Crop,
-                        alignment = Alignment.Center,
                         modifier = Modifier
                             .size(90.dp)
-                            .testTag("imageCard").aspectRatio(0.9f)
+                            .testTag("imageCard")
+                            .aspectRatio(0.8f)
                     )
-
                 }
             }
             Column(
