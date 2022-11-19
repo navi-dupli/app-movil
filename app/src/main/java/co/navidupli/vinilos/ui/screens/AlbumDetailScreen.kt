@@ -84,7 +84,7 @@ fun AlbumDetailScreen(
                 date = dateFormatted,
                 subtext = "",
                 imageUrl = performer.image,
-                testTag = null,
+                testTag = "detailCard",
                 onClick = { }
             )
         }

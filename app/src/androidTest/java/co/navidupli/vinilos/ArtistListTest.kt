@@ -32,7 +32,7 @@ class ArtistListTest {
         composeTestRule.onNodeWithTag("btn_" + NavigationScreen.ArtistsScreen.route, true)
             .performClick()
 
-        asyncTimer(2000)
+        asyncTimer(8000)
 
         composeTestRule.onNodeWithTag("artistItem_0", true).assertExists()
         composeTestRule.onAllNodesWithTag("tittleCard", true).onFirst().assertExists()

@@ -1,4 +1,4 @@
-package co.navidupli.vinilos.viewModel
+package co.navidupli.vinilos.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch

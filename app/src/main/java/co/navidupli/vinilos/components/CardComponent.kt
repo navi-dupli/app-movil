@@ -62,11 +62,11 @@ fun ComponentCard(
     subtext: String?,
     imageUrl: String?,
     onClick: () -> Unit,
-    testTag: String?
+    testTag: String
 ) {
     Card(
         modifier = Modifier
-            .testTag(testTag ?: "card")
+            .testTag(testTag)
             .fillMaxWidth()
             .padding(8.dp)
             .clickable { onClick() },

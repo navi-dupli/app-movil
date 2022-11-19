@@ -1,4 +1,4 @@
-package co.navidupli.vinilos.viewModel
+package co.navidupli.vinilos.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -78,7 +78,7 @@ class CreateAlbumViewModel : ViewModel() {
         _statusCreateAlbum.value = null
     }
 
-    fun clearState() {
+    private fun clearState() {
         _nameAlbum.value = ""
         _descriptionAlbum.value = ""
         _genreAlbum.value = ""
