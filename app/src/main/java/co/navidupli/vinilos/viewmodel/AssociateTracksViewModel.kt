@@ -1,11 +1,10 @@
-package co.navidupli.vinilos.viewModel
+package co.navidupli.vinilos.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.navidupli.vinilos.model.Album
-import co.navidupli.vinilos.model.Track
 import co.navidupli.vinilos.model.TrackAsociate
 import co.navidupli.vinilos.repositories.AlbumRepository
 import kotlinx.coroutines.launch
@@ -15,7 +14,7 @@ class AssociateTracksViewModel : ViewModel() {
     val albumSelected: LiveData<Album> = _albumSelected
     private val _duration = MutableLiveData<String>()
     val duration: LiveData<String> = _duration
-    private val _name = MutableLiveData<String>("")
+    private val _name = MutableLiveData("")
     val name: LiveData<String> = _name
     private val _statusAssociate = MutableLiveData<Boolean>()
     val statusAssociate: LiveData<Boolean> = _statusAssociate
@@ -77,7 +76,7 @@ class AssociateTracksViewModel : ViewModel() {
 
 
 
-    fun clearState() {
+    private fun clearState() {
         _albumSelected.value = null
         _duration.value = ""
         _name.value = ""

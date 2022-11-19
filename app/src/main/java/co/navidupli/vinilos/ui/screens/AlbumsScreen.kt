@@ -1,30 +1,36 @@
-package co.navidupli.vinilos.ui.albumsScreen
+@file:Suppress("OPT_IN_IS_NOT_ENABLED")
 
-import java.text.SimpleDateFormat
+package co.navidupli.vinilos.ui.screens
+
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import co.navidupli.vinilos.components.ComponentCard
-import co.navidupli.vinilos.viewModel.ListAlbumsViewModel
-import java.util.*
 import androidx.lifecycle.viewmodel.compose.viewModel
-import co.navidupli.vinilos.model.Album
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import co.navidupli.vinilos.R
+import co.navidupli.vinilos.components.ComponentCard
+import co.navidupli.vinilos.model.Album
 import co.navidupli.vinilos.navigation.NavigationScreen
+import co.navidupli.vinilos.viewmodel.ListAlbumsViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -33,7 +39,7 @@ fun AlbumsScreen(
     viewModel: ListAlbumsViewModel = viewModel(),
     navController: NavHostController
 ) {
-    val albums: List<Album> = viewModel.albums.observeAsState(listOf<Album>()).value
+    val albums: List<Album> = viewModel.albums.observeAsState(listOf()).value
     ListWithHeader(albums, navController)
 }
 
@@ -41,7 +47,7 @@ fun AlbumsScreen(
 @RequiresApi(Build.VERSION_CODES.N)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ListWithHeader(albums: List<Album>, navController: NavHostController) {
+private fun ListWithHeader(albums: List<Album>, navController: NavHostController) {
     LazyColumn(
         modifier = Modifier
             .padding(bottom = 60.dp)
@@ -67,17 +73,26 @@ fun ListWithHeader(albums: List<Album>, navController: NavHostController) {
 
             )
         }
+        var dateFormatted: String
+        var format: SimpleDateFormat?
+        var date: Date?
+        var simpleDateFormat: SimpleDateFormat?
 
         items(albums) { album ->
-            val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            val date: Date = format.parse(album.releaseDate)
-            val simpleDateFormat = SimpleDateFormat("yyyy")
+            format = SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+                Locale.US
+            )
+            date = format!!.parse("" + album.releaseDate)
+            simpleDateFormat = SimpleDateFormat("yyyy",Locale.US)
+            dateFormatted = simpleDateFormat!!.format(date!!)
+
             ComponentCard(
                 tittle = album.name,
-                date = simpleDateFormat.format(date),
+                date = dateFormatted,
                 subtext = album.genre,
                 imageUrl = album.cover,
-                testTag = null,
+                testTag = "itemCard",
                 onClick = {
                     navController.navigate(NavigationScreen.AlbumDetailScreen.route + "/${album.id}")
                 }

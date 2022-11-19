@@ -8,7 +8,7 @@ import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import co.navidupli.vinilos.Screen
 import co.navidupli.vinilos.scaffold.AppScaffold
-import co.navidupli.vinilos.ui.theme.RootScreen
+import co.navidupli.vinilos.ui.RootScreen
 
 @Composable
 fun NavigationRoot() {

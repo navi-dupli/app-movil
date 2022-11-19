@@ -23,10 +23,12 @@ fun AppScaffold(
         scaffoldState = scaffoldState,
 
         ) {
-        val route: String = if (type == 0) NavigationScreen.AlbumsScreen.route else NavigationScreen.CreateAlbumScreen.route
+        val route: String =
+            if (type == 0) NavigationScreen.AlbumsScreen.route else NavigationScreen.CreateAlbumScreen.route
 
         NavigationHost(navController = navController, route) {
             logout()
+
         }
     }
 

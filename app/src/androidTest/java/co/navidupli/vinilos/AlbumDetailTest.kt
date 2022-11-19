@@ -25,13 +25,13 @@ class AlbumDetailTest {
         val button = composeTestRule.onNode(hasTestTag("visitante"), true)
         button.performClick()
         asyncTimer()
-        composeTestRule.onAllNodesWithTag("card").onFirst().performClick()
+        composeTestRule.onAllNodesWithTag("itemCard").onFirst().performClick()
         asyncTimer(10000)
         composeTestRule.onNodeWithTag("detailComponent").assertIsDisplayed()
         composeTestRule.onNodeWithTag("goBack").performClick()
     }
 
-    fun asyncTimer(delay: Long = 20000) {
+    private fun asyncTimer(delay: Long = 20000) {
         AsyncTimer.start(delay)
         composeTestRule.waitUntil(
             condition = { AsyncTimer.expired },

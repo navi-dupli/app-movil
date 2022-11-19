@@ -1,12 +1,14 @@
-package co.navidupli.vinilos.ui.artistsScreen
+package co.navidupli.vinilos.ui.screens
 
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -22,7 +24,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import co.navidupli.vinilos.R
 import co.navidupli.vinilos.components.ComponentCard
 import co.navidupli.vinilos.model.Performer
-import co.navidupli.vinilos.viewModel.ListPerformerViewModel
+import co.navidupli.vinilos.viewmodel.ListPerformerViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,10 +33,11 @@ import java.util.*
 fun ArtistsScreen(
     viewModel: ListPerformerViewModel = viewModel(),
 ) {
-    val performers: List<Performer> = viewModel.performers.observeAsState(listOf<Performer>()).value
+    val performers: List<Performer> = viewModel.performers.observeAsState(listOf()).value
     ListWithHeader(performers)
 }
 
+@Suppress("OPT_IN_IS_NOT_ENABLED")
 @RequiresApi(Build.VERSION_CODES.N)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -65,13 +68,21 @@ fun ListWithHeader(performers: List<Performer>) {
             )
         }
 
+        var dateFormatted: String
+        var format: SimpleDateFormat?
+        var date: Date?
+        var simpleDateFormat: SimpleDateFormat?
+        var fecha:String
         itemsIndexed(performers) { index,performer ->
-            val date: String =
-                if (performer.birthDate != null) performer.birthDate else performer.creationDate
-            val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            val parseDate: Date = format.parse(date) as Date
-            val simpleDateFormat = SimpleDateFormat("yyyy")
-            val dateFormatted = simpleDateFormat.format(parseDate)
+            print(performer)
+            fecha = performer.birthDate ?: performer.creationDate
+            format = SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.US
+            )
+            date = format!!.parse(  fecha)
+            simpleDateFormat = SimpleDateFormat("yyyy",Locale.US)
+            dateFormatted = simpleDateFormat!!.format(date!!)
+
             ComponentCard(
                 tittle = performer.name,
                 date = dateFormatted,

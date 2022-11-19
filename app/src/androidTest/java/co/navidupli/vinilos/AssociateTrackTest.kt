@@ -2,10 +2,6 @@ package co.navidupli.vinilos
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.navigation.testing.TestNavHostController
-import androidx.test.core.app.ApplicationProvider
-import co.navidupli.vinilos.model.AlbumCreate
-import co.navidupli.vinilos.navigation.NavigationHost
 import co.navidupli.vinilos.navigation.NavigationRoot
 import co.navidupli.vinilos.navigation.NavigationScreen
 import org.junit.Before
@@ -16,11 +12,8 @@ import kotlin.concurrent.schedule
 
 
 class AssociateTrackTest {
-    val album = "Poeta del pueblo"
-
-    //val album = "Juana la cubana"
-    val name = "Mi cancion favorita"
-    val trackDuration = "00:23"
+    private val name = "Mi cancion favorita"
+    private val trackDuration = "00:23"
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()

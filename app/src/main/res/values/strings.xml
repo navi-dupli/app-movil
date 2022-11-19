@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Vinilos</string>
     <string name="albumes">Álbumes</string>
-    <string name="performers">Artistas</string>
     <string name="artistas">Artistas</string>
 </resources>

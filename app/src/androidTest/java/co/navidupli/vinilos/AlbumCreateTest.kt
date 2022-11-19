@@ -12,7 +12,7 @@ import kotlin.concurrent.schedule
 
 
 class AlbumCreateTest {
-    val album = AlbumCreate(
+    private val album = AlbumCreate(
         name = "Juana la cubana",
         description = "Es un album diferente",
         genre = "Rock",
@@ -123,7 +123,7 @@ class AlbumCreateTest {
             asyncTimer(20000)
             composeTestRule.onAllNodesWithText(it, true).onFirst().assertIsDisplayed()
 
-            composeTestRule.onAllNodesWithTag("card").onFirst().performClick()
+            composeTestRule.onAllNodesWithTag("itemCard").onFirst().performClick()
             asyncTimer(1000)
             composeTestRule.onNodeWithTag("detailComponent").assertIsDisplayed()
             composeTestRule.onNodeWithText("Juana la cubana").assertIsDisplayed()

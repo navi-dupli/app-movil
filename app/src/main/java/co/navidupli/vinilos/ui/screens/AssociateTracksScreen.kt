@@ -1,8 +1,7 @@
-package co.navidupli.vinilos.ui.associateTracksScreen
+package co.navidupli.vinilos.ui.screens
 
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,11 +19,9 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.*
-import androidx.lifecycle.Observer
+import androidx.lifecycle.LifecycleOwner
 import co.navidupli.vinilos.model.Album
-import co.navidupli.vinilos.viewModel.AssociateTracksViewModel
+import co.navidupli.vinilos.viewmodel.AssociateTracksViewModel
 
 @Composable
 @Preview(showSystemUi = true)
@@ -39,7 +36,7 @@ fun AssociateTracksScreen() {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Title()
+        Title(text = "Asociar track", testTag = "titleAsociateTrack")
         Space(15)
         AlbumSelect(viewModel = asociateTracksViewModel)
         Space(15)
@@ -53,23 +50,7 @@ fun AssociateTracksScreen() {
 
 
 @Composable
-fun Title() {
-    Text(
-        text = "Asociar track",
-        fontSize = 30.sp,
-        style = MaterialTheme.typography.h6,
-        color = MaterialTheme.colors.primary,
-        modifier = Modifier.testTag("titleAsociateTrack")
-    )
-}
-
-@Composable
-fun Space(size: Int) {
-    Spacer(modifier = Modifier.height(size.dp))
-}
-
-@Composable
-fun AlbumName(viewModel: AssociateTracksViewModel) {
+private fun AlbumName(viewModel: AssociateTracksViewModel) {
     val trackName: String by viewModel.name.observeAsState(initial = "")
     TextField(
         label = { Text(text = "Name") },
@@ -83,7 +64,7 @@ fun AlbumName(viewModel: AssociateTracksViewModel) {
 
 
 @Composable
-fun Duracion(viewModel: AssociateTracksViewModel) {
+private fun Duracion(viewModel: AssociateTracksViewModel) {
     val duration: String by viewModel.duration.observeAsState(initial = "")
     TextField(
         label = { Text(text = "Duración") },
@@ -98,9 +79,8 @@ fun Duracion(viewModel: AssociateTracksViewModel) {
 }
 
 
-
 @Composable
-fun AlbumSelect(viewModel: AssociateTracksViewModel) {
+private fun AlbumSelect(viewModel: AssociateTracksViewModel) {
     val albums: List<Album> by viewModel.albums.observeAsState(initial = listOf())
 
     val selectAlbum: Album? by viewModel.albumSelected.observeAsState(initial = null)
@@ -110,9 +90,10 @@ fun AlbumSelect(viewModel: AssociateTracksViewModel) {
 }
 
 
+@Suppress("OPT_IN_IS_NOT_ENABLED")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun DropDownList(
+private fun DropDownList(
     options: List<Album>,
     text: String,
     value: Album?,
@@ -129,7 +110,9 @@ fun DropDownList(
     ) {
         ExposedDropdownMenuBox(
             expanded = expanded,
-            modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
+            modifier = Modifier
+                .fillMaxWidth()
+                .focusRequester(focusRequester),
             onExpandedChange = {
                 expanded = !expanded
             }
@@ -162,7 +145,7 @@ fun DropDownList(
                             expanded = false
                         },
                         modifier = Modifier
-                            .testTag("albumItem_"+index)
+                            .testTag("albumItem_$index")
                     ) {
                         Text(text = selectionOption.name)
                     }
@@ -173,13 +156,13 @@ fun DropDownList(
 }
 
 @Composable
-fun SaveButton(viewModel: AssociateTracksViewModel, context: Context) {
+private fun SaveButton(viewModel: AssociateTracksViewModel, context: Context) {
     val lifeCycle = LocalLifecycleOwner.current
     val loadAssociateTrack: Boolean by viewModel.loadAssociateTrack.observeAsState(initial = true)
 
     Button(
         onClick = {
-            if(validateFields(viewModel,context)){
+            if (validateFields(viewModel, context)) {
                 viewModel.setloadAssociateTrack(!loadAssociateTrack)
                 viewModel.associateTrack()
             }
@@ -196,22 +179,23 @@ fun SaveButton(viewModel: AssociateTracksViewModel, context: Context) {
         Text(text = "Guardar")
     }
 
-    showToast(lifeCycle, viewModel, context)
+    ShowToast(lifeCycle, viewModel, context)
 }
 
-fun validateFields(viewModel: AssociateTracksViewModel, context: Context):Boolean{
+private fun validateFields(viewModel: AssociateTracksViewModel, context: Context): Boolean {
     val pattern = "^[0-6][0-9]:[0-9]{2}$".toRegex()
-    if(viewModel.albumSelected.value==null){
+    if (viewModel.albumSelected.value == null) {
         Toast.makeText(context, "El album es obligatorio ", Toast.LENGTH_LONG).show()
         return false
     }
 
-    if(viewModel.name.value.toString().isEmpty()){
+    if (viewModel.name.value.toString().isEmpty()) {
         Toast.makeText(context, "El Nombre es obligatorio ", Toast.LENGTH_LONG).show()
-    return false
+        return false
     }
-    if(!pattern.matches(viewModel.duration.value.toString())){
-        Toast.makeText(context, "El formato del campo duración debe ser MM:SS ", Toast.LENGTH_LONG).show()
+    if (!pattern.matches(viewModel.duration.value.toString())) {
+        Toast.makeText(context, "El formato del campo duración debe ser MM:SS ", Toast.LENGTH_LONG)
+            .show()
         return false
     }
     return true
@@ -219,9 +203,13 @@ fun validateFields(viewModel: AssociateTracksViewModel, context: Context):Boolea
 }
 
 @Composable
-fun showToast(lifeCycle: LifecycleOwner, viewModel: AssociateTracksViewModel, context: Context) {
+private fun ShowToast(
+    lifeCycle: LifecycleOwner,
+    viewModel: AssociateTracksViewModel,
+    context: Context
+) {
 
-    viewModel.statusAssociate.observe(lifeCycle, Observer { status ->
+    viewModel.statusAssociate.observe(lifeCycle) { status ->
         status?.let {
             viewModel.setStatusAssociateTrackAlbum()
             if (it) {
@@ -231,5 +219,5 @@ fun showToast(lifeCycle: LifecycleOwner, viewModel: AssociateTracksViewModel, co
                     .show()
             }
         }
-    })
+    }
 }
