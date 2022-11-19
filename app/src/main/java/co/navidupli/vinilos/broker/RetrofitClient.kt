@@ -14,8 +14,8 @@ class RetrofitClient{
 
         fun createRetrofitClient(): Retrofit {
 
-            var mHttpLoggingInterceptor = HttpLoggingInterceptor()
-                .setLevel(HttpLoggingInterceptor.Level.BODY)
+            val mHttpLoggingInterceptor = HttpLoggingInterceptor()
+                .setLevel(HttpLoggingInterceptor.Level.BASIC)
 
             val mOkHttpClient = OkHttpClient
                 .Builder()
@@ -23,12 +23,11 @@ class RetrofitClient{
                 .build()
 
 
-            val retrofit: Retrofit = retrofit2.Retrofit.Builder()
+            return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(mOkHttpClient)
                 .build()
-            return retrofit
         }
 
 

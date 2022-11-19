@@ -3,9 +3,7 @@ package co.navidupli.vinilos.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Track(
+data class TrackAsociate(
     val duration: String?,
-    val id: Int?,
-    val name: String?,
-    val album: Album?
+    val name: String?
 )

@@ -4,7 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Performer(
-    val birthDate: String,
+    val birthDate: String?,
+    val creationDate: String,
     val description: String,
     val id: Int,
     val image: String,

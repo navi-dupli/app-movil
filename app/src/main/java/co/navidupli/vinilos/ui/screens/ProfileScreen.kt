@@ -1,4 +1,4 @@
-package co.navidupli.vinilos.ui.ProfileScreen
+package co.navidupli.vinilos.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

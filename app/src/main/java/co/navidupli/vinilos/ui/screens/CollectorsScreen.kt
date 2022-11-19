@@ -1,4 +1,4 @@
-package co.navidupli.vinilos.ui.associateTracksScreen
+package co.navidupli.vinilos.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun AssociateTracksScreen() {
+fun CollectorsScreen() {
 
     Box(
         modifier = Modifier
@@ -20,7 +20,7 @@ fun AssociateTracksScreen() {
             .background(MaterialTheme.colors.background)
     ) {
         Text(
-            text = "Asociar Tracks",
+            text = "Coleccionistas",
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colors.primary,
             modifier = Modifier.align(Alignment.Center),

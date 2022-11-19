@@ -45,4 +45,11 @@ sealed class NavigationScreen(val route: String, val title: String, val icon: Im
             title = "Perfil",
             icon = Icons.Filled.Settings
         )
+
+    object AlbumDetailScreen :
+        NavigationScreen(
+            route = "album_detail_screen",
+            title = "Detalle",
+            icon = Icons.Filled.Settings
+        )
 }
