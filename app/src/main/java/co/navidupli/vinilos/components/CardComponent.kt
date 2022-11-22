@@ -68,7 +68,7 @@ fun ComponentCard(
         modifier = Modifier
             .testTag(testTag ?: "card")
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(12.dp)
             .clickable { onClick() },
         elevation = 10.dp,
         shape = RoundedCornerShape(corner = CornerSize(10.dp))

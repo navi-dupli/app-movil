@@ -1,7 +1,6 @@
 package co.navidupli.vinilos.ui.screens
 
 import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,7 +27,6 @@ import co.navidupli.vinilos.viewmodel.ListPerformerViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun ArtistsScreen(
     viewModel: ListPerformerViewModel = viewModel(),
@@ -38,7 +36,6 @@ fun ArtistsScreen(
 }
 
 @Suppress("OPT_IN_IS_NOT_ENABLED")
-@RequiresApi(Build.VERSION_CODES.N)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListWithHeader(performers: List<Performer>) {
