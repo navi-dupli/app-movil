@@ -46,7 +46,7 @@ private fun ListWithHeader(collectors: List<Collector>) {
         stickyHeader {
 
             Text(
-                text = stringResource(R.string.albumes),
+                text = stringResource(R.string.collectors),
                 style = MaterialTheme.typography.h6,
                 color = MaterialTheme.colors.primary,
                 maxLines = 1,
@@ -70,7 +70,7 @@ private fun ListWithHeader(collectors: List<Collector>) {
                 date = coleccionista.telephone,
                 subtext = coleccionista.email,
                 imageUrl = null,
-                testTag = "itemCard",
+                testTag = "collectorItemCard",
                 onClick = {}
             )
         }

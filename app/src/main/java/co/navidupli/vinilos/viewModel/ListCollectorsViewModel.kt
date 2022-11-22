@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.navidupli.vinilos.model.Collector
 import co.navidupli.vinilos.model.Comment
-import co.navidupli.vinilos.repositories.AlbumRepository
+import co.navidupli.vinilos.repositories.CollectorRepository
 import kotlinx.coroutines.launch
 
 class ListCollectorsViewModel: ViewModel() {
@@ -19,12 +19,7 @@ class ListCollectorsViewModel: ViewModel() {
 
     init {
         viewModelScope.launch {
-            var collector = Collector(1,"Duvan Jamid Vrgas","234523452345","mi13dj22@gmail.com",
-                Comment("3244245",1,1)
-            );
-            val albumList = listOf<Collector>(collector)
-            albumList.forEach { println(it) }
-            _collectors.value=albumList
+            _collectors.value=CollectorRepository.getCollectors()
         }
     }
 
