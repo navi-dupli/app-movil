@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.navidupli.vinilos.model.Collector
-import co.navidupli.vinilos.model.Comment
 import co.navidupli.vinilos.repositories.CollectorRepository
 import kotlinx.coroutines.launch
 
