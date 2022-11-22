@@ -3,7 +3,6 @@
 package co.navidupli.vinilos.ui.screens
 
 import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,7 +32,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun AlbumsScreen(
     viewModel: ListAlbumsViewModel = viewModel(),
@@ -44,7 +42,6 @@ fun AlbumsScreen(
 }
 
 
-@RequiresApi(Build.VERSION_CODES.N)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ListWithHeader(albums: List<Album>, navController: NavHostController) {
