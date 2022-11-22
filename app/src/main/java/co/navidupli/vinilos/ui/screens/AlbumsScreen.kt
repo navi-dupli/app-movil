@@ -2,7 +2,7 @@
 
 package co.navidupli.vinilos.ui.screens
 
-import android.os.Build
+
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize

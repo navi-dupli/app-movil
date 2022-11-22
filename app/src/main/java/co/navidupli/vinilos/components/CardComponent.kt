@@ -30,7 +30,6 @@ import com.skydoves.landscapist.glide.GlideImage
 fun noImage(): ImageBitmap {
     return ImageBitmap.imageResource(R.drawable.noimage)
 }
-
 @Composable
 fun CachedImage(imageModel: String, modifier: Modifier) {
 
@@ -53,7 +52,6 @@ fun CachedImage(imageModel: String, modifier: Modifier) {
         requestOptions = RequestOptions().autoClone().downsample(DownsampleStrategy.CENTER_INSIDE)
     )
 }
-
 
 @Composable
 fun ComponentCard(

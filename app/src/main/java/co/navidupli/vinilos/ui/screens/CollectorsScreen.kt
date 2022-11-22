@@ -15,13 +15,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import co.navidupli.vinilos.R
 import co.navidupli.vinilos.components.ComponentCard
 import co.navidupli.vinilos.model.Collector
 import co.navidupli.vinilos.viewmodel.ListCollectorsViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import java.util.*
 
 
 
@@ -29,8 +27,7 @@ import java.util.*
 fun CollectorsScreen(
     viewModel: ListCollectorsViewModel = viewModel()
 ) {
-    val collectors: List<Collector> = viewModel.collectors.observeAsState(listOf()).value
-    ListWithHeader(collectors)
+    ListWithHeader( viewModel.collectors.observeAsState(listOf()).value)
 }
 
 
@@ -46,7 +43,7 @@ private fun ListWithHeader(collectors: List<Collector>) {
         stickyHeader {
 
             Text(
-                text = stringResource(R.string.albumes),
+                text = stringResource(R.string.collectors),
                 style = MaterialTheme.typography.h6,
                 color = MaterialTheme.colors.primary,
                 maxLines = 1,
@@ -70,7 +67,7 @@ private fun ListWithHeader(collectors: List<Collector>) {
                 date = coleccionista.telephone,
                 subtext = coleccionista.email,
                 imageUrl = null,
-                testTag = "itemCard",
+                testTag = "collectorItemCard",
                 onClick = {}
             )
         }
