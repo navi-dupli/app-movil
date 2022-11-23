@@ -19,23 +19,26 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import co.navidupli.vinilos.components.ComponentCard
 import co.navidupli.vinilos.components.DetailComponent
-import co.navidupli.vinilos.model.Album
-import co.navidupli.vinilos.viewmodel.DetailAlbumViewModel
+import co.navidupli.vinilos.model.Performer
+import co.navidupli.vinilos.viewmodel.DetailArtistViewModel
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-fun AlbumDetailScreen(
-    viewModel: DetailAlbumViewModel = viewModel(),
+fun ArtistDetailScreen(
+    viewModel: DetailArtistViewModel = viewModel(),
     navController: NavController,
-    albumId: Int?
+    PerformerId: Int?,
+    IsBand: Boolean?
 ) {
-    if (albumId != null) {
-        viewModel.getAlbumDetail(albumId)
+
+    if (PerformerId != null ) {
+        viewModel.getPerformerDetail(PerformerId, IsBand )
     }
-    val album: Album? = viewModel.album.observeAsState().value
+    val performer: Performer? = viewModel.performer.observeAsState().value
+
     Column(
         modifier = Modifier
             .padding(20.dp)
@@ -43,6 +46,7 @@ fun AlbumDetailScreen(
             .fillMaxWidth(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
+
     ) {
         IconButton(modifier = Modifier
             .align(alignment = Alignment.Start)
@@ -51,12 +55,12 @@ fun AlbumDetailScreen(
             Icon(Icons.Filled.ArrowBack, contentDescription = "")
         }
         DetailComponent(
-            imageUrl = album?.cover,
-            name = album?.name,
-            year = album?.releaseDate,
-            genre = album?.genre,
-            recordLabel = album?.recordLabel,
-            description = album?.description
+            imageUrl = performer?.image,
+            name = performer?.name,
+            year =  performer?.birthDate ?: performer?.creationDate,
+            description = performer?.description,
+            genre = null,
+            recordLabel = null,
         )
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -66,13 +70,13 @@ fun AlbumDetailScreen(
         var date: Date?
         var simpleDateFormat: SimpleDateFormat?
 
-        album?.performers?.forEach { performer ->
+        performer?.musicians?.forEach { musician ->
 
             try {
                 format = SimpleDateFormat(
                     "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.US
                 )
-                date = format!!.parse( performer.birthDate ?: "")
+                date = format!!.parse( musician.birthDate ?: "")
                 simpleDateFormat = SimpleDateFormat("yyyy",Locale.US)
                 dateFormatted = simpleDateFormat!!.format(date!!)
             }catch (ex: ParseException){
@@ -80,12 +84,14 @@ fun AlbumDetailScreen(
             }
 
             ComponentCard(
-                tittle = performer.name,
+                tittle = musician.name,
                 date = dateFormatted,
                 subtext = "",
-                imageUrl = performer.image,
+                imageUrl = musician.image,
                 testTag = null,
-                onClick = { }
+                onClick = {
+
+                }
             )
         }
     }

@@ -20,9 +20,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import co.navidupli.vinilos.R
 import co.navidupli.vinilos.components.ComponentCard
 import co.navidupli.vinilos.model.Performer
+import co.navidupli.vinilos.navigation.NavigationScreen
 import co.navidupli.vinilos.viewmodel.ListPerformerViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,15 +32,16 @@ import java.util.*
 @Composable
 fun ArtistsScreen(
     viewModel: ListPerformerViewModel = viewModel(),
+    navController: NavHostController
 ) {
     val performers: List<Performer> = viewModel.performers.observeAsState(listOf()).value
-    ListWithHeader(performers)
+    ListWithHeader(performers,navController)
 }
 
 @Suppress("OPT_IN_IS_NOT_ENABLED")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ListWithHeader(performers: List<Performer>) {
+fun ListWithHeader(performers: List<Performer>, navController: NavHostController) {
     LazyColumn(
         modifier = Modifier
             .padding(bottom = 60.dp)
@@ -71,7 +74,7 @@ fun ListWithHeader(performers: List<Performer>) {
         var simpleDateFormat: SimpleDateFormat?
         var fecha:String
         itemsIndexed(performers) { index,performer ->
-            print(performer)
+            val isBand: Boolean = performer.birthDate == null
             fecha = performer.birthDate ?: performer.creationDate
             format = SimpleDateFormat(
                 "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.US
@@ -86,7 +89,9 @@ fun ListWithHeader(performers: List<Performer>) {
                 subtext = "",
                 imageUrl = performer.image,
                 testTag = "artistItem_$index",
-                onClick = { }
+                onClick = {
+                    navController.navigate(NavigationScreen.ArtistDetailScreen.route + "/${performer.id}/${isBand}")
+                }
             )
         }
     }

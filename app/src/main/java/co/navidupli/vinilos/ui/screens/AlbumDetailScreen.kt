@@ -19,6 +19,7 @@ import androidx.navigation.NavController
 import co.navidupli.vinilos.components.ComponentCard
 import co.navidupli.vinilos.components.DetailComponent
 import co.navidupli.vinilos.model.Album
+import co.navidupli.vinilos.navigation.NavigationScreen
 import co.navidupli.vinilos.viewmodel.DetailAlbumViewModel
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -63,10 +64,11 @@ fun AlbumDetailScreen(
         var format: SimpleDateFormat?
         var date: Date?
         var simpleDateFormat: SimpleDateFormat?
-
+        var isBand: Boolean = false
         album?.performers?.forEach { performer ->
 
             try {
+                isBand = performer.birthDate == null
                 format = SimpleDateFormat(
                     "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.US
                 )
@@ -83,7 +85,9 @@ fun AlbumDetailScreen(
                 subtext = "",
                 imageUrl = performer.image,
                 testTag = null,
-                onClick = { }
+                onClick = {
+                    navController.navigate(NavigationScreen.ArtistDetailScreen.route + "/${performer.id}/${isBand}")
+                }
             )
         }
     }

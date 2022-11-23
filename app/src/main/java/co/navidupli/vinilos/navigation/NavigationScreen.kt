@@ -52,4 +52,13 @@ sealed class NavigationScreen(val route: String, val title: String, val icon: Im
             title = "Detalle",
             icon = Icons.Filled.Settings
         )
+
+    object ArtistDetailScreen :
+        NavigationScreen(
+            route = "artist_detail_screen",
+            title = "Detalle Artista",
+            icon = Icons.Filled.Groups
+        ) {
+
+    }
 }
