@@ -76,6 +76,7 @@ fun CollectorDetailScreen(
                     Text(
                         text = it,
                         style = MaterialTheme.typography.body2,
+                        modifier = Modifier.testTag("telephoneDetailCollector")
                     )
                 }
             }
@@ -85,15 +86,16 @@ fun CollectorDetailScreen(
             Text(
                 text = it,
                 fontSize = 14.sp,
-                modifier = Modifier.fillMaxWidth().padding(15.dp, 0.dp)
+                modifier = Modifier.fillMaxWidth()
+                    .padding(15.dp, 0.dp)
+                    .testTag("emailDetailCollector")
             )
         }
 
         Spacer(modifier = Modifier.height(30.dp))
 
         Text(
-            text = "Artistas favoritos", fontSize = 28.sp, modifier = Modifier
-                .testTag("nameDetailCollector")
+            text = "Artistas favoritos", fontSize = 28.sp
         )
 
         Spacer(modifier = Modifier.height(15.dp))
