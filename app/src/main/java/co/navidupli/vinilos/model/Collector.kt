@@ -9,4 +9,5 @@ data class Collector(
     val telephone :String,
     val email : String,
     val comment: Comment,
+    val favoritePerformers: List<Performer>
 )
