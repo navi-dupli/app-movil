@@ -9,5 +9,6 @@ data class Performer(
     val description: String,
     val id: Int,
     val image: String,
-    val name: String
+    val name: String,
+    val musicians: List<Musician>?,
 )
