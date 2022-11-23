@@ -25,7 +25,7 @@ fun NavigationHost(
     ) {
         composable(NavigationScreen.AlbumsScreen.route) { AlbumsScreen(navController = navController) }
         composable(NavigationScreen.ArtistsScreen.route) { ArtistsScreen(navController = navController) }
-        composable(NavigationScreen.CollectorsScreen.route) { CollectorsScreen() }
+        composable(NavigationScreen.CollectorsScreen.route) { CollectorsScreen(navController = navController) }
         composable(NavigationScreen.CreateAlbumScreen.route) { CreateAlbumScreen() }
         composable(NavigationScreen.AssociateTracksScreen.route) { AssociateTracksScreen() }
         composable(
@@ -56,5 +56,12 @@ fun NavigationHost(
                 logout()
             }
         }
+        composable(
+            route = NavigationScreen.CollectorDetailScreen.route + "/{collector_id}",
+            arguments = listOf(
+                navArgument("collector_id") {
+                    type = NavType.IntType
+                }),
+        ) { CollectorDetailScreen(collectorId = it.arguments?.getInt("collector_id"), navController = navController) }
     }
 }

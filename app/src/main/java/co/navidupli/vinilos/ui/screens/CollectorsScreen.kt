@@ -15,25 +15,27 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import co.navidupli.vinilos.R
 import co.navidupli.vinilos.components.ComponentCard
 import co.navidupli.vinilos.model.Collector
 import co.navidupli.vinilos.viewmodel.ListCollectorsViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-
+import co.navidupli.vinilos.navigation.NavigationScreen
 
 
 @Composable
 fun CollectorsScreen(
-    viewModel: ListCollectorsViewModel = viewModel()
+    viewModel: ListCollectorsViewModel = viewModel(),
+    navController: NavHostController
 ) {
-    ListWithHeader( viewModel.collectors.observeAsState(listOf()).value)
+    ListWithHeader( viewModel.collectors.observeAsState(listOf()).value, navController)
 }
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun ListWithHeader(collectors: List<Collector>) {
+private fun ListWithHeader(collectors: List<Collector>, navController: NavHostController) {
     LazyColumn(
         modifier = Modifier
             .padding(bottom = 60.dp)
@@ -68,7 +70,7 @@ private fun ListWithHeader(collectors: List<Collector>) {
                 subtext = coleccionista.email,
                 imageUrl = null,
                 testTag = "collectorItemCard",
-                onClick = {}
+                onClick = { navController.navigate(NavigationScreen.CollectorDetailScreen.route + "/${coleccionista.id}") }
             )
         }
     }

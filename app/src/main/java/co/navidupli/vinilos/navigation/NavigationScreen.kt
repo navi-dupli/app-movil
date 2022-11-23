@@ -61,4 +61,11 @@ sealed class NavigationScreen(val route: String, val title: String, val icon: Im
         ) {
 
     }
+
+    object CollectorDetailScreen :
+        NavigationScreen(
+            route = "Collector_detail_screen",
+            title = "Detalle coleccionista",
+            icon = Icons.Filled.Settings
+        )
 }
