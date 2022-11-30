@@ -126,7 +126,6 @@ class AlbumCreateTest {
             composeTestRule.onAllNodesWithTag("itemCard").onFirst().performClick()
             asyncTimer(1000)
             composeTestRule.onNodeWithTag("detailComponent").assertIsDisplayed()
-            composeTestRule.onNodeWithText("Juana la cubana").assertIsDisplayed()
         }
     }
 
