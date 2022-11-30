@@ -18,10 +18,12 @@ class ListPerformerViewModel : ViewModel() {
     init {
         viewModelScope.launch {
             val collectorList = CollectorRepository.getCollectors().sortedByDescending { it.id }
-            collectorList.forEach {
+            var performerList:List<Performer>
+            var value: List<Performer>
 
-                val performerList = CollectorRepository.getPerformersCollector(it.id)
-                val value = _performer.value ?: emptyList()
+            collectorList.forEach {
+                 performerList = CollectorRepository.getPerformersCollector(it.id)
+                 value = _performer.value ?: emptyList()
                 _performer.value = value + performerList
 
             }
