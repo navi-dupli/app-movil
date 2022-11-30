@@ -3,6 +3,7 @@ package co.navidupli.vinilos.ui.screens
 import android.app.DatePickerDialog
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -71,7 +72,12 @@ fun CreateAlbumScreen() {
 private fun AlbumName(viewModel: CreateAlbumViewModel) {
     val albumName: String by viewModel.nameAlbum.observeAsState(initial = "")
     TextField(
-        label = { Text(text = "Nombre") },
+        label = {
+            Text(
+                text = "Nombre",
+                color = MaterialTheme.colors.primary
+            )
+        },
         value = albumName,
         modifier = Modifier
             .testTag("textFieldAlbumName")
@@ -84,7 +90,12 @@ private fun AlbumName(viewModel: CreateAlbumViewModel) {
 private fun AlbumCover(viewModel: CreateAlbumViewModel) {
     val albumCover: String by viewModel.coverAlbum.observeAsState(initial = "")
     TextField(
-        label = { Text(text = "Cover") },
+        label = {
+            Text(
+                text = "Cover",
+                color = MaterialTheme.colors.primary
+            )
+        },
         value = albumCover,
         modifier = Modifier
             .testTag("textFieldAlbumCover")
@@ -122,14 +133,21 @@ private fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) 
     )
 
     TextField(
-        label = { Text(text = "Fecha de lanzamiento") },
+        label = {
+            Text(
+                text = "Fecha de lanzamiento",
+                color = MaterialTheme.colors.primary
+            )
+        },
         value = albumDate,
         enabled = false,
+
         modifier = Modifier
             .clickable { datePickerDialog.show() }
             .testTag("textFieldAlbumReleaseDate")
             .fillMaxWidth(),
         onValueChange = { viewModel.setDateReleaseAlbum(it) }
+
     )
 }
 
@@ -137,7 +155,12 @@ private fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) 
 private fun AlbumDesc(viewModel: CreateAlbumViewModel) {
     val albumDesc: String by viewModel.descriptionAlbum.observeAsState(initial = "")
     TextField(
-        label = { Text(text = "Descripción") },
+        label = {
+            Text(
+                text = "Descripción",
+                color = MaterialTheme.colors.primary
+            )
+        },
         value = albumDesc,
         modifier = Modifier
             .testTag("textFieldAlbumDesc")
@@ -196,7 +219,12 @@ private fun DropDownList(
                 readOnly = true,
                 value = value,
                 onValueChange = { },
-                label = { Text(text) },
+                label = {
+                    Text(
+                        text,
+                        color = MaterialTheme.colors.primary
+                    )
+                },
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(
                         expanded = expanded
@@ -218,7 +246,10 @@ private fun DropDownList(
                             expanded = false
                         }
                     ) {
-                        Text(text = selectionOption)
+                        Text(
+                            text = selectionOption,
+                            color = MaterialTheme.colors.primary
+                        )
                     }
                 }
             }
@@ -237,15 +268,16 @@ private fun SaveButton(viewModel: CreateAlbumViewModel, context: Context) {
             viewModel.saveAlbum()
         },
         enabled = loadCreate,
-        modifier = Modifier.testTag("btnCreateAlbum")
+        modifier = Modifier
+            .testTag("btnCreateAlbum"),
+        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
     ) {
         Icon(
             imageVector = Icons.Filled.Save,
             modifier = Modifier.size(20.dp),
             contentDescription = "drawable icons"
         )
-
-        Text(text = "Guardar")
+        Text(text = "Guardar", color = MaterialTheme.colors.onSecondary)
     }
 
     ShowToast(lifeCycle, viewModel, context)

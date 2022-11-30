@@ -1,9 +1,7 @@
 package co.navidupli.vinilos.bottombar
 
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.foundation.background
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,6 +31,7 @@ fun BottomBar(navController: NavController, type: Int?) {
 
     BottomNavigation(
         elevation = 5.dp,
+        modifier = Modifier.background(MaterialTheme.colors.primary)
     ) {
         val navBackStackEntry: NavBackStackEntry? = navController.currentBackStackEntryAsState().value
         val currentRoute = navBackStackEntry?.destination?.route
@@ -50,8 +49,8 @@ fun BottomBar(navController: NavController, type: Int?) {
                     )
                 },
                 selected = currentRoute == it.route,
-                selectedContentColor = Color.White,
-                unselectedContentColor = Color.White.copy(alpha = 0.4f),
+                selectedContentColor = MaterialTheme.colors.secondary,
+                unselectedContentColor = MaterialTheme.colors.primary.copy(alpha = 0.7f),
                 onClick = {
                     navController.navigate(it.route) {
                         navController.graph.startDestinationRoute?.let { route ->
@@ -63,7 +62,7 @@ fun BottomBar(navController: NavController, type: Int?) {
                         launchSingleTop = true
                     }
                 },
-                modifier = Modifier.testTag("btn_${it.route}")
+                modifier = Modifier.testTag("btn_${it.route}").background(MaterialTheme.colors.primaryVariant)
                 )
         }
 

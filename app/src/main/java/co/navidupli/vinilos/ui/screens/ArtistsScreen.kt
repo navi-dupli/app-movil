@@ -51,14 +51,14 @@ fun ListWithHeader(performers: List<Performer>, navController: NavHostController
             Text(
                 text = stringResource(R.string.artistas),
                 style = MaterialTheme.typography.h6,
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colors.onSecondary,
                 maxLines = 1,
                 fontSize = 35.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .wrapContentHeight()
                     .heightIn(min = 56.dp)
-                    .background(color = MaterialTheme.colors.background)
+                    .background(color = MaterialTheme.colors.secondary)
                     .fillMaxSize()
                     .padding(vertical = 4.dp)
                     .testTag("titlePerformer")
