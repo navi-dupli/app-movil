@@ -26,10 +26,9 @@ import co.navidupli.vinilos.navigation.NavigationScreen
 
 @Composable
 fun CollectorsScreen(
-    viewModel: ListCollectorsViewModel = viewModel(),
-    navController: NavHostController
+    viewModel: ListCollectorsViewModel = viewModel(), navController: NavHostController
 ) {
-    ListWithHeader( viewModel.collectors.observeAsState(listOf()).value, navController)
+    ListWithHeader(viewModel.collectors.observeAsState(listOf()).value, navController)
 }
 
 
@@ -64,14 +63,12 @@ private fun ListWithHeader(collectors: List<Collector>, navController: NavHostCo
 
         items(collectors) { coleccionista ->
 
-            ComponentCard(
-                tittle = coleccionista.name,
+            ComponentCard(tittle = coleccionista.name,
                 date = coleccionista.telephone,
                 subtext = coleccionista.email,
                 imageUrl = null,
                 testTag = "collectorItemCard",
-                onClick = { navController.navigate(NavigationScreen.CollectorDetailScreen.route + "/${coleccionista.id}") }
-            )
+                onClick = { navController.navigate(NavigationScreen.CollectorDetailScreen.route + "/${coleccionista.id}") })
         }
     }
 }

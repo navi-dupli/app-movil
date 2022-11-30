@@ -10,9 +10,7 @@ import co.navidupli.vinilos.navigation.NavigationScreen
 
 @Composable
 fun AppScaffold(
-    navController: NavController,
-    type: Int?,
-    logout: () -> Unit
+    navController: NavController, type: Int?, logout: () -> Unit
 ) {
     val scaffoldState = rememberScaffoldState()
 
@@ -21,7 +19,6 @@ fun AppScaffold(
             BottomBar(navController = navController, type)
         },
         scaffoldState = scaffoldState,
-
         ) {
         val route: String =
             if (type == 0) NavigationScreen.AlbumsScreen.route else NavigationScreen.CreateAlbumScreen.route

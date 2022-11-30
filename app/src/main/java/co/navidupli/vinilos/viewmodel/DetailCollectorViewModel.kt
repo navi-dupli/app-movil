@@ -12,7 +12,7 @@ class DetailCollectorViewModel : ViewModel() {
     var collector: LiveData<Collector> = _collector
 
     fun getCollectorDetail(albumId: Int) {
-         CollectorRepository.getCollectorDetail(albumId, onResponse = {
+        CollectorRepository.getCollectorDetail(albumId, onResponse = {
             _collector.value = it
         }, onFailure = {
         })

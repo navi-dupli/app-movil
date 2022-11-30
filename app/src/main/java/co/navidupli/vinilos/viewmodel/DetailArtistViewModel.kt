@@ -11,7 +11,7 @@ class DetailArtistViewModel : ViewModel() {
     private var _performer = MutableLiveData<Performer>()
     var performer: LiveData<Performer> = _performer
 
-    fun getPerformerDetail(performerId: Int, isBand : Boolean?) {
+    fun getPerformerDetail(performerId: Int, isBand: Boolean?) {
         if (isBand == true) {
             ArtistRepository.getBandDetail(performerId, onResponse = {
                 _performer.value = it

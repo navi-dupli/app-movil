@@ -16,16 +16,17 @@ import co.navidupli.vinilos.navigation.NavigationScreen
 
 @Composable
 fun BottomBar(navController: NavController, type: Int?) {
-    var items = listOf(
-        NavigationScreen.AlbumsScreen,
-        NavigationScreen.ArtistsScreen,
-        NavigationScreen.CollectorsScreen,
-        NavigationScreen.ProfileScreen
-    )
-    if (type == 1) {
-        items = listOf(
+    val items: List<NavigationScreen> = if (type == 1) {
+        listOf(
             NavigationScreen.CreateAlbumScreen,
             NavigationScreen.AssociateTracksScreen,
+            NavigationScreen.ProfileScreen
+        )
+    }else{
+        listOf(
+            NavigationScreen.AlbumsScreen,
+            NavigationScreen.ArtistsScreen,
+            NavigationScreen.CollectorsScreen,
             NavigationScreen.ProfileScreen
         )
     }

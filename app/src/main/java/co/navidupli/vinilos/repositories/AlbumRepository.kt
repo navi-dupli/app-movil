@@ -13,14 +13,18 @@ class AlbumRepository {
             RetrofitClient.createRetrofitClient().create(AlbumApiService::class.java)
 
 
-       private  var albums: List<Album> = listOf()
+        private var albums: List<Album> = listOf()
 
         suspend fun getAlbums(): List<Album> {
-            albums=albumWebApi.getAlbums()
+            albums = albumWebApi.getAlbums()
             return albums
         }
 
-        fun postAlbumRequest(body: AlbumCreate, onResponse:(resp: AlbumCreated)->Unit, onFailure:(resp:String)->Unit) : String? {
+        fun postAlbumRequest(
+            body: AlbumCreate,
+            onResponse: (resp: AlbumCreated) -> Unit,
+            onFailure: (resp: String) -> Unit
+        ): String? {
             val resp: String? = null
 
             albumWebApi.postAlbum(body).enqueue(
@@ -30,7 +34,10 @@ class AlbumRepository {
                         onFailure(t.message!!)
                     }
 
-                    override fun onResponse(call: Call<AlbumCreated>, response: Response<AlbumCreated>) {
+                    override fun onResponse(
+                        call: Call<AlbumCreated>,
+                        response: Response<AlbumCreated>
+                    ) {
                         if (response.code() == 400) {
                             onFailure("Bad request")
                         } else {
@@ -41,10 +48,15 @@ class AlbumRepository {
             return resp
         }
 
-        fun postAssociateTrackAlbum(body: TrackAsociate,idAlbum: Long?, onResponse:(resp: Track)->Unit, onFailure:(resp:String)->Unit) : String? {
+        fun postAssociateTrackAlbum(
+            body: TrackAsociate,
+            idAlbum: Long?,
+            onResponse: (resp: Track) -> Unit,
+            onFailure: (resp: String) -> Unit
+        ): String? {
             val resp: String? = null
 
-            albumWebApi.postAssociateTrackAlbum(body,idAlbum).enqueue(
+            albumWebApi.postAssociateTrackAlbum(body, idAlbum).enqueue(
 
                 object : Callback<Track> {
                     override fun onFailure(call: Call<Track>, t: Throwable) {
@@ -62,7 +74,11 @@ class AlbumRepository {
             return resp
         }
 
-        fun getAlbumDetail(albumId: Int, onResponse:(resp: Album)->Unit, onFailure:(resp:String)->Unit): String? {
+        fun getAlbumDetail(
+            albumId: Int,
+            onResponse: (resp: Album) -> Unit,
+            onFailure: (resp: String) -> Unit
+        ): String? {
             val resp: String? = null
             albumWebApi.getAlbumDetail(albumId).enqueue(
                 object : Callback<Album> {

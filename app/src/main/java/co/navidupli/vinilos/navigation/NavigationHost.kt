@@ -1,7 +1,5 @@
 package co.navidupli.vinilos.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -9,10 +7,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
-import co.navidupli.vinilos.model.Performer
 import co.navidupli.vinilos.ui.screens.*
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun NavigationHost(
     navController: NavController,
@@ -34,7 +30,12 @@ fun NavigationHost(
                 navArgument("album_id") {
                     type = NavType.IntType
                 }),
-        ) { AlbumDetailScreen(albumId = it.arguments?.getInt("album_id"), navController = navController) }
+        ) {
+            AlbumDetailScreen(
+                albumId = it.arguments?.getInt("album_id"),
+                navController = navController
+            )
+        }
         composable(
             route = NavigationScreen.ArtistDetailScreen.route + "/{performer_id}/{is_band}",
             arguments = listOf(
@@ -45,9 +46,10 @@ fun NavigationHost(
                     type = NavType.BoolType
                 }
             ),
-        ) {ArtistDetailScreen(
-                PerformerId = it.arguments?.getInt("performer_id"),
-                IsBand = it.arguments?.getBoolean("is_band"),
+        ) {
+            ArtistDetailScreen(
+                performerId = it.arguments?.getInt("performer_id"),
+                isBand = it.arguments?.getBoolean("is_band"),
                 navController = navController
             )
         }
@@ -62,6 +64,11 @@ fun NavigationHost(
                 navArgument("collector_id") {
                     type = NavType.IntType
                 }),
-        ) { CollectorDetailScreen(collectorId = it.arguments?.getInt("collector_id"), navController = navController) }
+        ) {
+            CollectorDetailScreen(
+                collectorId = it.arguments?.getInt("collector_id"),
+                navController = navController
+            )
+        }
     }
 }

@@ -64,7 +64,7 @@ fun AlbumDetailScreen(
         var format: SimpleDateFormat?
         var date: Date?
         var simpleDateFormat: SimpleDateFormat?
-        var isBand: Boolean = false
+        var isBand = false
         album?.performers?.forEach { performer ->
 
             try {

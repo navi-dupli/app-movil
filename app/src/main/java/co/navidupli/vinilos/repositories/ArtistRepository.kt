@@ -12,7 +12,11 @@ class ArtistRepository {
         private var collectorWebApi: ArtistApiService =
             RetrofitClient.createRetrofitClient().create(ArtistApiService::class.java)
 
-        fun getBandDetail(performerId: Int, onResponse:(resp: Performer)->Unit, onFailure:(resp:String)->Unit): String? {
+        fun getBandDetail(
+            performerId: Int,
+            onResponse: (resp: Performer) -> Unit,
+            onFailure: (resp: String) -> Unit
+        ): String? {
             val resp: String? = null
             collectorWebApi.getBandDetail(performerId).enqueue(
                 object : Callback<Performer> {
@@ -27,7 +31,11 @@ class ArtistRepository {
             return resp
         }
 
-        fun getMusicianDetail(performerId: Int, onResponse:(resp: Performer)->Unit, onFailure:(resp:String)->Unit): String? {
+        fun getMusicianDetail(
+            performerId: Int,
+            onResponse: (resp: Performer) -> Unit,
+            onFailure: (resp: String) -> Unit
+        ): String? {
             val resp: String? = null
             collectorWebApi.getMusicianDetail(performerId).enqueue(
                 object : Callback<Performer> {

@@ -6,7 +6,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-private const val BASE_URL ="https://back-vynils-c5.herokuapp.com"
+private const val BASE_URL ="http://34.151.211.157"
 
 class RetrofitClient{
     companion object {

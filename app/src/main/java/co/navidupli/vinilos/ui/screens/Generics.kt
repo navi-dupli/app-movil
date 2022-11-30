@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Title(text:String, testTag:String) {
+fun Title(text: String, testTag: String) {
     Text(
         text = text,
         fontSize = 30.sp,

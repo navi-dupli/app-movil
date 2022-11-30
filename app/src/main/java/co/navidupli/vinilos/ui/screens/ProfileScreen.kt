@@ -25,7 +25,9 @@ fun ProfileScreen(
     ) {
         Column(Modifier.align(Alignment.Center)) {
             OutlinedButton(
-                modifier = Modifier.padding(top = 32.dp).testTag("btnChangeProfile"),
+                modifier = Modifier
+                    .padding(top = 32.dp)
+                    .testTag("btnChangeProfile"),
                 onClick = { logout() }
             ) {
                 Text("Cambiar perfil")

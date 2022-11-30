@@ -73,8 +73,9 @@ private fun AlbumName(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Nombre") },
         value = albumName,
-        modifier = Modifier.testTag("textFieldAlbumName")
-        .fillMaxWidth(),
+        modifier = Modifier
+            .testTag("textFieldAlbumName")
+            .fillMaxWidth(),
         onValueChange = { viewModel.setNameAlbum(it) }
     )
 }
@@ -85,8 +86,9 @@ private fun AlbumCover(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Cover") },
         value = albumCover,
-        modifier = Modifier.testTag("textFieldAlbumCover")
-        .fillMaxWidth(),
+        modifier = Modifier
+            .testTag("textFieldAlbumCover")
+            .fillMaxWidth(),
         onValueChange = { viewModel.setCoverAlbum(it) }
     )
 }
@@ -100,7 +102,7 @@ private fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) 
 
     val albumDate: String by viewModel.dateReleaseAlbum.observeAsState(initial = "")
     if (albumDate != "") {
-        val sdf =  SimpleDateFormat("MM/dd/yyyy",Locale.US)
+        val sdf = SimpleDateFormat("MM/dd/yyyy", Locale.US)
         val date: Date = sdf.parse(albumDate) as Date
         val cal = getInstance()
         cal.time = date
@@ -137,9 +139,10 @@ private fun AlbumDesc(viewModel: CreateAlbumViewModel) {
     TextField(
         label = { Text(text = "Descripción") },
         value = albumDesc,
-        modifier = Modifier.testTag("textFieldAlbumDesc")
-        .fillMaxWidth(),
-        onValueChange = {viewModel.setDescriptionAlbum(it) }
+        modifier = Modifier
+            .testTag("textFieldAlbumDesc")
+            .fillMaxWidth(),
+        onValueChange = { viewModel.setDescriptionAlbum(it) }
     )
 }
 
@@ -164,7 +167,13 @@ private fun AlbumRecordLabel(viewModel: CreateAlbumViewModel) {
 @Suppress("OPT_IN_IS_NOT_ENABLED")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun DropDownList(options: List<String>, text: String, value: String, testTag: String, setValue: (String) -> Unit) {
+private fun DropDownList(
+    options: List<String>,
+    text: String,
+    value: String,
+    testTag: String,
+    setValue: (String) -> Unit
+) {
     var expanded by remember { mutableStateOf(false) }
 
 
@@ -181,8 +190,9 @@ private fun DropDownList(options: List<String>, text: String, value: String, tes
             }
         ) {
             TextField(
-                modifier = Modifier.testTag(testTag)
-                                .fillMaxWidth(),
+                modifier = Modifier
+                    .testTag(testTag)
+                    .fillMaxWidth(),
                 readOnly = true,
                 value = value,
                 onValueChange = { },
@@ -243,7 +253,11 @@ private fun SaveButton(viewModel: CreateAlbumViewModel, context: Context) {
 
 
 @Composable
-private fun ShowToast(lifeCycle: LifecycleOwner, viewModel: CreateAlbumViewModel, context: Context) {
+private fun ShowToast(
+    lifeCycle: LifecycleOwner,
+    viewModel: CreateAlbumViewModel,
+    context: Context
+) {
 
     viewModel.statusCreateAlbum.observe(lifeCycle) { status ->
         status?.let {
