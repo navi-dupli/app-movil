@@ -54,7 +54,7 @@ class AssociateTrackTest {
         }
         composeTestRule.onNodeWithTag("btnSaveAsociateTractToAlbum", true).performClick()
 
-        asyncTimer(5000)
+        asyncTimer(10000)
         composeTestRule.onNodeWithTag("btnSaveAsociateTractToAlbum", true).assertIsEnabled()
         composeTestRule.onNodeWithTag("textFieldTrackName", true).assert(hasText(""))
     }
