@@ -33,14 +33,14 @@ class AssociateTrackTest {
         composeTestRule.onNodeWithTag("btn_" + NavigationScreen.AssociateTracksScreen.route, true)
             .performClick()
 
-        asyncTimer(3000)
+        asyncTimer(8000)
 
         "albumItem_0".let {
             composeTestRule.onNodeWithTag("selectAlbum", true).performClick()
-            asyncTimer(3000)
+            asyncTimer(8000)
             composeTestRule.onNodeWithTag(it).performClick()
         }
-        asyncTimer(3000)
+        asyncTimer(8000)
         name.let {
             composeTestRule.onNodeWithTag("textFieldTrackName", true).performTextInput(
                 it

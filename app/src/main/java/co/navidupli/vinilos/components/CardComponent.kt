@@ -61,7 +61,7 @@ fun ComponentCard(
     subtext: String?,
     imageUrl: String?,
     onClick: () -> Unit,
-    testTag: String?
+    testTag: String
 ) {
     Card(
         modifier = Modifier
