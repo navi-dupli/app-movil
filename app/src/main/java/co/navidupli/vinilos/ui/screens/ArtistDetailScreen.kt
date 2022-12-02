@@ -1,7 +1,5 @@
 package co.navidupli.vinilos.ui.screens
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -25,17 +23,16 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun ArtistDetailScreen(
     viewModel: DetailArtistViewModel = viewModel(),
     navController: NavController,
-    PerformerId: Int?,
-    IsBand: Boolean?
+    performerId: Int?,
+    isBand: Boolean?
 ) {
 
-    if (PerformerId != null ) {
-        viewModel.getPerformerDetail(PerformerId, IsBand )
+    if (performerId != null) {
+        viewModel.getPerformerDetail(performerId, isBand)
     }
     val performer: Performer? = viewModel.performer.observeAsState().value
 
@@ -57,7 +54,7 @@ fun ArtistDetailScreen(
         DetailComponent(
             imageUrl = performer?.image,
             name = performer?.name,
-            year =  performer?.birthDate ?: performer?.creationDate,
+            year = performer?.birthDate ?: performer?.creationDate,
             description = performer?.description,
             genre = null,
             recordLabel = null,
@@ -74,17 +71,16 @@ fun ArtistDetailScreen(
 
             try {
                 format = SimpleDateFormat(
-                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.US
+                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US
                 )
-                date = format!!.parse( musician.birthDate ?: "")
-                simpleDateFormat = SimpleDateFormat("yyyy",Locale.US)
+                date = format!!.parse(musician.birthDate ?: "")
+                simpleDateFormat = SimpleDateFormat("yyyy", Locale.US)
                 dateFormatted = simpleDateFormat!!.format(date!!)
-            }catch (ex: ParseException){
-                dateFormatted=""
+            } catch (ex: ParseException) {
+                dateFormatted = ""
             }
 
-            ComponentCard(
-                tittle = musician.name,
+            ComponentCard(tittle = musician.name,
                 date = dateFormatted,
                 subtext = "",
                 imageUrl = musician.image,

@@ -27,7 +27,7 @@ class CreateAlbumViewModel : ViewModel() {
 
     fun saveAlbum() {
         val album = AlbumCreate(
-            name= _nameAlbum.value,
+            name = _nameAlbum.value,
             description = _descriptionAlbum.value,
             genre = _genreAlbum.value,
             cover = _coverAlbum.value,
@@ -46,27 +46,27 @@ class CreateAlbumViewModel : ViewModel() {
             })
     }
 
-    fun setNameAlbum(value: String){
+    fun setNameAlbum(value: String) {
         _nameAlbum.value = value
     }
 
-    fun setCoverAlbum(value: String){
+    fun setCoverAlbum(value: String) {
         _coverAlbum.value = value
     }
 
-    fun setDateReleaseAlbum(value: String){
+    fun setDateReleaseAlbum(value: String) {
         _dateReleaseAlbum.value = value
     }
 
-    fun setDescriptionAlbum(value: String){
+    fun setDescriptionAlbum(value: String) {
         _descriptionAlbum.value = value
     }
 
-    fun setRecordLabelAlbum(value: String){
+    fun setRecordLabelAlbum(value: String) {
         _recordLabelAlbum.value = value
     }
 
-    fun setGenreAlbum(value: String){
+    fun setGenreAlbum(value: String) {
         _genreAlbum.value = value
     }
 

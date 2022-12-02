@@ -26,10 +26,9 @@ import co.navidupli.vinilos.navigation.NavigationScreen
 
 @Composable
 fun CollectorsScreen(
-    viewModel: ListCollectorsViewModel = viewModel(),
-    navController: NavHostController
+    viewModel: ListCollectorsViewModel = viewModel(), navController: NavHostController
 ) {
-    ListWithHeader( viewModel.collectors.observeAsState(listOf()).value, navController)
+    ListWithHeader(viewModel.collectors.observeAsState(listOf()).value, navController)
 }
 
 
@@ -47,14 +46,14 @@ private fun ListWithHeader(collectors: List<Collector>, navController: NavHostCo
             Text(
                 text = stringResource(R.string.collectors),
                 style = MaterialTheme.typography.h6,
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colors.onSecondary,
                 maxLines = 1,
                 fontSize = 35.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .wrapContentHeight()
                     .heightIn(min = 56.dp)
-                    .background(color = MaterialTheme.colors.background)
+                    .background(color = MaterialTheme.colors.secondary)
                     .fillMaxSize()
                     .padding(vertical = 4.dp)
                     .testTag("titleCollectors")
@@ -64,14 +63,12 @@ private fun ListWithHeader(collectors: List<Collector>, navController: NavHostCo
 
         items(collectors) { coleccionista ->
 
-            ComponentCard(
-                tittle = coleccionista.name,
+            ComponentCard(tittle = coleccionista.name,
                 date = coleccionista.telephone,
                 subtext = coleccionista.email,
                 imageUrl = null,
                 testTag = "collectorItemCard",
-                onClick = { navController.navigate(NavigationScreen.CollectorDetailScreen.route + "/${coleccionista.id}") }
-            )
+                onClick = { navController.navigate(NavigationScreen.CollectorDetailScreen.route + "/${coleccionista.id}") })
         }
     }
 }

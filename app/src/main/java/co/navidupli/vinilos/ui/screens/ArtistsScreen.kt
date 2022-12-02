@@ -1,6 +1,5 @@
 package co.navidupli.vinilos.ui.screens
 
-import android.os.Build
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,11 +30,10 @@ import java.util.*
 
 @Composable
 fun ArtistsScreen(
-    viewModel: ListPerformerViewModel = viewModel(),
-    navController: NavHostController
+    viewModel: ListPerformerViewModel = viewModel(), navController: NavHostController
 ) {
     val performers: List<Performer> = viewModel.performers.observeAsState(listOf()).value
-    ListWithHeader(performers,navController)
+    ListWithHeader(performers, navController)
 }
 
 @Suppress("OPT_IN_IS_NOT_ENABLED")
@@ -53,14 +51,14 @@ fun ListWithHeader(performers: List<Performer>, navController: NavHostController
             Text(
                 text = stringResource(R.string.artistas),
                 style = MaterialTheme.typography.h6,
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colors.onSecondary,
                 maxLines = 1,
                 fontSize = 35.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .wrapContentHeight()
                     .heightIn(min = 56.dp)
-                    .background(color = MaterialTheme.colors.background)
+                    .background(color = MaterialTheme.colors.secondary)
                     .fillMaxSize()
                     .padding(vertical = 4.dp)
                     .testTag("titlePerformer")
@@ -72,27 +70,25 @@ fun ListWithHeader(performers: List<Performer>, navController: NavHostController
         var format: SimpleDateFormat?
         var date: Date?
         var simpleDateFormat: SimpleDateFormat?
-        var fecha:String
-        itemsIndexed(performers) { index,performer ->
+        var fecha: String
+        itemsIndexed(performers) { index, performer ->
             val isBand: Boolean = performer.birthDate == null
             fecha = performer.birthDate ?: performer.creationDate
             format = SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.US
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US
             )
-            date = format!!.parse(  fecha)
-            simpleDateFormat = SimpleDateFormat("yyyy",Locale.US)
+            date = format!!.parse(fecha)
+            simpleDateFormat = SimpleDateFormat("yyyy", Locale.US)
             dateFormatted = simpleDateFormat!!.format(date!!)
 
-            ComponentCard(
-                tittle = performer.name,
+            ComponentCard(tittle = performer.name,
                 date = dateFormatted,
                 subtext = "",
                 imageUrl = performer.image,
                 testTag = "artistItem_$index",
                 onClick = {
                     navController.navigate(NavigationScreen.ArtistDetailScreen.route + "/${performer.id}/${isBand}")
-                }
-            )
+                })
         }
     }
 }

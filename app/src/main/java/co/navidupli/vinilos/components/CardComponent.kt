@@ -1,5 +1,6 @@
 package co.navidupli.vinilos.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
@@ -65,11 +66,12 @@ fun ComponentCard(
     Card(
         modifier = Modifier
             .testTag(testTag ?: "card")
-            .fillMaxWidth()
-            .padding(12.dp)
+            .fillMaxWidth().
+                background(MaterialTheme.colors.onPrimary)
+            .padding(5.dp)
             .clickable { onClick() },
-        elevation = 10.dp,
-        shape = RoundedCornerShape(corner = CornerSize(10.dp))
+        elevation = 3.dp,
+        shape = RoundedCornerShape(corner = CornerSize(3.dp))
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

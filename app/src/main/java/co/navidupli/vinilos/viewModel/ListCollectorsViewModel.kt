@@ -1,4 +1,3 @@
-
 package co.navidupli.vinilos.viewmodel
 
 
@@ -10,7 +9,7 @@ import co.navidupli.vinilos.model.Collector
 import co.navidupli.vinilos.repositories.CollectorRepository
 import kotlinx.coroutines.launch
 
-class ListCollectorsViewModel: ViewModel() {
+class ListCollectorsViewModel : ViewModel() {
 
 
     private var _collectors = MutableLiveData<List<Collector>>(listOf())
@@ -18,7 +17,7 @@ class ListCollectorsViewModel: ViewModel() {
 
     init {
         viewModelScope.launch {
-            _collectors.value=CollectorRepository.getCollectors()
+            _collectors.value = CollectorRepository.getCollectors()
         }
     }
 

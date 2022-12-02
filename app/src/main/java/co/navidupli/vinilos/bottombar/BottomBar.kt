@@ -1,12 +1,9 @@
 package co.navidupli.vinilos.bottombar
 
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.foundation.background
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
@@ -16,22 +13,24 @@ import co.navidupli.vinilos.navigation.NavigationScreen
 
 @Composable
 fun BottomBar(navController: NavController, type: Int?) {
-    var items = listOf(
-        NavigationScreen.AlbumsScreen,
-        NavigationScreen.ArtistsScreen,
-        NavigationScreen.CollectorsScreen,
-        NavigationScreen.ProfileScreen
-    )
-    if (type == 1) {
-        items = listOf(
+    val items: List<NavigationScreen> = if (type == 1) {
+        listOf(
             NavigationScreen.CreateAlbumScreen,
             NavigationScreen.AssociateTracksScreen,
+            NavigationScreen.ProfileScreen
+        )
+    }else{
+        listOf(
+            NavigationScreen.AlbumsScreen,
+            NavigationScreen.ArtistsScreen,
+            NavigationScreen.CollectorsScreen,
             NavigationScreen.ProfileScreen
         )
     }
 
     BottomNavigation(
         elevation = 5.dp,
+        modifier = Modifier.background(MaterialTheme.colors.primary)
     ) {
         val navBackStackEntry: NavBackStackEntry? = navController.currentBackStackEntryAsState().value
         val currentRoute = navBackStackEntry?.destination?.route
@@ -49,8 +48,8 @@ fun BottomBar(navController: NavController, type: Int?) {
                     )
                 },
                 selected = currentRoute == it.route,
-                selectedContentColor = Color.White,
-                unselectedContentColor = Color.White.copy(alpha = 0.4f),
+                selectedContentColor = MaterialTheme.colors.secondary,
+                unselectedContentColor = MaterialTheme.colors.primary.copy(alpha = 0.7f),
                 onClick = {
                     navController.navigate(it.route) {
                         navController.graph.startDestinationRoute?.let { route ->
@@ -62,7 +61,7 @@ fun BottomBar(navController: NavController, type: Int?) {
                         launchSingleTop = true
                     }
                 },
-                modifier = Modifier.testTag("btn_${it.route}")
+                modifier = Modifier.testTag("btn_${it.route}").background(MaterialTheme.colors.primaryVariant)
                 )
         }
 

@@ -27,7 +27,11 @@ class CollectorRepository {
             return performersCollector
         }
 
-        fun getCollectorDetail(collectorId: Int, onResponse:(resp: Collector)->Unit, onFailure:(resp:String)->Unit): String? {
+        fun getCollectorDetail(
+            collectorId: Int,
+            onResponse: (resp: Collector) -> Unit,
+            onFailure: (resp: String) -> Unit
+        ): String? {
             val resp: String? = null
             collectorWebApi.getCollectorDetail(collectorId).enqueue(
                 object : Callback<Collector> {

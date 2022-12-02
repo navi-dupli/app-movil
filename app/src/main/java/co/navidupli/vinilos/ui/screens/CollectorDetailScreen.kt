@@ -1,7 +1,5 @@
 package co.navidupli.vinilos.ui.screens
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -25,7 +23,6 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun CollectorDetailScreen(
     viewModel: DetailCollectorViewModel = viewModel(),

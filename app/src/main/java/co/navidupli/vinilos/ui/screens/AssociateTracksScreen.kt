@@ -53,7 +53,12 @@ fun AssociateTracksScreen() {
 private fun AlbumName(viewModel: AssociateTracksViewModel) {
     val trackName: String by viewModel.name.observeAsState(initial = "")
     TextField(
-        label = { Text(text = "Name") },
+        label = {
+            Text(
+                text = "Name",
+                color = MaterialTheme.colors.primary
+            )
+        },
         value = trackName,
         modifier = Modifier
             .testTag("textFieldTrackName")
@@ -67,7 +72,12 @@ private fun AlbumName(viewModel: AssociateTracksViewModel) {
 private fun Duracion(viewModel: AssociateTracksViewModel) {
     val duration: String by viewModel.duration.observeAsState(initial = "")
     TextField(
-        label = { Text(text = "Duración") },
+        label = {
+            Text(
+                text = "Duración",
+                color = MaterialTheme.colors.primary
+            )
+        },
         value = duration,
         modifier = Modifier
             .testTag("textFieldTrackDuracion")
@@ -124,7 +134,12 @@ private fun DropDownList(
                 readOnly = true,
                 value = value?.name ?: "",
                 onValueChange = { },
-                label = { Text(text) },
+                label = {
+                    Text(
+                        text,
+                        color = MaterialTheme.colors.primary
+                    )
+                },
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(
                         expanded = expanded
@@ -147,7 +162,10 @@ private fun DropDownList(
                         modifier = Modifier
                             .testTag("albumItem_$index")
                     ) {
-                        Text(text = selectionOption.name)
+                        Text(
+                            text = selectionOption.name,
+                            color = MaterialTheme.colors.primary
+                        )
                     }
                 }
             }
@@ -168,7 +186,8 @@ private fun SaveButton(viewModel: AssociateTracksViewModel, context: Context) {
             }
         },
         enabled = loadAssociateTrack,
-        modifier = Modifier.testTag("btnSaveAsociateTractToAlbum")
+        modifier = Modifier.testTag("btnSaveAsociateTractToAlbum"),
+        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
     ) {
         Icon(
             imageVector = Icons.Filled.Save,
