@@ -1,0 +1,22 @@
+A continuación, encontrarás una lista de oportunidades para mejorar la accesibilidad de Vinilos. Cada elemento corresponde a un área descrita en la captura de pantalla adjunta.
+
+Contraste del texto
+[260,305][1042,365]
+La relación de contraste del texto del elemento es 1,69. Esta cifra se basa en una estimación del color #A2CAFD del primer plano y del color #FFFFFF del segundo plano. Te recomendamos que uses colores que aumenten la relación de contraste más de 4,50 para textos de pequeño tamaño o a 3,00 para textos de gran tamaño.
+
+Contraste del texto
+[80,2291][190,2328]
+La relación de contraste del texto del elemento es 3,66. Esta cifra se basa en una estimación del color #666666 del primer plano y del color #000000 del segundo plano. Te recomendamos que uses colores que aumenten la relación de contraste más de 4,50 para textos de pequeño tamaño o a 3,00 para textos de gran tamaño.
+
+Contraste del texto
+[356,2291][455,2328]
+La relación de contraste del texto del elemento es 3,66. Esta cifra se basa en una estimación del color #666666 del primer plano y del color #000000 del segundo plano. Te recomendamos que uses colores que aumenten la relación de contraste más de 4,50 para textos de pequeño tamaño o a 3,00 para textos de gran tamaño.
+
+Contraste del texto
+[583,2291][767,2328]
+La relación de contraste del texto del elemento es 3,66. Esta cifra se basa en una estimación del color #666666 del primer plano y del color #000000 del segundo plano. Te recomendamos que uses colores que aumenten la relación de contraste más de 4,50 para textos de pequeño tamaño o a 3,00 para textos de gran tamaño.
+
+Contraste del texto
+[912,2291][979,2328]
+La relación de contraste del texto del elemento es 3,66. Esta cifra se basa en una estimación del color #666666 del primer plano y del color #000000 del segundo plano. Te recomendamos que uses colores que aumenten la relación de contraste más de 4,50 para textos de pequeño tamaño o a 3,00 para textos de gran tamaño.
+

@@ -71,10 +71,16 @@ fun CreateAlbumScreen() {
 private fun AlbumName(viewModel: CreateAlbumViewModel) {
     val albumName: String by viewModel.nameAlbum.observeAsState(initial = "")
     TextField(
-        label = { Text(text = "Nombre") },
+        label = {
+            Text(
+                text = "Nombre",
+                color = MaterialTheme.colors.primary
+            )
+        },
         value = albumName,
-        modifier = Modifier.testTag("textFieldAlbumName")
-        .fillMaxWidth(),
+        modifier = Modifier
+            .testTag("textFieldAlbumName")
+            .fillMaxWidth(),
         onValueChange = { viewModel.setNameAlbum(it) }
     )
 }
@@ -83,10 +89,16 @@ private fun AlbumName(viewModel: CreateAlbumViewModel) {
 private fun AlbumCover(viewModel: CreateAlbumViewModel) {
     val albumCover: String by viewModel.coverAlbum.observeAsState(initial = "")
     TextField(
-        label = { Text(text = "Cover") },
+        label = {
+            Text(
+                text = "Cover",
+                color = MaterialTheme.colors.primary
+            )
+        },
         value = albumCover,
-        modifier = Modifier.testTag("textFieldAlbumCover")
-        .fillMaxWidth(),
+        modifier = Modifier
+            .testTag("textFieldAlbumCover")
+            .fillMaxWidth(),
         onValueChange = { viewModel.setCoverAlbum(it) }
     )
 }
@@ -100,7 +112,7 @@ private fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) 
 
     val albumDate: String by viewModel.dateReleaseAlbum.observeAsState(initial = "")
     if (albumDate != "") {
-        val sdf =  SimpleDateFormat("MM/dd/yyyy",Locale.US)
+        val sdf = SimpleDateFormat("MM/dd/yyyy", Locale.US)
         val date: Date = sdf.parse(albumDate) as Date
         val cal = getInstance()
         cal.time = date
@@ -120,14 +132,21 @@ private fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) 
     )
 
     TextField(
-        label = { Text(text = "Fecha de lanzamiento") },
+        label = {
+            Text(
+                text = "Fecha de lanzamiento",
+                color = MaterialTheme.colors.primary
+            )
+        },
         value = albumDate,
         enabled = false,
+
         modifier = Modifier
             .clickable { datePickerDialog.show() }
             .testTag("textFieldAlbumReleaseDate")
             .fillMaxWidth(),
         onValueChange = { viewModel.setDateReleaseAlbum(it) }
+
     )
 }
 
@@ -135,11 +154,17 @@ private fun AlbumDateRelease(viewModel: CreateAlbumViewModel, context: Context) 
 private fun AlbumDesc(viewModel: CreateAlbumViewModel) {
     val albumDesc: String by viewModel.descriptionAlbum.observeAsState(initial = "")
     TextField(
-        label = { Text(text = "Descripción") },
+        label = {
+            Text(
+                text = "Descripción",
+                color = MaterialTheme.colors.primary
+            )
+        },
         value = albumDesc,
-        modifier = Modifier.testTag("textFieldAlbumDesc")
-        .fillMaxWidth(),
-        onValueChange = {viewModel.setDescriptionAlbum(it) }
+        modifier = Modifier
+            .testTag("textFieldAlbumDesc")
+            .fillMaxWidth(),
+        onValueChange = { viewModel.setDescriptionAlbum(it) }
     )
 }
 
@@ -164,7 +189,13 @@ private fun AlbumRecordLabel(viewModel: CreateAlbumViewModel) {
 @Suppress("OPT_IN_IS_NOT_ENABLED")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun DropDownList(options: List<String>, text: String, value: String, testTag: String, setValue: (String) -> Unit) {
+private fun DropDownList(
+    options: List<String>,
+    text: String,
+    value: String,
+    testTag: String,
+    setValue: (String) -> Unit
+) {
     var expanded by remember { mutableStateOf(false) }
 
 
@@ -181,12 +212,18 @@ private fun DropDownList(options: List<String>, text: String, value: String, tes
             }
         ) {
             TextField(
-                modifier = Modifier.testTag(testTag)
-                                .fillMaxWidth(),
+                modifier = Modifier
+                    .testTag(testTag)
+                    .fillMaxWidth(),
                 readOnly = true,
                 value = value,
                 onValueChange = { },
-                label = { Text(text) },
+                label = {
+                    Text(
+                        text,
+                        color = MaterialTheme.colors.primary
+                    )
+                },
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(
                         expanded = expanded
@@ -208,7 +245,10 @@ private fun DropDownList(options: List<String>, text: String, value: String, tes
                             expanded = false
                         }
                     ) {
-                        Text(text = selectionOption)
+                        Text(
+                            text = selectionOption,
+                            color = MaterialTheme.colors.primary
+                        )
                     }
                 }
             }
@@ -227,15 +267,16 @@ private fun SaveButton(viewModel: CreateAlbumViewModel, context: Context) {
             viewModel.saveAlbum()
         },
         enabled = loadCreate,
-        modifier = Modifier.testTag("btnCreateAlbum")
+        modifier = Modifier
+            .testTag("btnCreateAlbum"),
+        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
     ) {
         Icon(
             imageVector = Icons.Filled.Save,
             modifier = Modifier.size(20.dp),
             contentDescription = "drawable icons"
         )
-
-        Text(text = "Guardar")
+        Text(text = "Guardar", color = MaterialTheme.colors.onSecondary)
     }
 
     ShowToast(lifeCycle, viewModel, context)
@@ -243,7 +284,11 @@ private fun SaveButton(viewModel: CreateAlbumViewModel, context: Context) {
 
 
 @Composable
-private fun ShowToast(lifeCycle: LifecycleOwner, viewModel: CreateAlbumViewModel, context: Context) {
+private fun ShowToast(
+    lifeCycle: LifecycleOwner,
+    viewModel: CreateAlbumViewModel,
+    context: Context
+) {
 
     viewModel.statusCreateAlbum.observe(lifeCycle) { status ->
         status?.let {

@@ -1,0 +1,38 @@
+A continuación, encontrarás una lista de oportunidades para mejorar la accesibilidad de Vinilos. Cada elemento corresponde a un área descrita en la captura de pantalla adjunta.
+
+Contraste del texto
+[353,163][727,253]
+La relación de contraste del texto del elemento es 2,71. Esta cifra se basa en una estimación del color #65504E del primer plano y del color #0B0505 del segundo plano. Te recomendamos que uses colores que aumenten la relación de contraste más de 4,50 para textos de pequeño tamaño o a 3,00 para textos de gran tamaño.
+
+Contraste del texto
+[81,322][211,370]
+La relación de contraste del texto del elemento es 1,89. Esta cifra se basa en una estimación del color #954D34 del primer plano y del color #691F02 del segundo plano. Te recomendamos que uses colores que aumenten la relación de contraste más de 4,50 para textos de pequeño tamaño o a 3,00 para textos de gran tamaño.
+
+Contraste del texto
+[81,480][175,528]
+La relación de contraste del texto del elemento es 2,82. Esta cifra se basa en una estimación del color #8C4224 del primer plano y del color #060606 del segundo plano. Te recomendamos que uses colores que aumenten la relación de contraste más de 4,50 para textos de pequeño tamaño o a 3,00 para textos de gran tamaño.
+
+Contraste del texto
+[81,618][352,655]
+La relación de contraste del texto del elemento es 1,17. Esta cifra se basa en una estimación del color #141C1E del primer plano y del color #070707 del segundo plano. Te recomendamos que uses colores que aumenten la relación de contraste más de 4,50 para textos de pequeño tamaño o a 3,00 para textos de gran tamaño.
+
+Contraste del texto
+[81,796][271,844]
+La relación de contraste del texto del elemento es 3,23. Esta cifra se basa en una estimación del color #7C5938 del primer plano y del color #060606 del segundo plano. Te recomendamos que uses colores que aumenten la relación de contraste más de 4,50 para textos de pequeño tamaño o a 3,00 para textos de gran tamaño.
+
+Contraste del texto
+[81,954][197,1002]
+La relación de contraste del texto del elemento es 1,01. Esta cifra se basa en una estimación del color #070707 del primer plano y del color #060606 del segundo plano. Te recomendamos que uses colores que aumenten la relación de contraste más de 4,50 para textos de pequeño tamaño o a 3,00 para textos de gran tamaño.
+
+Contraste del texto
+[125,2291][235,2328]
+La relación de contraste del texto del elemento es 1,02. Esta cifra se basa en una estimación del color #0D0805 del primer plano y del color #120A07 del segundo plano. Te recomendamos que uses colores que aumenten la relación de contraste más de 4,50 para textos de pequeño tamaño o a 3,00 para textos de gran tamaño.
+
+Contraste del texto
+[498,2291][582,2328]
+La relación de contraste del texto del elemento es 1,05. Esta cifra se basa en una estimación del color #311E03 del primer plano y del color #2C1A05 del segundo plano. Te recomendamos que uses colores que aumenten la relación de contraste más de 4,50 para textos de pequeño tamaño o a 3,00 para textos de gran tamaño.
+
+Contraste del texto
+[867,2291][934,2328]
+La relación de contraste del texto del elemento es 1,01. Esta cifra se basa en una estimación del color #150C07 del primer plano y del color #120A07 del segundo plano. Te recomendamos que uses colores que aumenten la relación de contraste más de 4,50 para textos de pequeño tamaño o a 3,00 para textos de gran tamaño.
+

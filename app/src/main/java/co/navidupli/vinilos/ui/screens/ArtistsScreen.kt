@@ -1,7 +1,5 @@
 package co.navidupli.vinilos.ui.screens
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,27 +19,27 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import co.navidupli.vinilos.R
 import co.navidupli.vinilos.components.ComponentCard
 import co.navidupli.vinilos.model.Performer
+import co.navidupli.vinilos.navigation.NavigationScreen
 import co.navidupli.vinilos.viewmodel.ListPerformerViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun ArtistsScreen(
-    viewModel: ListPerformerViewModel = viewModel(),
+    viewModel: ListPerformerViewModel = viewModel(), navController: NavHostController
 ) {
     val performers: List<Performer> = viewModel.performers.observeAsState(listOf()).value
-    ListWithHeader(performers)
+    ListWithHeader(performers, navController)
 }
 
 @Suppress("OPT_IN_IS_NOT_ENABLED")
-@RequiresApi(Build.VERSION_CODES.N)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ListWithHeader(performers: List<Performer>) {
+fun ListWithHeader(performers: List<Performer>, navController: NavHostController) {
     LazyColumn(
         modifier = Modifier
             .padding(bottom = 60.dp)
@@ -53,14 +51,14 @@ fun ListWithHeader(performers: List<Performer>) {
             Text(
                 text = stringResource(R.string.artistas),
                 style = MaterialTheme.typography.h6,
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colors.onSecondary,
                 maxLines = 1,
                 fontSize = 35.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .wrapContentHeight()
                     .heightIn(min = 56.dp)
-                    .background(color = MaterialTheme.colors.background)
+                    .background(color = MaterialTheme.colors.secondary)
                     .fillMaxSize()
                     .padding(vertical = 4.dp)
                     .testTag("titlePerformer")
@@ -72,25 +70,25 @@ fun ListWithHeader(performers: List<Performer>) {
         var format: SimpleDateFormat?
         var date: Date?
         var simpleDateFormat: SimpleDateFormat?
-        var fecha:String
-        itemsIndexed(performers) { index,performer ->
-            print(performer)
+        var fecha: String
+        itemsIndexed(performers) { index, performer ->
+            val isBand: Boolean = performer.birthDate == null
             fecha = performer.birthDate ?: performer.creationDate
             format = SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.US
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US
             )
-            date = format!!.parse(  fecha)
-            simpleDateFormat = SimpleDateFormat("yyyy",Locale.US)
+            date = format!!.parse(fecha)
+            simpleDateFormat = SimpleDateFormat("yyyy", Locale.US)
             dateFormatted = simpleDateFormat!!.format(date!!)
 
-            ComponentCard(
-                tittle = performer.name,
+            ComponentCard(tittle = performer.name,
                 date = dateFormatted,
                 subtext = "",
                 imageUrl = performer.image,
                 testTag = "artistItem_$index",
-                onClick = { }
-            )
+                onClick = {
+                    navController.navigate(NavigationScreen.ArtistDetailScreen.route + "/${performer.id}/${isBand}")
+                })
         }
     }
 }

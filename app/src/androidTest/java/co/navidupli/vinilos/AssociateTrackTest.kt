@@ -54,7 +54,7 @@ class AssociateTrackTest {
         }
         composeTestRule.onNodeWithTag("btnSaveAsociateTractToAlbum", true).performClick()
 
-        asyncTimer(5000)
+        asyncTimer(10000)
         composeTestRule.onNodeWithTag("btnSaveAsociateTractToAlbum", true).assertIsEnabled()
         composeTestRule.onNodeWithTag("textFieldTrackName", true).assert(hasText(""))
     }
@@ -67,14 +67,14 @@ class AssociateTrackTest {
         composeTestRule.onNodeWithTag("btn_" + NavigationScreen.AssociateTracksScreen.route, true)
             .performClick()
 
-        asyncTimer(2000)
+        asyncTimer(4000)
 
         "albumItem_0".let {
             composeTestRule.onNodeWithTag("selectAlbum", true).performClick()
-            asyncTimer(1000)
+            asyncTimer(4000)
             composeTestRule.onNodeWithTag(it).performClick()
         }
-        asyncTimer(1000)
+        asyncTimer(4000)
         name.let {
             composeTestRule.onNodeWithTag("textFieldTrackName", true).performTextInput(
                 it

@@ -1,7 +1,6 @@
 package co.navidupli.vinilos.ui.screens
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,12 +19,12 @@ import androidx.navigation.NavController
 import co.navidupli.vinilos.components.ComponentCard
 import co.navidupli.vinilos.components.DetailComponent
 import co.navidupli.vinilos.model.Album
+import co.navidupli.vinilos.navigation.NavigationScreen
 import co.navidupli.vinilos.viewmodel.DetailAlbumViewModel
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun AlbumDetailScreen(
     viewModel: DetailAlbumViewModel = viewModel(),
@@ -65,10 +64,11 @@ fun AlbumDetailScreen(
         var format: SimpleDateFormat?
         var date: Date?
         var simpleDateFormat: SimpleDateFormat?
-
+        var isBand = false
         album?.performers?.forEach { performer ->
 
             try {
+                isBand = performer.birthDate == null
                 format = SimpleDateFormat(
                     "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.US
                 )
@@ -84,8 +84,10 @@ fun AlbumDetailScreen(
                 date = dateFormatted,
                 subtext = "",
                 imageUrl = performer.image,
-                testTag = "detailCard",
-                onClick = { }
+                testTag = null,
+                onClick = {
+                    navController.navigate(NavigationScreen.ArtistDetailScreen.route + "/${performer.id}/${isBand}")
+                }
             )
         }
     }

@@ -1,5 +1,6 @@
 package co.navidupli.vinilos.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
@@ -30,7 +31,6 @@ import com.skydoves.landscapist.glide.GlideImage
 fun noImage(): ImageBitmap {
     return ImageBitmap.imageResource(R.drawable.noimage)
 }
-
 @Composable
 fun CachedImage(imageModel: String, modifier: Modifier) {
 
@@ -54,7 +54,6 @@ fun CachedImage(imageModel: String, modifier: Modifier) {
     )
 }
 
-
 @Composable
 fun ComponentCard(
     tittle: String,
@@ -62,16 +61,17 @@ fun ComponentCard(
     subtext: String?,
     imageUrl: String?,
     onClick: () -> Unit,
-    testTag: String
+    testTag: String?
 ) {
     Card(
         modifier = Modifier
-            .testTag(testTag)
-            .fillMaxWidth()
-            .padding(8.dp)
+            .testTag(testTag ?: "card")
+            .fillMaxWidth().
+                background(MaterialTheme.colors.onPrimary)
+            .padding(5.dp)
             .clickable { onClick() },
-        elevation = 10.dp,
-        shape = RoundedCornerShape(corner = CornerSize(10.dp))
+        elevation = 3.dp,
+        shape = RoundedCornerShape(corner = CornerSize(3.dp))
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

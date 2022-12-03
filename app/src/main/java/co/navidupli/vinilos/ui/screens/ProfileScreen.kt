@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
@@ -25,8 +26,11 @@ fun ProfileScreen(
     ) {
         Column(Modifier.align(Alignment.Center)) {
             OutlinedButton(
-                modifier = Modifier.padding(top = 32.dp).testTag("btnChangeProfile"),
-                onClick = { logout() }
+                modifier = Modifier
+                    .padding(top = 32.dp)
+                    .testTag("btnChangeProfile"),
+                onClick = { logout() },
+                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
             ) {
                 Text("Cambiar perfil")
             }

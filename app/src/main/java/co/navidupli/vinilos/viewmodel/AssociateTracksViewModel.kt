@@ -38,9 +38,9 @@ class AssociateTracksViewModel : ViewModel() {
             duration = _duration.value,
             name = _name.value
         )
-        val idAlbum =  _albumSelected.value?.id
+        val idAlbum = _albumSelected.value?.id
 
-        AlbumRepository.postAssociateTrackAlbum(track,idAlbum,
+        AlbumRepository.postAssociateTrackAlbum(track, idAlbum,
             onResponse = {
                 _statusAssociate.value = true
                 _loadAssociateTrack.value = true
@@ -52,15 +52,15 @@ class AssociateTracksViewModel : ViewModel() {
 
     }
 
-    fun setAlbumSelected(value: Album){
+    fun setAlbumSelected(value: Album) {
         _albumSelected.value = value
     }
 
-    fun setDurationTrack(value: String){
+    fun setDurationTrack(value: String) {
         _duration.value = value
     }
 
-    fun setTrackName(value: String){
+    fun setTrackName(value: String) {
         _name.value = value
     }
 
@@ -72,8 +72,6 @@ class AssociateTracksViewModel : ViewModel() {
     fun setStatusAssociateTrackAlbum() {
         _statusAssociate.value = null
     }
-
-
 
 
     private fun clearState() {

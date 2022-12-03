@@ -2,8 +2,7 @@
 
 package co.navidupli.vinilos.ui.screens
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,7 +32,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun AlbumsScreen(
     viewModel: ListAlbumsViewModel = viewModel(),
@@ -44,7 +42,6 @@ fun AlbumsScreen(
 }
 
 
-@RequiresApi(Build.VERSION_CODES.N)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ListWithHeader(albums: List<Album>, navController: NavHostController) {
@@ -59,14 +56,14 @@ private fun ListWithHeader(albums: List<Album>, navController: NavHostController
             Text(
                 text = stringResource(R.string.albumes),
                 style = MaterialTheme.typography.h6,
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colors.onSecondary,
                 maxLines = 1,
                 fontSize = 35.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .wrapContentHeight()
                     .heightIn(min = 56.dp)
-                    .background(color = MaterialTheme.colors.background)
+                    .background(color = MaterialTheme.colors.secondary)
                     .fillMaxSize()
                     .padding(vertical = 4.dp)
                     .testTag("titleAlbum")

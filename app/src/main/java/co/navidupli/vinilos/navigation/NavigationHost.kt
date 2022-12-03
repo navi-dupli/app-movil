@@ -7,13 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
-import co.navidupli.vinilos.ui.screens.ProfileScreen
-import co.navidupli.vinilos.ui.screens.AlbumDetailScreen
-import co.navidupli.vinilos.ui.screens.AlbumsScreen
-import co.navidupli.vinilos.ui.screens.ArtistsScreen
-import co.navidupli.vinilos.ui.screens.AssociateTracksScreen
-import co.navidupli.vinilos.ui.screens.CollectorsScreen
-import co.navidupli.vinilos.ui.screens.CreateAlbumScreen
+import co.navidupli.vinilos.ui.screens.*
 
 @Composable
 fun NavigationHost(
@@ -26,8 +20,8 @@ fun NavigationHost(
         startDestination = route
     ) {
         composable(NavigationScreen.AlbumsScreen.route) { AlbumsScreen(navController = navController) }
-        composable(NavigationScreen.ArtistsScreen.route) { ArtistsScreen() }
-        composable(NavigationScreen.CollectorsScreen.route) { CollectorsScreen() }
+        composable(NavigationScreen.ArtistsScreen.route) { ArtistsScreen(navController = navController) }
+        composable(NavigationScreen.CollectorsScreen.route) { CollectorsScreen(navController = navController) }
         composable(NavigationScreen.CreateAlbumScreen.route) { CreateAlbumScreen() }
         composable(NavigationScreen.AssociateTracksScreen.route) { AssociateTracksScreen() }
         composable(
@@ -36,11 +30,45 @@ fun NavigationHost(
                 navArgument("album_id") {
                     type = NavType.IntType
                 }),
-        ) { AlbumDetailScreen(albumId = it.arguments?.getInt("album_id"), navController = navController) }
+        ) {
+            AlbumDetailScreen(
+                albumId = it.arguments?.getInt("album_id"),
+                navController = navController
+            )
+        }
+        composable(
+            route = NavigationScreen.ArtistDetailScreen.route + "/{performer_id}/{is_band}",
+            arguments = listOf(
+                navArgument("performer_id") {
+                    type = NavType.IntType
+                },
+                navArgument("is_band") {
+                    type = NavType.BoolType
+                }
+            ),
+        ) {
+            ArtistDetailScreen(
+                performerId = it.arguments?.getInt("performer_id"),
+                isBand = it.arguments?.getBoolean("is_band"),
+                navController = navController
+            )
+        }
         composable(NavigationScreen.ProfileScreen.route) {
             ProfileScreen {
                 logout()
             }
+        }
+        composable(
+            route = NavigationScreen.CollectorDetailScreen.route + "/{collector_id}",
+            arguments = listOf(
+                navArgument("collector_id") {
+                    type = NavType.IntType
+                }),
+        ) {
+            CollectorDetailScreen(
+                collectorId = it.arguments?.getInt("collector_id"),
+                navController = navController
+            )
         }
     }
 }
